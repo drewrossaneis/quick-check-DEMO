@@ -1,28 +1,450 @@
-
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Quick Check Demo</title>
 <style>
-:root{--bg:#0b1020;--panel:#020617;--card:#0f172a;--border:#1e293b;--text:#f8fafc;--muted:#94a3b8;--green:#2dd4bf;--greenD:#06211f;--orange:#f59e0b;--orangeD:#2a1700;--red:#ef4444;--redD:#300c12;--purple:#6366f1;--amber:#fbbf24}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,Arial,sans-serif;padding:24px}.app{max-width:1440px;margin:auto}header{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px}h1{margin:0;font-size:32px}.sub{color:var(--muted);font-size:14px;margin-top:4px}.actions{display:flex;gap:10px}button{font-family:inherit;cursor:pointer;border:0}.pill{border-radius:999px;padding:10px 16px;background:#1f2937;color:#e5e7eb;border:1px solid #334155;font-weight:800}.grid4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}.market{width:100%;text-align:left;border-radius:18px;padding:16px;background:var(--card);color:#cbd5e1;border:1px solid var(--border);opacity:.7}.market.active{background:#f8fafc;color:#020617;border-color:#f8fafc;opacity:1;box-shadow:0 12px 28px #0007}.mrow{display:flex;gap:12px;align-items:center}.flag{width:40px;height:40px;border-radius:999px;background:#1e293b;display:grid;place-items:center;font-size:20px}.market.active .flag{background:#020617}.mname{font-weight:900}.mtime{font-size:24px;font-weight:1000;line-height:1;margin-top:4px}.empty{margin-top:12px;border-radius:24px;border:1px solid var(--border);background:var(--panel);padding:40px;text-align:center;color:var(--muted);grid-column:1/-1}.placeholder{margin-top:12px;min-height:510px;border-radius:18px;border:1px dashed #94a3b82e}.alert{margin-top:12px;min-height:510px;border-radius:18px;border:1px solid var(--border);background:var(--panel);padding:12px;display:flex;flex-direction:column;gap:12px;box-shadow:0 18px 35px #0005}.first{border-radius:18px;border:1px solid #334155;background:var(--card);padding:12px}.firstTitle{font-size:18px;font-weight:1000}.firstDesc{color:var(--muted);font-size:12px;font-weight:800;margin-top:7px;line-height:1.25}.firstStrong{font-size:12px;font-weight:1000;margin-top:7px}.opsMain,.actionBtn{border-radius:999px;width:100%;padding:10px 12px;font-size:14px;font-weight:1000;display:flex;justify-content:center;align-items:center;gap:8px;white-space:nowrap}.opsMain{margin-top:12px;background:var(--purple);color:white}.statusGrid,.instanceGrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.status{border-radius:12px;padding:8px;text-align:center;border:1px solid var(--border);background:var(--card);color:#64748b;opacity:.30;font-weight:1000;text-transform:uppercase;font-size:10px}.status.working.active{opacity:1;background:var(--green);color:#06211f;border-color:#7dd3fc}.status.outside.active{opacity:1;background:var(--orange);color:#241500;border-color:#fcd34d}.workPath{min-height:150px;border-radius:18px;border:1px solid #0f766e;padding:12px;display:flex;align-items:center;background:var(--greenD)}.outsideTitle{min-height:72px;border-radius:18px;border:1px solid #b45309;padding:12px;display:flex;align-items:center;background:var(--orangeD)}.pathMain{font-size:24px;font-weight:1000;line-height:1.08}.pathSub{margin-top:4px;font-size:16px;font-weight:1000}.instance{border-radius:18px;border:1px solid var(--border);padding:12px;min-height:118px;background:var(--card);text-align:left;color:inherit;width:100%}.zero{background:var(--redD);border-color:var(--red)}.ititle{font-size:16px;font-weight:1000;color:#e2e8f0}.timer{font-size:40px;line-height:1;margin-top:10px;color:var(--amber);font-weight:1000}.callAfter{background:transparent;color:var(--amber);font-size:22px;font-weight:1000;margin-top:12px;padding:0}.callNow{font-size:24px;font-weight:1000;color:#fca5a5;margin-top:10px}.even{margin-top:8px;color:#fee2e2;font-size:12px;font-weight:900}.eng{margin-top:auto;border-radius:18px;border:1px solid var(--border);background:var(--card);padding:12px}.engLbl{color:var(--muted);text-transform:uppercase;font-weight:900;font-size:10px}.engName{font-size:20px;font-weight:1000;margin-top:4px}.callEng{margin-top:12px;background:var(--purple);color:white}footer{text-align:center;margin-top:18px}.source{border-radius:999px;border:1px solid #334155;background:var(--card);color:#e2e8f0;padding:14px 24px;font-size:18px;font-weight:1000;text-decoration:underline;text-underline-offset:5px}.modalBack{position:fixed;inset:0;background:#000b;display:none;place-items:center;padding:24px;z-index:50}.modal{width:min(680px,100%);border-radius:24px;background:var(--panel);border:1px solid #334155;padding:24px;box-shadow:0 30px 60px #0008}.small{width:min(430px,100%)}.modalHead{display:flex;justify-content:space-between;gap:16px}.modal h2{margin:0;font-size:26px}.close{background:transparent;color:#94a3b8;font-size:26px}.flowText{margin-top:24px;border-radius:18px;border:1px solid #334155;background:var(--card);padding:24px;color:#cbd5e1;line-height:1.55}.modalActions{margin-top:22px;display:flex;justify-content:flex-end;gap:10px}.danger{background:#ef4444;color:white}.teams{width:min(620px,100%);border-radius:24px;background:#111827;border:1px solid #334155;overflow:hidden}.teamsHead{background:#1f2937;padding:16px 20px;display:flex;justify-content:space-between;border-bottom:1px solid #334155}.teamsTitle{font-size:18px;font-weight:1000}.teamsSub{color:#94a3b8;font-size:12px;margin-top:3px}.teamsBody{padding:20px;background:#0b1020;display:flex;flex-direction:column;gap:16px}.notice{border-radius:18px;background:#78350f88;border:1px solid #d97706;padding:14px}.noticeTitle{color:#fbbf24;font-weight:1000}.noticeText{margin-top:5px;font-size:14px}.bubbleRow{display:flex}.bubbleRow.self{justify-content:flex-end}.bubble{max-width:78%;border-radius:18px;padding:12px 14px;background:#1f2937}.bubble.self{background:#6366f1}.bname{font-size:12px;font-weight:1000;opacity:.8;margin-bottom:4px}.btext{font-size:14px;line-height:1.35}.callModal{text-align:center;position:relative}.callIcon{width:80px;height:80px;border-radius:999px;background:var(--purple);display:grid;place-items:center;margin:auto;font-size:34px;animation:pulse 1.3s infinite}.callingTitle{font-size:26px;font-weight:1000;margin-top:20px}.callingSub{color:#94a3b8;font-weight:800;margin-top:8px}.dots{display:flex;justify-content:center;gap:8px;margin-top:24px}.dot{width:8px;height:8px;border-radius:999px;background:#64748b;animation:bounce 1s infinite alternate}.dot:nth-child(2){animation-delay:.15s}.dot:nth-child(3){animation-delay:.3s}@keyframes pulse{0%{transform:scale(1);box-shadow:0 0 0 0 #6366f199}70%{transform:scale(1.05);box-shadow:0 0 0 20px #6366f100}100%{transform:scale(1);box-shadow:0 0 0 0 #6366f100}}@keyframes bounce{from{transform:translateY(0);opacity:.5}to{transform:translateY(-8px);opacity:1}}@media(max-width:1100px){.grid4{grid-template-columns:repeat(2,minmax(0,1fr))}}
+:root{
+  --bg:#0b1020;
+  --panel:#020617;
+  --card:#0f172a;
+  --border:#1e293b;
+  --text:#f8fafc;
+  --muted:#94a3b8;
+  --green:#2dd4bf;
+  --greenD:#06211f;
+  --orange:#f59e0b;
+  --orangeD:#2a1700;
+  --red:#ef4444;
+  --redD:#300c12;
+  --purple:#8b5cf6;
+  --purpleD:#22103a;
+  --blue:#38bdf8;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:Inter,system-ui,-apple-system,sans-serif;
+  background:linear-gradient(180deg,#0b1020 0%,#111827 100%);
+  color:var(--text);
+}
+.app{
+  max-width:1600px;
+  margin:0 auto;
+  padding:24px;
+}
+header{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:16px;
+  margin-bottom:20px;
+}
+h1{margin:0;font-size:28px}
+.sub{color:var(--muted);font-size:14px}
+.actions{display:flex;gap:12px}
+.pill{
+  border:1px solid var(--border);
+  background:#111827;
+  color:var(--text);
+  border-radius:999px;
+  padding:10px 14px;
+  cursor:pointer;
+}
+.layout{
+  display:flex;
+  flex-direction:column;
+  gap:18px;
+}
+.marketGrid{
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:16px;
+}
+.market{
+  width:100%;
+  background:var(--card);
+  border:1px solid var(--border);
+  color:var(--text);
+  border-radius:18px;
+  padding:16px;
+  text-align:left;
+  cursor:pointer;
+  transition:.2s ease;
+}
+.market:hover{transform:translateY(-1px);border-color:#334155}
+.market.active{outline:2px solid var(--green);background:#0b1720}
+.mrow{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.flag{font-size:24px}
+.marketName{font-size:18px;font-weight:700}
+.marketMeta{margin-top:10px;color:var(--muted);font-size:13px}
+.alertColumns{
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:16px;
+  align-items:start;
+}
+.alertColumn{
+  min-width:0;
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+}
+.alertColumn.hidden{visibility:hidden}
+.stackLabel{
+  font-size:12px;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  color:var(--muted);
+  padding:0 4px;
+}
+.alertCard,.miniCard{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:18px;
+  padding:16px;
+}
+.alertHead{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:12px}
+.alertTitle{font-size:18px;font-weight:700;margin:0}
+.badge{
+  font-size:12px;
+  border-radius:999px;
+  padding:6px 10px;
+  border:1px solid transparent;
+}
+.working{background:var(--greenD);color:var(--green);border-color:#0f766e}
+.outside{background:var(--orangeD);color:var(--orange);border-color:#92400e}
+.blocked{background:var(--redD);color:var(--red);border-color:#991b1b}
+.primaryInfo{display:grid;gap:8px;margin-bottom:14px}
+.infoRow{display:flex;justify-content:space-between;gap:12px;font-size:14px}
+.label{color:var(--muted)}
+.timer{
+  font-variant-numeric:tabular-nums;
+  font-weight:800;
+  color:var(--blue);
+}
+.cardActions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
+.btn{
+  width:100%;
+  border:1px solid var(--border);
+  border-radius:12px;
+  padding:10px 12px;
+  cursor:pointer;
+  background:#111827;
+  color:var(--text);
+}
+.btn:hover{border-color:#475569}
+.btn.stop{background:#2a0f17;color:#fecdd3;border-color:#7f1d1d}
+.empty{
+  grid-column:1 / -1;
+  background:rgba(15,23,42,.65);
+  border:1px dashed var(--border);
+  color:var(--muted);
+  border-radius:18px;
+  padding:28px;
+  text-align:center;
+}
+.modalBack{
+  display:none;
+  position:fixed;
+  inset:0;
+  background:rgba(2,6,23,.72);
+  backdrop-filter:blur(3px);
+  padding:24px;
+  z-index:40;
+}
+.modal{
+  max-width:760px;
+  margin:40px auto;
+  background:var(--panel);
+  border:1px solid var(--border);
+  border-radius:20px;
+  padding:20px;
+}
+.modal.small{max-width:520px}
+.modalHead{display:flex;justify-content:space-between;gap:16px;align-items:flex-start;margin-bottom:14px}
+.close{
+  background:transparent;
+  color:var(--text);
+  border:1px solid var(--border);
+  border-radius:10px;
+  width:36px;
+  height:36px;
+  cursor:pointer;
+}
+.flowList{display:grid;gap:12px}
+.flowStep,.teamCard{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:16px;
+  padding:14px;
+}
+.teams{
+  max-width:1000px;
+  margin:32px auto;
+  background:var(--panel);
+  border:1px solid var(--border);
+  border-radius:20px;
+  padding:18px;
+}
+.teamsHead{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:16px}
+.teamsGrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.teamsTitle{font-size:20px;font-weight:700}
+.callModal{max-width:560px}
+.callBody{display:grid;gap:12px}
+.bubbleRow{display:flex}.bubbleRow.self{justify-content:flex-end}
+.bubble{
+  max-width:80%;
+  background:#172554;
+  border:1px solid #1d4ed8;
+  border-radius:16px;
+  padding:10px 12px;
+}
+.bubble.self{background:#052e2b;border-color:#0f766e}
+.bname{font-size:12px;color:#bfdbfe;margin-bottom:4px}
+.btext{font-size:14px}
+.stopActions{display:flex;justify-content:flex-end;gap:10px;margin-top:18px}
+@media (max-width:1200px){
+  .marketGrid,.alertColumns{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media (max-width:720px){
+  .app{padding:16px}
+  header{flex-direction:column;align-items:flex-start}
+  .marketGrid,.alertColumns,.teamsGrid,.cardActions{grid-template-columns:1fr}
+  .alertColumn.hidden{display:none}
+}
 </style>
 </head>
 <body>
-<div class="app"><header><div><h1>Quick Check</h1><div class="sub">Select affected market</div></div><div class="actions"><button class="pill" id="flowBtn">Flow explained</button></div></header><section class="grid4" id="marketGrid"></section><section class="grid4" id="alertGrid"></section><footer><button class="source">Original article and source data</button></footer></div>
-<div id="flowModal" class="modalBack"><div class="modal"><div class="modalHead"><div><h2>Flow explained</h2><div class="sub">Operational path used by Quick Check.</div></div><button class="close" onclick="closeModal('flowModal')">×</button></div><div class="flowText"><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer non nulla vitae erat facilisis posuere. Sed at neque sed massa feugiat tincidunt.</p><p>Praesent commodo, ipsum vitae interdum pretium, lectus mi placerat lectus, sed volutpat erat lorem sed arcu.</p><p>Morbi at magna id lorem posuere tincidunt. Duis tempor, nisl non posuere luctus, sapien justo efficitur enim.</p></div></div></div>
-<div id="stopModal" class="modalBack"><div class="modal small"><div class="modalHead"><div><h2>Stop monitoring?</h2><p id="stopText"></p></div><button class="close" onclick="closeModal('stopModal')">×</button></div><div class="modalActions"><button class="pill" onclick="closeModal('stopModal')">Cancel</button><button class="pill danger" id="confirmStopBtn">Stop monitoring</button></div></div></div>
-<div id="opsModal" class="modalBack"></div><div id="callModal" class="modalBack"></div>
+<div class="app">
+  <header>
+    <div>
+      <h1>Quick Check</h1>
+      <div class="sub">Select affected market</div>
+    </div>
+    <div class="actions">
+      <button class="pill" id="flowBtn">Flow explained</button>
+    </div>
+  </header>
+
+  <section class="layout">
+    <div id="marketGrid" class="marketGrid"></div>
+    <div id="alertGrid" class="alertColumns"></div>
+  </section>
+</div>
+
+<div id="flowModal" class="modalBack">
+  <div class="modal">
+    <div class="modalHead">
+      <div>
+        <h2>Flow explained</h2>
+        <div class="sub">Operational path used by Quick Check.</div>
+      </div>
+      <button class="close" onclick="closeModal('flowModal')">✕</button>
+    </div>
+    <div class="flowList">
+      <div class="flowStep"><strong>1. Select market</strong><div class="sub">Pick one or more affected markets. Each selected market opens its own visible column.</div></div>
+      <div class="flowStep"><strong>2. Monitor independently</strong><div class="sub">Each market keeps its own timer, engineer, and action buttons without replacing the others.</div></div>
+      <div class="flowStep"><strong>3. Reach OPS or on-call</strong><div class="sub">Use the market actions to open OPS guidance or the call script for that specific market.</div></div>
+      <div class="flowStep"><strong>4. Stop when resolved</strong><div class="sub">Stopping one market closes only that column and preserves the rest on screen.</div></div>
+    </div>
+  </div>
+</div>
+
+<div id="stopModal" class="modalBack">
+  <div class="modal small">
+    <div class="modalHead">
+      <div>
+        <h2>Stop monitoring?</h2>
+        <p id="stopText" class="sub"></p>
+      </div>
+      <button class="close" onclick="closeModal('stopModal')">✕</button>
+    </div>
+    <div class="stopActions">
+      <button class="btn" onclick="closeModal('stopModal')">Cancel</button>
+      <button class="btn stop" onclick="confirmStop()">Stop monitoring</button>
+    </div>
+  </div>
+</div>
+
+<div id="opsModal" class="modalBack"></div>
+<div id="callModal" class="modalBack"></div>
+
 <script>
-const markets=[{id:'A',name:'Market A',time:'14:58',status:'working',engineer:'Engineer 4'},{id:'B',name:'Market B',time:'11:58',status:'outside',engineer:'Engineer 7'},{id:'C',name:'Market C',time:'13:58',status:'working',engineer:'Engineer 2'},{id:'D',name:'Market D',time:'15:58',status:'outside',engineer:'Engineer 9'}];
-const TIMER_START=180,active={};let pendingStopId=null;const marketGrid=document.getElementById('marketGrid'),alertGrid=document.getElementById('alertGrid');
-function fmt(s){return String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0')}
-function renderMarkets(){marketGrid.innerHTML=markets.map(m=>`<button class="market ${active[m.id]?'active':''}" onclick="handleMarket('${m.id}')"><div class="mrow"><div class="flag">🏳️‍🌈</div><div><div class="mname">${m.name}</div><div class="mtime">${m.time}</div></div></div></button>`).join('')}
-function renderAlerts(){if(!Object.keys(active).length){alertGrid.innerHTML='<div class="empty">Select a market to start monitoring.</div>';return}alertGrid.innerHTML=markets.map(m=>{const a=active[m.id];if(!a)return'<div class="placeholder"></div>';const w=a.status==='working',done=a.timer===0;return`<main class="alert"><section class="first"><div class="firstTitle">CHECK OPS MESSAGES</div><div class="firstDesc">If planned restart or known issue was posted, monitor only.</div><div class="firstStrong">If not, act immediately.</div><button class="opsMain" onclick="openOps('${a.id}')">💬 OPS ${a.name} Chat</button></section><div class="statusGrid"><div class="status working ${w?'active':''}">Working hours</div><div class="status outside ${!w?'active':''}">Outside hours</div></div>${w?`<section class="workPath"><div><div class="pathMain">INFORM TEAM</div><div class="pathSub">IF NEEDED</div></div></section>`:`<section class="outsideTitle"><div class="pathMain">CALL OUT PROCEDURE</div></section><section class="instanceGrid"><div class="instance"><div class="ititle">INSTANCE 1</div>${done?`<button class="callAfter" onclick="openCall('${a.id}')">CALL AGENT</button>`:`<div class="timer">${fmt(a.timer)}</div>`}</div><button class="instance zero" onclick="openCall('${a.id}')"><div class="ititle">INSTANCE 0</div><div class="callNow">CALL NOW</div><div class="even">EVEN IF RECOVERED</div></button></section><section class="eng"><div class="engLbl">On call engineer</div><div class="engName">${a.engineer}</div><button class="actionBtn callEng" onclick="openCall('${a.id}')">☎ Call Engineer</button></section>`}</main>`}).join('')}
-function handleMarket(id){const m=markets.find(x=>x.id===id);if(active[id]){pendingStopId=id;document.getElementById('stopText').textContent=`You are about to stop monitoring this alert for ${m.name}.`;document.getElementById('stopModal').style.display='grid';return}active[id]={...m,timer:TIMER_START};render()}
-function openOps(id){const m=active[id]||markets.find(x=>x.id===id),el=document.getElementById('opsModal');el.innerHTML=`<div class="teams"><div class="teamsHead"><div><div class="teamsTitle">OPS ${m.name} Chat</div><div class="teamsSub">Microsoft Teams group chat simulation</div></div><button class="close" onclick="closeModal('opsModal')">×</button></div><div class="teamsBody">${m.id==='B'?`<div class="notice"><div class="noticeTitle">Pinned notice</div><div class="noticeText">Planned restart notice for Market B date-time. Short healthy instance drops may occur during the window.</div></div>`:''}${bubble('Ops Bot',`Latest context for ${m.name} is available in this chat.`)}${bubble('Team Member','No active update posted in the last few minutes.')}${bubble('You','Checking alert context and current operational status.',true)}</div></div>`;el.style.display='grid'}
-function bubble(n,t,self=false){return`<div class="bubbleRow ${self?'self':''}"><div class="bubble ${self?'self':''}"><div class="bname">${n}</div><div class="btext">${t}</div></div></div>`}
-function openCall(id){const m=active[id]||markets.find(x=>x.id===id),el=document.getElementById('callModal');el.innerHTML=`<div class="modal small callModal"><button class="close" onclick="closeModal('callModal')" style="position:absolute;right:18px;top:14px">×</button><div class="callIcon">☎</div><div class="callingTitle">Calling ${m.engineer}.</div><div class="callingSub">Call simulation active.</div><div class="dots"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div></div>`;el.style.display='grid'}
-function closeModal(id){document.getElementById(id).style.display='none'}
-function render(){renderMarkets();renderAlerts()}setInterval(()=>{Object.values(active).forEach(a=>a.timer=Math.max(0,a.timer-1));render()},1000);document.getElementById('flowBtn').onclick=()=>document.getElementById('flowModal').style.display='grid';document.getElementById('confirmStopBtn').onclick=()=>{if(pendingStopId)delete active[pendingStopId];pendingStopId=null;closeModal('stopModal');render()};render();
-</script></body></html>
+const markets=[
+  {id:'A',name:'Market A',time:'14:58',status:'working',engineer:'Engineer 4',flag:'🇺🇸'},
+  {id:'B',name:'Market B',time:'11:58',status:'outside',engineer:'Engineer 7',flag:'🇧🇷'},
+  {id:'C',name:'Market C',time:'10:42',status:'blocked',engineer:'Engineer 2',flag:'🇲🇽'},
+  {id:'D',name:'Market D',time:'09:15',status:'working',engineer:'Engineer 9',flag:'🇨🇦'}
+];
+
+const TIMER_START=180;
+const active={};
+let pendingStopId=null;
+
+const marketGrid=document.getElementById('marketGrid');
+const alertGrid=document.getElementById('alertGrid');
+
+function fmt(s){
+  return String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0');
+}
+
+function statusClass(status){
+  return status==='working'?'working':status==='outside'?'outside':'blocked';
+}
+
+function statusLabel(status){
+  return status==='working'?'Working hours':status==='outside'?'Outside business hours':'Blocked';
+}
+
+function renderMarkets(){
+  marketGrid.innerHTML=markets.map(m=>`
+    <button class="market ${active[m.id]?'active':''}" onclick="handleMarket('${m.id}')">
+      <div class="mrow">
+        <div>
+          <div class="marketName">${m.name}</div>
+          <div class="marketMeta">${m.engineer}</div>
+        </div>
+        <div class="flag">${m.flag}</div>
+      </div>
+      <div class="marketMeta">Opened ${m.time} · ${statusLabel(m.status)}</div>
+    </button>
+  `).join('');
+}
+
+function renderAlerts(){
+  const hasActive=Object.keys(active).length>0;
+  if(!hasActive){
+    alertGrid.innerHTML='<div class="empty">Select a market to start monitoring. You can keep all 4 columns open at the same time.</div>';
+    return;
+  }
+
+  alertGrid.innerHTML=markets.map(m=>{
+    const a=active[m.id];
+    if(!a){
+      return '<div class="alertColumn hidden"></div>';
+    }
+    return `
+      <div class="alertColumn">
+        <div class="stackLabel">${m.name}</div>
+        <div class="alertCard">
+          <div class="alertHead">
+            <div>
+              <h3 class="alertTitle">${m.name} alert</h3>
+              <div class="sub">Dedicated column kept open on screen</div>
+            </div>
+            <span class="badge ${statusClass(m.status)}">${statusLabel(m.status)}</span>
+          </div>
+          <div class="primaryInfo">
+            <div class="infoRow"><span class="label">Assigned engineer</span><strong>${m.engineer}</strong></div>
+            <div class="infoRow"><span class="label">Alert opened</span><strong>${m.time}</strong></div>
+            <div class="infoRow"><span class="label">Timer</span><strong class="timer">${fmt(a.timer)}</strong></div>
+          </div>
+          <div class="miniCard">
+            <div class="infoRow"><span class="label">Action path</span><strong>${m.status==='outside'?'Call on-call':'Engage OPS'}</strong></div>
+            <div class="sub" style="margin-top:8px">This panel belongs only to ${m.name} and stays visible while other markets are opened.</div>
+          </div>
+          <div class="cardActions">
+            <button class="btn" onclick="openOps('${m.id}')">Open OPS</button>
+            <button class="btn" onclick="openCall('${m.id}')">Call guidance</button>
+            <button class="btn stop" style="grid-column:1 / -1" onclick="requestStop('${m.id}')">Stop monitoring</button>
+          </div>
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+
+function handleMarket(id){
+  const m=markets.find(x=>x.id===id);
+  if(active[id]){
+    pendingStopId=id;
+    document.getElementById('stopText').textContent=`You are about to stop monitoring ${m.name}. This will close only that column.`;
+    document.getElementById('stopModal').style.display='block';
+    return;
+  }
+  active[id]={id,timer:TIMER_START};
+  render();
+}
+
+function requestStop(id){
+  const m=markets.find(x=>x.id===id);
+  pendingStopId=id;
+  document.getElementById('stopText').textContent=`You are about to stop monitoring ${m.name}. This will close only that column.`;
+  document.getElementById('stopModal').style.display='block';
+}
+
+function confirmStop(){
+  if(pendingStopId) delete active[pendingStopId];
+  pendingStopId=null;
+  closeModal('stopModal');
+  render();
+}
+
+function openOps(id){
+  const m=active[id]||markets.find(x=>x.id===id);
+  const market=markets.find(x=>x.id===m.id||x.id===id);
+  const el=document.getElementById('opsModal');
+  el.innerHTML=`
+    <div class="teams">
+      <div class="teamsHead">
+        <div>
+          <div class="teamsTitle">OPS ${market.name}</div>
+          <div class="sub">Suggested operational contacts for this market.</div>
+        </div>
+        <button class="close" onclick="closeModal('opsModal')">✕</button>
+      </div>
+      <div class="teamsGrid">
+        <div class="teamCard"><strong>Primary OPS</strong><div class="sub">Engineer owner: ${market.engineer}</div></div>
+        <div class="teamCard"><strong>Regional Support</strong><div class="sub">Escalate platform checks and dependencies.</div></div>
+        <div class="teamCard"><strong>Incident Commander</strong><div class="sub">Use when customer impact expands or timer is critical.</div></div>
+      </div>
+    </div>`;
+  el.style.display='block';
+}
+
+function bubble(n,t,self=false){
+  return `<div class="bubbleRow ${self?'self':''}"><div class="bubble ${self?'self':''}"><div class="bname">${n}</div><div class="btext">${t}</div></div></div>`;
+}
+
+function openCall(id){
+  const market=markets.find(x=>x.id===id) || active[id];
+  const el=document.getElementById('callModal');
+  el.innerHTML=`
+    <div class="modal small callModal">
+      <div class="modalHead">
+        <div>
+          <h2>${market.name} call guidance</h2>
+          <div class="sub">Simple script for the current alert path.</div>
+        </div>
+        <button class="close" onclick="closeModal('callModal')">✕</button>
+      </div>
+      <div class="callBody">
+        ${bubble('Quick Check',`Hello, we are monitoring an alert for ${market.name}. Can you confirm current impact and next action?`)}
+        ${bubble('On-call',`Acknowledged. I am checking ${market.name} now and will return with status in a few minutes.`,true)}
+        ${bubble('Quick Check','Keeping this market column open until confirmation is received.')}
+      </div>
+    </div>`;
+  el.style.display='block';
+}
+
+function closeModal(id){
+  document.getElementById(id).style.display='none';
+}
+
+function render(){
+  renderMarkets();
+  renderAlerts();
+}
+
+setInterval(()=>{
+  Object.values(active).forEach(a=>a.timer=Math.max(0,a.timer-1));
+  renderAlerts();
+},1000);
+
+document.getElementById('flowBtn').onclick=()=>document.getElementById('flowModal').style.display='block';
+render();
+</script>
+</body>
+</html>
