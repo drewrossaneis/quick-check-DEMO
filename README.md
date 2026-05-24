@@ -1,12 +1,5 @@
 # quick-check-DEMO
 
-This is a fictional  prototype created only to demonstrate the "on-call alert flow"
+Fictional prototype created to demonstrate a quick operational flow for **Fewer Healthy Instances** alerts and on-call guidance.
 
-No real company data, names, links, schedules or credentials are included.
-
-This is not connected to any internal system.
-
-
-
-
-
+No real company data, names, links, schedules, credentials, or internal integrations are included in this repository.
