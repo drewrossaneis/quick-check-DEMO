@@ -14,7 +14,7 @@
 button{transition:transform .15s ease,box-shadow .2s ease,background-color .2s ease,color .2s ease}
 button:hover{box-shadow:0 8px 18px #0004}
 button:active{transform:scale(.97)}
-button:focus-visible{outline:2px solid var(--green);outline-offset:2px}
+button:focus-visible{outline:2px solid #f8fafc;outline-offset:2px;box-shadow:0 0 0 4px #020617}
 .pill:hover,.opsMain:hover,.callEng:hover{background:var(--green);color:#06211f;border-color:#5eead4}
 .source:hover{background:#1f2937}
 .empty i{display:block;font-size:26px;margin-bottom:10px;color:var(--green)}
@@ -25,26 +25,66 @@ button:focus-visible{outline:2px solid var(--green);outline-offset:2px}
 .modal,.teams{opacity:0;transform:translateY(10px) scale(.98);transition:transform .25s ease,opacity .25s ease}
 .modalBack.open .modal,.modalBack.open .teams{opacity:1;transform:translateY(0) scale(1)}
 @keyframes shimmer{0%{transform:translateX(-100%)}100%{transform:translateX(100%)}}
-@media(max-width:900px){.grid4{grid-template-columns:repeat(2,minmax(0,1fr))}header{flex-direction:column;align-items:flex-start}.actions{width:100%}}
+@media(max-width:900px){header{flex-direction:column;align-items:flex-start}.actions{width:100%}}
 @media(max-width:640px){body{padding:16px}.grid4{grid-template-columns:1fr}.actions .pill,.source{width:100%}}
 </style>
 </head>
 <body>
 <div class="app"><header><div><h1>Quick Check</h1><div class="sub">Select affected market</div></div><div class="actions"><button class="pill" id="flowBtn" aria-label="Open flow explained modal"><i class="fa-solid fa-circle-info" aria-hidden="true"></i> Flow explained</button></div></header><section class="grid4" id="marketGrid" aria-live="polite"></section><section class="grid4" id="alertGrid" aria-live="polite"></section><footer><button class="source" aria-label="Open source information"><i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i> Original article and source data</button></footer></div>
-<div id="flowModal" class="modalBack" role="dialog" aria-modal="true" aria-labelledby="flowTitle"><div class="modal"><div class="modalHead"><div><h2 id="flowTitle">Flow explained</h2><div class="sub">Operational path used by Quick Check.</div></div><button class="close" onclick="closeModal('flowModal')" aria-label="Close flow modal">×</button></div><div class="flowText"><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer non nulla vitae erat facilisis posuere. Sed at neque sed massa feugiat tincidunt.</p><p>Praesent commodo, ipsum vitae interdum pretium, lectus mi placerat lectus, sed volutpat erat lorem sed arcu.</p><p>Morbi at magna id lorem posuere tincidunt. Duis tempor, nisl non posuere luctus, sapien justo efficitur enim.</p></div></div></div>
-<div id="stopModal" class="modalBack" role="dialog" aria-modal="true" aria-labelledby="stopTitle"><div class="modal small"><div class="modalHead"><div><h2 id="stopTitle">Stop monitoring?</h2><p id="stopText"></p></div><button class="close" onclick="closeModal('stopModal')" aria-label="Close stop monitoring modal">×</button></div><div class="modalActions"><button class="pill" onclick="closeModal('stopModal')" aria-label="Cancel stop monitoring">Cancel</button><button class="pill danger" id="confirmStopBtn" aria-label="Confirm stop monitoring">Stop monitoring</button></div></div></div>
-<div id="opsModal" class="modalBack" role="dialog" aria-modal="true" aria-label="OPS chat modal"></div><div id="callModal" class="modalBack" role="dialog" aria-modal="true" aria-label="Call simulation modal"></div>
+<div id="flowModal" class="modalBack" role="dialog" aria-modal="true" aria-labelledby="flowTitle" aria-hidden="true"><div class="modal"><div class="modalHead"><div><h2 id="flowTitle">Flow explained</h2><div class="sub">Operational path used by Quick Check.</div></div><button class="close" onclick="closeModal('flowModal')" aria-label="Close flow modal">×</button></div><div class="flowText"><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer non nulla vitae erat facilisis posuere. Sed at neque sed massa feugiat tincidunt.</p><p>Praesent commodo, ipsum vitae interdum pretium, lectus mi placerat lectus, sed volutpat erat lorem sed arcu.</p><p>Morbi at magna id lorem posuere tincidunt. Duis tempor, nisl non posuere luctus, sapien justo efficitur enim.</p></div></div></div>
+<div id="stopModal" class="modalBack" role="dialog" aria-modal="true" aria-labelledby="stopTitle" aria-hidden="true"><div class="modal small"><div class="modalHead"><div><h2 id="stopTitle">Stop monitoring?</h2><p id="stopText"></p></div><button class="close" onclick="closeModal('stopModal')" aria-label="Close stop monitoring modal">×</button></div><div class="modalActions"><button class="pill" onclick="closeModal('stopModal')" aria-label="Cancel stop monitoring">Cancel</button><button class="pill danger" id="confirmStopBtn" aria-label="Confirm stop monitoring">Stop monitoring</button></div></div></div>
+<div id="opsModal" class="modalBack" role="dialog" aria-modal="true" aria-label="OPS chat modal" aria-hidden="true"></div><div id="callModal" class="modalBack" role="dialog" aria-modal="true" aria-label="Call simulation modal" aria-hidden="true"></div>
 <script>
 const markets=[{id:'A',name:'Market A',time:'14:58',status:'working',engineer:'Engineer 4'},{id:'B',name:'Market B',time:'11:58',status:'outside',engineer:'Engineer 7'},{id:'C',name:'Market C',time:'13:58',status:'working',engineer:'Engineer 2'},{id:'D',name:'Market D',time:'15:58',status:'outside',engineer:'Engineer 9'}];
-const TIMER_START=180,active={};let pendingStopId=null;const marketGrid=document.getElementById('marketGrid'),alertGrid=document.getElementById('alertGrid');
+const TIMER_START=180,active={};let pendingStopId=null,lastFocused=null;const marketGrid=document.getElementById('marketGrid'),alertGrid=document.getElementById('alertGrid'),modalIds=['flowModal','stopModal','opsModal','callModal'];
 function fmt(s){return String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0')}
-function renderMarkets(){if(!markets.length){marketGrid.innerHTML='<div class="empty"><i class="fa-regular fa-folder-open" aria-hidden="true"></i>No markets available right now. Please try again soon.</div>';return}marketGrid.innerHTML=markets.map(m=>`<button class="market ${active[m.id]?'active':''}" onclick="handleMarket('${m.id}')" aria-label="${active[m.id]?'Stop':'Start'} monitoring ${m.name}" aria-pressed="${!!active[m.id]}"><div class="mrow"><div class="flag" aria-hidden="true">🏳️‍🌈</div><div><div class="mname">${m.name}</div><div class="mtime">${m.time}</div></div></div></button>`).join('')}
+function renderMarkets(){if(!markets.length){marketGrid.innerHTML='<div class="empty"><i class="fa-regular fa-folder-open" aria-hidden="true"></i>No markets available right now. Please try again soon.</div>';return}marketGrid.innerHTML=markets.map(m=>`<button class="market ${active[m.id]?'active':''}" onclick="handleMarket('${m.id}')" aria-label="Toggle monitoring for ${m.name}" aria-pressed="${!!active[m.id]}"><div class="mrow"><div class="flag" aria-hidden="true">🏳️‍🌈</div><div><div class="mname">${m.name}</div><div class="mtime">${m.time}</div></div></div></button>`).join('')}
 function renderAlerts(){if(!Object.keys(active).length){alertGrid.innerHTML='<div class="empty"><i class="fa-regular fa-bell" aria-hidden="true"></i>Select a market to start monitoring.</div>';return}alertGrid.innerHTML=markets.map(m=>{const a=active[m.id];if(!a)return'<div class="placeholder" aria-hidden="true"></div>';const w=a.status==='working',done=a.timer===0;return`<main class="alert"><section class="first"><div class="firstTitle">CHECK OPS MESSAGES</div><div class="firstDesc">If planned restart or known issue was posted, monitor only.</div><div class="firstStrong">If not, act immediately.</div><button class="opsMain" onclick="openOps('${a.id}')" aria-label="Open OPS chat for ${a.name}"><i class="fa-solid fa-comments" aria-hidden="true"></i> OPS ${a.name} Chat</button></section><div class="statusGrid"><div class="status working ${w?'active':''}">Working hours</div><div class="status outside ${!w?'active':''}">Outside hours</div></div>${w?`<section class="workPath"><div><div class="pathMain">INFORM TEAM</div><div class="pathSub">IF NEEDED</div></div></section>`:`<section class="outsideTitle"><div class="pathMain">CALL OUT PROCEDURE</div></section><section class="instanceGrid"><div class="instance"><div class="ititle">INSTANCE 1</div>${done?`<button class="callAfter" onclick="openCall('${a.id}')" aria-label="Call agent for ${a.name}"><i class="fa-solid fa-phone-volume" aria-hidden="true"></i> CALL AGENT</button>`:`<div class="timer">${fmt(a.timer)}</div>`}</div><button class="instance zero" onclick="openCall('${a.id}')" aria-label="Call now for ${a.name}"><div class="ititle">INSTANCE 0</div><div class="callNow">CALL NOW</div><div class="even">EVEN IF RECOVERED</div></button></section><section class="eng"><div class="engLbl">On call engineer</div><div class="engName">${a.engineer}</div><button class="actionBtn callEng" onclick="openCall('${a.id}')" aria-label="Call engineer ${a.engineer}"><i class="fa-solid fa-phone" aria-hidden="true"></i> Call Engineer</button></section>`}</main>`}).join('')}
 function handleMarket(id){const m=markets.find(x=>x.id===id);if(active[id]){pendingStopId=id;document.getElementById('stopText').textContent=`You are about to stop monitoring this alert for ${m.name}.`;openModal('stopModal');return}active[id]={...m,timer:TIMER_START};render()}
 function openOps(id){const m=active[id]||markets.find(x=>x.id===id),el=document.getElementById('opsModal');el.innerHTML=`<div class="teams"><div class="teamsHead"><div><div class="teamsTitle">OPS ${m.name} Chat</div><div class="teamsSub">Microsoft Teams group chat simulation</div></div><button class="close" onclick="closeModal('opsModal')" aria-label="Close OPS chat modal">×</button></div><div class="teamsBody">${m.id==='B'?`<div class="notice"><div class="noticeTitle">Pinned notice</div><div class="noticeText">Planned restart notice for Market B date-time. Short healthy instance drops may occur during the window.</div></div>`:''}${bubble('Ops Bot',`Latest context for ${m.name} is available in this chat.`)}${bubble('Team Member','No active update posted in the last few minutes.')}${bubble('You','Checking alert context and current operational status.',true)}</div></div>`;openModal('opsModal')}
 function bubble(n,t,self=false){return`<div class="bubbleRow ${self?'self':''}"><div class="bubble ${self?'self':''}"><div class="bname">${n}</div><div class="btext">${t}</div></div></div>`}
 function openCall(id){const m=active[id]||markets.find(x=>x.id===id),el=document.getElementById('callModal');el.innerHTML=`<div class="modal small callModal"><button class="close" onclick="closeModal('callModal')" style="position:absolute;right:18px;top:14px" aria-label="Close call modal">×</button><div class="callIcon"><i class="fa-solid fa-phone" aria-hidden="true"></i></div><div class="callingTitle">Calling ${m.engineer}.</div><div class="callingSub">Call simulation active.</div><div class="dots"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div></div>`;openModal('callModal')}
-function openModal(id){document.getElementById(id).classList.add('open')}
-function closeModal(id){document.getElementById(id).classList.remove('open')}
-function render(){renderMarkets();renderAlerts()}setInterval(()=>{Object.values(active).forEach(a=>a.timer=Math.max(0,a.timer-1));render()},1000);document.getElementById('flowBtn').onclick=()=>openModal('flowModal');document.getElementById('confirmStopBtn').onclick=()=>{if(pendingStopId)delete active[pendingStopId];pendingStopId=null;closeModal('stopModal');render()};['flowModal','stopModal','opsModal','callModal'].forEach(id=>{document.getElementById(id).addEventListener('click',e=>{if(e.target.id===id)closeModal(id)})});render();
+function activeModal(){return modalIds.find(id=>document.getElementById(id).classList.contains('open'))}
+function modalFocusables(id){return [...document.getElementById(id).querySelectorAll('button,[href],input,select,textarea,[tabindex]:not([tabindex="-1"])')].filter(el=>!el.disabled)}
+function openModal(id){const modal=document.getElementById(id);lastFocused=document.activeElement;modal.classList.add('open');modal.setAttribute('aria-hidden','false');const focusables=modalFocusables(id);(focusables[0]||modal.querySelector('.modal,.teams')||modal).focus()}
+function canRestoreFocus(el){
+if(!el||!document.contains(el)||typeof el.focus!=='function')return false;
+const isDisabled='disabled'in el&&el.disabled;
+const style=getComputedStyle(el);
+return !isDisabled&&style.visibility!=='hidden'&&style.display!=='none'
+}
+function closeModal(id){const modal=document.getElementById(id);modal.classList.remove('open');modal.setAttribute('aria-hidden','true');if(canRestoreFocus(lastFocused))lastFocused.focus()}
+function render(){renderMarkets();renderAlerts()}
+setInterval(()=>{Object.values(active).forEach(a=>a.timer=Math.max(0,a.timer-1));render()},1000);
+document.getElementById('flowBtn').onclick=()=>openModal('flowModal');
+document.getElementById('confirmStopBtn').onclick=()=>{
+if(pendingStopId)delete active[pendingStopId];
+pendingStopId=null;
+closeModal('stopModal');
+render()
+};
+modalIds.forEach(id=>{
+document.getElementById(id).addEventListener('click',e=>{if(e.target===e.currentTarget)closeModal(id)})
+});
+document.addEventListener('keydown',e=>{
+const id=activeModal();
+if(!id)return;
+if(e.key==='Escape'){
+e.preventDefault();
+closeModal(id);
+return
+}
+if(e.key!=='Tab')return;
+const items=modalFocusables(id);
+if(!items.length)return;
+const first=items[0],last=items[items.length-1];
+if(e.shiftKey&&document.activeElement===first){
+e.preventDefault();
+last.focus()
+}else if(!e.shiftKey&&document.activeElement===last){
+e.preventDefault();
+first.focus()
+}
+});
+render();
 </script></body></html>
