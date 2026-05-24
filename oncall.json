@@ -1,0 +1,56 @@
+{
+  "countries": {
+    "AR": {
+      "name": "Argentina",
+      "flag": "🇦🇷",
+      "timezone": "America/Argentina/Buenos_Aires",
+      "workStart": 9,
+      "workEnd": 18,
+      "oncall": {
+        "name": "Alex Ramos",
+        "phone": "tel:+5491100000001"
+      },
+      "opsChatUrl": "https://teams.microsoft.com/l/channel/placeholder-ops-ar",
+      "opsChatLabel": "OPS Argentina Chat"
+    },
+    "CL": {
+      "name": "Chile",
+      "flag": "🇨🇱",
+      "timezone": "America/Santiago",
+      "workStart": 9,
+      "workEnd": 18,
+      "oncall": {
+        "name": "Camila Torres",
+        "phone": "tel:+56911000001"
+      },
+      "opsChatUrl": "https://teams.microsoft.com/l/channel/placeholder-ops-cl",
+      "opsChatLabel": "OPS Chile Chat"
+    },
+    "PE": {
+      "name": "Peru",
+      "flag": "🇵🇪",
+      "timezone": "America/Lima",
+      "workStart": 9,
+      "workEnd": 18,
+      "oncall": {
+        "name": "Diego Vargas",
+        "phone": "tel:+51900000001"
+      },
+      "opsChatUrl": "https://teams.microsoft.com/l/channel/placeholder-ops-pe",
+      "opsChatLabel": "OPS Peru Chat"
+    },
+    "MX": {
+      "name": "Mexico",
+      "flag": "🇲🇽",
+      "timezone": "America/Mexico_City",
+      "workStart": 9,
+      "workEnd": 18,
+      "oncall": {
+        "name": "Sofia Mendez",
+        "phone": "tel:+52550000001"
+      },
+      "opsChatUrl": "https://teams.microsoft.com/l/channel/placeholder-ops-mx",
+      "opsChatLabel": "OPS Mexico Chat"
+    }
+  }
+}
