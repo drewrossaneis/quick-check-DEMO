@@ -52,15 +52,11 @@ h1{margin:0;font-size:28px}
   padding:10px 14px;
   cursor:pointer;
 }
-.layout{
+.marketGrid{
   display:grid;
   grid-template-columns:repeat(4,minmax(0,1fr));
   gap:16px;
-  align-items:start;
-}
-.marketSlot,
-.columnSlot{
-  min-width:0;
+  margin-bottom:16px;
 }
 .market{
   width:100%;
@@ -79,13 +75,22 @@ h1{margin:0;font-size:28px}
 .flag{font-size:24px}
 .marketName{font-size:18px;font-weight:700}
 .marketMeta{margin-top:10px;color:var(--muted);font-size:13px}
+.alertGrid{
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:16px;
+  align-items:start;
+}
 .alertColumn{
   min-width:0;
   display:flex;
   flex-direction:column;
   gap:12px;
 }
-.alertColumn.hidden{visibility:hidden}
+.alertColumn.hidden{
+  visibility:hidden;
+  pointer-events:none;
+}
 .stackLabel{
   font-size:12px;
   letter-spacing:.08em;
@@ -200,14 +205,14 @@ h1{margin:0;font-size:28px}
 .btext{font-size:14px}
 .stopActions{display:flex;justify-content:flex-end;gap:10px;margin-top:18px}
 @media (max-width:1200px){
-  .layout{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .marketGrid,.alertGrid{grid-template-columns:repeat(2,minmax(0,1fr))}
   .empty{grid-column:1 / -1}
 }
 @media (max-width:720px){
   .app{padding:16px}
   header{flex-direction:column;align-items:flex-start}
-  .layout,.teamsGrid,.cardActions{grid-template-columns:1fr}
-  .alertColumn.hidden,.columnSlot.hidden{display:none}
+  .marketGrid,.alertGrid,.teamsGrid,.cardActions{grid-template-columns:1fr}
+  .alertColumn.hidden{display:none}
 }
 </style>
 </head>
@@ -223,7 +228,10 @@ h1{margin:0;font-size:28px}
     </div>
   </header>
 
-  <section id="layout" class="layout"></section>
+  <section>
+    <div id="marketGrid" class="marketGrid"></div>
+    <div id="alertGrid" class="alertGrid"></div>
+  </section>
 </div>
 
 <div id="flowModal" class="modalBack">
@@ -236,7 +244,7 @@ h1{margin:0;font-size:28px}
       <button class="close" onclick="closeModal('flowModal')">✕</button>
     </div>
     <div class="flowList">
-      <div class="flowStep"><strong>1. Select market</strong><div class="sub">Pick one or more affected markets. Each selected market opens its own visible column directly below the same market card.</div></div>
+      <div class="flowStep"><strong>1. Select market</strong><div class="sub">Pick one or more affected markets. Each selected market opens in the aligned column below.</div></div>
       <div class="flowStep"><strong>2. Monitor independently</strong><div class="sub">Each market keeps its own timer, engineer, and action buttons without replacing the others.</div></div>
       <div class="flowStep"><strong>3. Reach OPS or on-call</strong><div class="sub">Use the market actions to open OPS guidance or the call script for that specific market.</div></div>
       <div class="flowStep"><strong>4. Stop when resolved</strong><div class="sub">Stopping one market closes only that column and preserves the rest on screen.</div></div>
@@ -265,17 +273,18 @@ h1{margin:0;font-size:28px}
 
 <script>
 const markets=[
-  {id:'A',name:'Market A',time:'14:58',status:'working',engineer:'Engineer 4',flag:'🇺🇸'},
-  {id:'B',name:'Market B',time:'11:58',status:'outside',engineer:'Engineer 7',flag:'🇧🇷'},
-  {id:'C',name:'Market C',time:'10:42',status:'blocked',engineer:'Engineer 2',flag:'🇲🇽'},
-  {id:'D',name:'Market D',time:'09:15',status:'working',engineer:'Engineer 9',flag:'🇨🇦'}
+  {id:'A',name:'Market A',time:'14:58',status:'working',engineer:'Engineer 4',flag:'🏳️‍🌈'},
+  {id:'B',name:'Market B',time:'11:58',status:'outside',engineer:'Engineer 7',flag:'🏳️‍🌈'},
+  {id:'C',name:'Market C',time:'10:42',status:'blocked',engineer:'Engineer 2',flag:'🏳️‍🌈'},
+  {id:'D',name:'Market D',time:'09:15',status:'working',engineer:'Engineer 9',flag:'🏳️‍🌈'}
 ];
 
 const TIMER_START=180;
 const active={};
 let pendingStopId=null;
 
-const layout=document.getElementById('layout');
+const marketGrid=document.getElementById('marketGrid');
+const alertGrid=document.getElementById('alertGrid');
 
 function fmt(s){
   return String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0');
@@ -289,63 +298,62 @@ function statusLabel(status){
   return status==='working'?'Working hours':status==='outside'?'Outside business hours':'Blocked';
 }
 
-function renderLayout(){
-  const hasActive=Object.keys(active).length>0;
-  const topRow=markets.map(m=>`
-    <div class="marketSlot">
-      <button class="market ${active[m.id]?'active':''}" onclick="handleMarket('${m.id}')">
-        <div class="mrow">
-          <div>
-            <div class="marketName">${m.name}</div>
-            <div class="marketMeta">${m.engineer}</div>
-          </div>
-          <div class="flag">${m.flag}</div>
+function renderMarkets(){
+  marketGrid.innerHTML=markets.map(m=>`
+    <button class="market ${active[m.id]?'active':''}" onclick="handleMarket('${m.id}')">
+      <div class="mrow">
+        <div class="flag">${m.flag}</div>
+        <div>
+          <div class="marketName">${m.name}</div>
+          <div class="marketMeta">${m.engineer}</div>
         </div>
-        <div class="marketMeta">Opened ${m.time} · ${statusLabel(m.status)}</div>
-      </button>
-    </div>
+      </div>
+      <div class="marketMeta">Opened ${m.time} · ${statusLabel(m.status)}</div>
+    </button>
   `).join('');
+}
 
-  const bottomRow=hasActive
-    ? markets.map(m=>{
-        const a=active[m.id];
-        if(!a){
-          return '<div class="columnSlot hidden"><div class="alertColumn hidden"></div></div>';
-        }
-        return `
-          <div class="columnSlot">
-            <div class="alertColumn">
-              <div class="stackLabel">${m.name}</div>
-              <div class="alertCard">
-                <div class="alertHead">
-                  <div>
-                    <h3 class="alertTitle">${m.name} alert</h3>
-                    <div class="sub">Column locked directly below this market</div>
-                  </div>
-                  <span class="badge ${statusClass(m.status)}">${statusLabel(m.status)}</span>
-                </div>
-                <div class="primaryInfo">
-                  <div class="infoRow"><span class="label">Assigned engineer</span><strong>${m.engineer}</strong></div>
-                  <div class="infoRow"><span class="label">Alert opened</span><strong>${m.time}</strong></div>
-                  <div class="infoRow"><span class="label">Timer</span><strong class="timer">${fmt(a.timer)}</strong></div>
-                </div>
-                <div class="miniCard">
-                  <div class="infoRow"><span class="label">Action path</span><strong>${m.status==='outside'?'Call on-call':'Engage OPS'}</strong></div>
-                  <div class="sub" style="margin-top:8px">This panel opens in the same vertical track as ${m.name}, without invading the other markets.</div>
-                </div>
-                <div class="cardActions">
-                  <button class="btn" onclick="openOps('${m.id}')">Open OPS</button>
-                  <button class="btn" onclick="openCall('${m.id}')">Call guidance</button>
-                  <button class="btn stop" style="grid-column:1 / -1" onclick="requestStop('${m.id}')">Stop monitoring</button>
-                </div>
-              </div>
+function renderAlerts(){
+  const hasActive=Object.keys(active).length>0;
+  if(!hasActive){
+    alertGrid.innerHTML='<div class="empty">Select a market to start monitoring.</div>';
+    return;
+  }
+
+  alertGrid.innerHTML=markets.map(m=>{
+    const a=active[m.id];
+    if(!a){
+      return '<div class="alertColumn hidden"></div>';
+    }
+    return `
+      <div class="alertColumn">
+        <div class="stackLabel">${m.name}</div>
+        <div class="alertCard">
+          <div class="alertHead">
+            <div>
+              <h3 class="alertTitle">${m.name} alert</h3>
+              <div class="sub">Visible without changing the original reading flow</div>
             </div>
+            <span class="badge ${statusClass(m.status)}">${statusLabel(m.status)}</span>
           </div>
-        `;
-      }).join('')
-    : '<div class="empty">Select a market to start monitoring. Each column will open directly below its corresponding market, and you can keep all 4 visible at once.</div>';
-
-  layout.innerHTML=topRow+bottomRow;
+          <div class="primaryInfo">
+            <div class="infoRow"><span class="label">Assigned engineer</span><strong>${m.engineer}</strong></div>
+            <div class="infoRow"><span class="label">Alert opened</span><strong>${m.time}</strong></div>
+            <div class="infoRow"><span class="label">Timer</span><strong class="timer">${fmt(a.timer)}</strong></div>
+          </div>
+          <div class="miniCard">
+            <div class="infoRow"><span class="label">Action path</span><strong>${m.status==='outside'?'Call on-call':'Engage OPS'}</strong></div>
+            <div class="sub" style="margin-top:8px">This column stays aligned under ${m.name} and does not replace the other open markets.</div>
+          </div>
+          <div class="cardActions">
+            <button class="btn" onclick="openOps('${m.id}')">Open OPS</button>
+            <button class="btn" onclick="openCall('${m.id}')">Call guidance</button>
+            <button class="btn stop" style="grid-column:1 / -1" onclick="requestStop('${m.id}')">Stop monitoring</button>
+          </div>
+        </div>
+      </div>
+    `;
+  }).join('');
 }
 
 function handleMarket(id){
@@ -357,7 +365,7 @@ function handleMarket(id){
     return;
   }
   active[id]={id,timer:TIMER_START};
-  renderLayout();
+  render();
 }
 
 function requestStop(id){
@@ -371,12 +379,11 @@ function confirmStop(){
   if(pendingStopId) delete active[pendingStopId];
   pendingStopId=null;
   closeModal('stopModal');
-  renderLayout();
+  render();
 }
 
 function openOps(id){
-  const m=active[id]||markets.find(x=>x.id===id);
-  const market=markets.find(x=>x.id===m.id||x.id===id);
+  const market=markets.find(x=>x.id===id);
   const el=document.getElementById('opsModal');
   el.innerHTML=`
     <div class="teams">
@@ -401,7 +408,7 @@ function bubble(n,t,self=false){
 }
 
 function openCall(id){
-  const market=markets.find(x=>x.id===id) || active[id];
+  const market=markets.find(x=>x.id===id);
   const el=document.getElementById('callModal');
   el.innerHTML=`
     <div class="modal small callModal">
@@ -425,13 +432,18 @@ function closeModal(id){
   document.getElementById(id).style.display='none';
 }
 
+function render(){
+  renderMarkets();
+  renderAlerts();
+}
+
 setInterval(()=>{
   Object.values(active).forEach(a=>a.timer=Math.max(0,a.timer-1));
-  renderLayout();
+  renderAlerts();
 },1000);
 
 document.getElementById('flowBtn').onclick=()=>document.getElementById('flowModal').style.display='block';
-renderLayout();
+render();
 </script>
 </body>
 </html>
