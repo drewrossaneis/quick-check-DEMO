@@ -6,12 +6,13 @@
 <title>Quick Check Demo</title>
 <style>
 :root{
-  --bg:#0b1020;
-  --panel:#020617;
+  --bg:#07111f;
+  --panel:#08101d;
   --card:#0f172a;
-  --border:#1e293b;
+  --cardHi:#111c34;
+  --border:#22324a;
   --text:#f8fafc;
-  --muted:#94a3b8;
+  --muted:#8fa4bf;
   --green:#2dd4bf;
   --greenD:#06211f;
   --orange:#f59e0b;
@@ -20,13 +21,15 @@
   --redD:#300c12;
   --purple:#8b5cf6;
   --purpleD:#22103a;
-  --blue:#38bdf8;
+  --blue:#67e8f9;
+  --blueD:#0b2942;
+  --shadow:0 18px 40px rgba(0,0,0,.28);
 }
 *{box-sizing:border-box}
 body{
   margin:0;
   font-family:Inter,system-ui,-apple-system,sans-serif;
-  background:linear-gradient(180deg,#0b1020 0%,#111827 100%);
+  background:radial-gradient(circle at top,#12203a 0%,#07111f 45%,#050b14 100%);
   color:var(--text);
 }
 .app{
@@ -41,16 +44,17 @@ header{
   gap:16px;
   margin-bottom:20px;
 }
-h1{margin:0;font-size:28px}
+h1{margin:0;font-size:28px;letter-spacing:-.02em}
 .sub{color:var(--muted);font-size:14px}
 .actions{display:flex;gap:12px}
 .pill{
   border:1px solid var(--border);
-  background:#111827;
+  background:#10192b;
   color:var(--text);
   border-radius:999px;
   padding:10px 14px;
   cursor:pointer;
+  box-shadow:var(--shadow);
 }
 .marketGrid{
   display:grid;
@@ -60,21 +64,33 @@ h1{margin:0;font-size:28px}
 }
 .market{
   width:100%;
-  background:var(--card);
+  background:linear-gradient(180deg,#14213d 0%,#101a31 100%);
   border:1px solid var(--border);
   color:var(--text);
   border-radius:18px;
   padding:16px;
   text-align:left;
   cursor:pointer;
-  transition:.2s ease;
+  transition:.18s ease;
+  box-shadow:var(--shadow);
 }
-.market:hover{transform:translateY(-1px);border-color:#334155}
-.market.active{outline:2px solid var(--green);background:#0b1720}
-.mrow{display:flex;align-items:center;justify-content:space-between;gap:12px}
-.flag{font-size:24px}
-.marketName{font-size:18px;font-weight:700}
+.market:hover{transform:translateY(-1px);border-color:#35507a}
+.market.active{outline:2px solid rgba(45,212,191,.55);background:linear-gradient(180deg,#152845 0%,#112039 100%)}
+.mrow{display:flex;align-items:center;gap:12px}
+.flag{font-size:24px;line-height:1}
+.marketTop{flex:1;display:flex;align-items:flex-start;justify-content:space-between;gap:10px}
+.marketName{font-size:18px;font-weight:800}
 .marketMeta{margin-top:10px;color:var(--muted);font-size:13px}
+.statusDot{
+  width:10px;
+  height:10px;
+  border-radius:999px;
+  margin-top:5px;
+  flex:0 0 auto;
+}
+.statusDot.working{background:var(--green);box-shadow:0 0 0 4px rgba(45,212,191,.12)}
+.statusDot.outside{background:var(--orange);box-shadow:0 0 0 4px rgba(245,158,11,.12)}
+.statusDot.blocked{background:var(--red);box-shadow:0 0 0 4px rgba(239,68,68,.12)}
 .alertGrid{
   display:grid;
   grid-template-columns:repeat(4,minmax(0,1fr));
@@ -87,57 +103,98 @@ h1{margin:0;font-size:28px}
   flex-direction:column;
   gap:12px;
 }
-.alertColumn.hidden{
-  visibility:hidden;
-  pointer-events:none;
-}
+.alertColumn.hidden{visibility:hidden;pointer-events:none}
 .stackLabel{
-  font-size:12px;
-  letter-spacing:.08em;
+  font-size:11px;
+  letter-spacing:.14em;
   text-transform:uppercase;
   color:var(--muted);
   padding:0 4px;
 }
 .alertCard,.miniCard{
-  background:var(--card);
+  background:linear-gradient(180deg,var(--cardHi) 0%,var(--card) 100%);
   border:1px solid var(--border);
-  border-radius:18px;
+  border-radius:20px;
   padding:16px;
+  box-shadow:var(--shadow);
 }
-.alertHead{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:12px}
-.alertTitle{font-size:18px;font-weight:700;margin:0}
+.alertHead{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:14px}
+.alertTitle{font-size:18px;font-weight:800;margin:0}
 .badge{
   font-size:12px;
   border-radius:999px;
   padding:6px 10px;
   border:1px solid transparent;
+  white-space:nowrap;
 }
 .working{background:var(--greenD);color:var(--green);border-color:#0f766e}
 .outside{background:var(--orangeD);color:var(--orange);border-color:#92400e}
 .blocked{background:var(--redD);color:var(--red);border-color:#991b1b}
-.primaryInfo{display:grid;gap:8px;margin-bottom:14px}
-.infoRow{display:flex;justify-content:space-between;gap:12px;font-size:14px}
-.label{color:var(--muted)}
+.timerHero{
+  display:grid;
+  gap:8px;
+  margin-bottom:14px;
+  padding:16px;
+  border-radius:18px;
+  background:linear-gradient(180deg,#0f2340 0%,#0a1830 100%);
+  border:1px solid #1e3a5f;
+}
+.timerLabel{
+  font-size:11px;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  color:#9cc3dd;
+}
 .timer{
   font-variant-numeric:tabular-nums;
-  font-weight:800;
+  font-weight:900;
   color:var(--blue);
+  font-size:36px;
+  line-height:1;
+  letter-spacing:.04em;
 }
+.primaryInfo{display:grid;gap:10px;margin-bottom:14px}
+.infoRow{display:flex;justify-content:space-between;gap:12px;font-size:14px;align-items:center}
+.label{color:var(--muted)}
+.flowCard{
+  border:1px solid var(--border);
+  border-radius:18px;
+  padding:14px;
+  background:rgba(10,20,38,.85);
+}
+.flowTitle{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:#9cc3dd;margin-bottom:10px}
+.flowSteps{display:grid;gap:10px}
+.flowItem{display:grid;grid-template-columns:24px 1fr;gap:10px;align-items:start}
+.stepNo{
+  width:24px;
+  height:24px;
+  border-radius:999px;
+  background:#10233f;
+  border:1px solid #24456e;
+  color:#c9e8ff;
+  display:grid;
+  place-items:center;
+  font-size:12px;
+  font-weight:800;
+}
+.stepText strong{display:block;font-size:13px;margin-bottom:2px}
+.stepText span{color:var(--muted);font-size:13px}
 .cardActions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
 .btn{
   width:100%;
   border:1px solid var(--border);
   border-radius:12px;
-  padding:10px 12px;
+  padding:11px 12px;
   cursor:pointer;
-  background:#111827;
+  background:#10192b;
   color:var(--text);
+  font-weight:700;
 }
-.btn:hover{border-color:#475569}
+.btn:hover{border-color:#4a678f}
 .btn.stop{background:#2a0f17;color:#fecdd3;border-color:#7f1d1d}
 .empty{
   grid-column:1 / -1;
-  background:rgba(15,23,42,.65);
+  background:rgba(15,23,42,.72);
   border:1px dashed var(--border);
   color:var(--muted);
   border-radius:18px;
@@ -298,14 +355,21 @@ function statusLabel(status){
   return status==='working'?'Working hours':status==='outside'?'Outside business hours':'Blocked';
 }
 
+function actionLabel(status){
+  return status==='outside'?'Call on-call now':'Engage OPS bridge';
+}
+
 function renderMarkets(){
   marketGrid.innerHTML=markets.map(m=>`
     <button class="market ${active[m.id]?'active':''}" onclick="handleMarket('${m.id}')">
       <div class="mrow">
         <div class="flag">${m.flag}</div>
-        <div>
-          <div class="marketName">${m.name}</div>
-          <div class="marketMeta">${m.engineer}</div>
+        <div class="marketTop">
+          <div>
+            <div class="marketName">${m.name}</div>
+            <div class="marketMeta">${m.engineer}</div>
+          </div>
+          <span class="statusDot ${statusClass(m.status)}"></span>
         </div>
       </div>
       <div class="marketMeta">Opened ${m.time} · ${statusLabel(m.status)}</div>
@@ -332,19 +396,40 @@ function renderAlerts(){
           <div class="alertHead">
             <div>
               <h3 class="alertTitle">${m.name} alert</h3>
-              <div class="sub">Visible without changing the original reading flow</div>
+              <div class="sub">Follow the flow below for this market</div>
             </div>
             <span class="badge ${statusClass(m.status)}">${statusLabel(m.status)}</span>
           </div>
+
+          <div class="timerHero">
+            <div class="timerLabel">Monitoring timer</div>
+            <div class="timer">${fmt(a.timer)}</div>
+          </div>
+
           <div class="primaryInfo">
             <div class="infoRow"><span class="label">Assigned engineer</span><strong>${m.engineer}</strong></div>
             <div class="infoRow"><span class="label">Alert opened</span><strong>${m.time}</strong></div>
-            <div class="infoRow"><span class="label">Timer</span><strong class="timer">${fmt(a.timer)}</strong></div>
+            <div class="infoRow"><span class="label">Next action</span><strong>${actionLabel(m.status)}</strong></div>
           </div>
-          <div class="miniCard">
-            <div class="infoRow"><span class="label">Action path</span><strong>${m.status==='outside'?'Call on-call':'Engage OPS'}</strong></div>
-            <div class="sub" style="margin-top:8px">This column stays aligned under ${m.name} and does not replace the other open markets.</div>
+
+          <div class="flowCard">
+            <div class="flowTitle">Flow</div>
+            <div class="flowSteps">
+              <div class="flowItem">
+                <div class="stepNo">1</div>
+                <div class="stepText"><strong>Assess market</strong><span>Validate current status and keep the timer visible.</span></div>
+              </div>
+              <div class="flowItem">
+                <div class="stepNo">2</div>
+                <div class="stepText"><strong>${m.status==='outside'?'Trigger on-call':'Engage OPS'}</strong><span>${m.status==='outside'?'Use call guidance to reach the on-call owner.':'Open OPS to coordinate investigation and support.'}</span></div>
+              </div>
+              <div class="flowItem">
+                <div class="stepNo">3</div>
+                <div class="stepText"><strong>Monitor until resolved</strong><span>Keep this market open while the other active markets remain visible.</span></div>
+              </div>
+            </div>
           </div>
+
           <div class="cardActions">
             <button class="btn" onclick="openOps('${m.id}')">Open OPS</button>
             <button class="btn" onclick="openCall('${m.id}')">Call guidance</button>
