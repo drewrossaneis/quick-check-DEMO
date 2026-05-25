@@ -1,57 +1,748 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Quick Check Demo</title>
 <style>
-:root{--bg:#0b1020;--panel:#020617;--card:#0f172a;--border:#1e293b;--text:#f8fafc;--muted:#94a3b8;--green:#2dd4bf;--greenD:#06211f;--orange:#f59e0b;--orangeD:#2a1700;--red:#ef4444;--redD:#300c12;--purple:#8b5cf6;--purpleD:#22103a;--shadow:0 10px 30px rgba(0,0,0,.35)}
-*{box-sizing:border-box}body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:radial-gradient(1200px 500px at 50% -10%,#15203a 0%,var(--bg) 55%);color:var(--text)}
-.app{max-width:1400px;margin:0 auto;padding:22px}.sub{color:var(--muted)}
-header{display:flex;justify-content:space-between;align-items:center;gap:16px;margin-bottom:18px}h1{margin:0;font-size:32px}.actions{display:flex;gap:10px}
-.pill,.btn,.chip,.iconBtn,.market{border:1px solid var(--border);background:#0b1326;color:var(--text)}
-.pill{padding:10px 14px;border-radius:999px;cursor:pointer}.pill:hover,.btn:hover,.iconBtn:hover,.market:hover{filter:brightness(1.05)}
-.gridTop{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:18px}.market{border-radius:18px;padding:14px 14px 12px;cursor:pointer;box-shadow:var(--shadow);text-align:center}.market.active{outline:2px solid #28406d}
-.market .name{font-weight:800;font-size:20px;line-height:1.1;margin-bottom:8px}.market .meta{font-size:12px;color:var(--muted)}
-.hours{display:inline-flex;align-items:center;justify-content:center;margin-top:10px;padding:7px 12px;border-radius:999px;font-size:12px;font-weight:800;letter-spacing:.08em}.hours.working{background:var(--greenD);color:var(--green);border:1px solid #124a43}.hours.outside{background:var(--orangeD);color:var(--orange);border:1px solid #7a4b0a}.hours.blocked{background:var(--redD);color:var(--red);border:1px solid #6b1722}
-.gridPanels{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;align-items:start}.empty{grid-column:1/-1;border:1px dashed var(--border);border-radius:18px;padding:28px;text-align:center;color:var(--muted);background:#0a1224}
-.panelWrap.hidden{visibility:hidden;pointer-events:none}.panel{background:var(--panel);border:1px solid var(--border);border-radius:22px;overflow:hidden;box-shadow:var(--shadow)}.bar{height:7px}.bar.working{background:linear-gradient(90deg,#1fbfa3,#2dd4bf)}.bar.outside{background:linear-gradient(90deg,#d97706,#f59e0b)}.bar.blocked{background:linear-gradient(90deg,#dc2626,#ef4444)}.panelIn{padding:16px}
-.row{display:flex;align-items:center;justify-content:space-between;gap:10px}.title{font-weight:800;font-size:20px}.badge{padding:6px 10px;border-radius:999px;font-size:12px;font-weight:700;border:1px solid transparent}.badge.working{background:var(--greenD);color:var(--green);border-color:#124a43}.badge.outside{background:var(--orangeD);color:var(--orange);border-color:#7a4b0a}.badge.blocked{background:var(--redD);color:var(--red);border-color:#6b1722}
-.timerCard{margin:14px 0;padding:16px;border:1px solid #253251;border-radius:18px;background:#0c1730;text-align:center}.timerLabel{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#9bb0d1}.timer{font-size:42px;font-weight:900;letter-spacing:.06em;line-height:1;margin-top:6px;color:#e8f1ff}
-.kv{display:grid;gap:10px;margin:14px 0}.kv .item{display:flex;justify-content:space-between;gap:10px;font-size:14px}.label{color:var(--muted)}
-.priority{margin:14px 0;padding:12px 14px;border-radius:16px;border:1px solid #3a2d10;background:#201708}.priority .pTitle{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#fbbf24;margin-bottom:6px}.priority .pText{font-size:14px;color:#fde68a}
-.linkList{display:grid;gap:10px;margin-top:14px}.linkBtn{display:flex;align-items:center;justify-content:space-between;gap:10px;width:100%;padding:12px 14px;border-radius:14px;border:1px solid var(--border);background:#0b1326;color:var(--text);text-decoration:none;font-weight:700}.linkBtn small{display:block;color:var(--muted);font-weight:500}
-.actionsRow{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}.btn{padding:11px 12px;border-radius:12px;cursor:pointer;font-weight:700}.btn.stop{background:#2a0f17;color:#fecdd3;border-color:#7f1d1d}
-.modalBack{display:none;position:fixed;inset:0;background:rgba(2,6,23,.72);backdrop-filter:blur(3px);padding:24px;z-index:40}.modal{max-width:760px;margin:40px auto;background:var(--panel);border:1px solid var(--border);border-radius:20px;padding:20px}.modal.small{max-width:560px}.modalHead{display:flex;justify-content:space-between;gap:16px;align-items:flex-start;margin-bottom:14px}.close{background:transparent;color:var(--text);border:1px solid var(--border);border-radius:10px;width:36px;height:36px;cursor:pointer}.flowList{display:grid;gap:12px}.flowStep{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:14px}.stopActions{display:flex;justify-content:flex-end;gap:10px;margin-top:18px}
-.callModal{max-width:640px}.callBody{display:grid;gap:12px}.bubbleRow{display:flex}.bubbleRow.self{justify-content:flex-end}.bubble{max-width:82%;background:#172554;border:1px solid #1d4ed8;border-radius:16px;padding:10px 12px}.bubble.self{background:#052e2b;border-color:#0f766e}.bname{font-size:12px;color:#bfdbfe;margin-bottom:4px}.btext{font-size:14px}
-@media (max-width:1200px){.gridTop,.gridPanels{grid-template-columns:repeat(2,1fr)}.empty{grid-column:1/-1}}@media (max-width:720px){.app{padding:16px}header{flex-direction:column;align-items:flex-start}.gridTop,.gridPanels,.actionsRow{grid-template-columns:1fr}.panelWrap.hidden{display:none}}
+:root{
+  --bg:#0b1020;
+  --panel:#020617;
+  --card:#0f172a;
+  --border:#1e293b;
+  --text:#f8fafc;
+  --muted:#94a3b8;
+  --green:#2dd4bf;
+  --greenD:#06211f;
+  --orange:#f59e0b;
+  --orangeD:#2a1700;
+  --red:#ef4444;
+  --redD:#300c12;
+  --indigo:#6366f1;
+  --indigoDark:#4338ca;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+  background:#0b1020;
+  color:var(--text);
+}
+button{font:inherit}
+.app{
+  min-height:100vh;
+  padding:24px;
+}
+.shell{
+  max-width:1280px;
+  margin:0 auto;
+  display:flex;
+  flex-direction:column;
+  gap:20px;
+}
+header{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:16px;
+}
+h1{
+  margin:0;
+  font-size:32px;
+  font-weight:600;
+  letter-spacing:-.02em;
+}
+.sub{
+  color:var(--muted);
+  font-size:14px;
+}
+.headerActions{
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+.pill{
+  padding:10px 16px;
+  border-radius:999px;
+  background:#1f2937;
+  color:var(--text);
+  border:1px solid #475569;
+  cursor:pointer;
+}
+.pill.secondary{
+  color:#cbd5e1;
+  border-color:#334155;
+}
+.marketGrid,
+.panelGrid{
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:12px;
+}
+.marketBtn{
+  border-radius:18px;
+  border:1px solid #1f2937;
+  padding:16px;
+  text-align:left;
+  background:#0f172a;
+  color:#cbd5e1;
+  cursor:pointer;
+  opacity:.72;
+  transition:.18s ease;
+}
+.marketBtn:hover{opacity:1}
+.marketBtn.active{
+  background:#f8fafc;
+  color:#020617;
+  border-color:#f8fafc;
+  box-shadow:0 16px 30px rgba(0,0,0,.25);
+  opacity:1;
+}
+.marketTop{
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+.marketIcon{
+  width:40px;
+  height:40px;
+  border-radius:999px;
+  display:grid;
+  place-items:center;
+  background:#1f2937;
+  color:#94a3b8;
+  flex:0 0 auto;
+}
+.marketBtn.active .marketIcon{
+  background:#020617;
+  color:#f8fafc;
+}
+.marketName{
+  font-size:16px;
+  font-weight:600;
+}
+.marketTime{
+  margin-top:4px;
+  font-size:28px;
+  line-height:1;
+  font-weight:800;
+  color:#94a3b8;
+}
+.marketBtn.active .marketTime{color:#020617}
+.emptyState{
+  border-radius:24px;
+  border:1px solid #1f2937;
+  background:#020617;
+  padding:40px;
+  text-align:center;
+  color:var(--muted);
+}
+.panelSlot.hidden{visibility:hidden}
+.alertCard{
+  border-radius:18px;
+  border:1px solid #1f2937;
+  background:#020617;
+  padding:12px;
+  box-shadow:0 16px 30px rgba(0,0,0,.25);
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+  min-height:510px;
+}
+.opsBox,
+.bottomBox,
+.instanceCard,
+.callProcedure,
+.infoBox{
+  border-radius:18px;
+  border:1px solid #334155;
+  background:#0f172a;
+}
+.opsBox{
+  padding:12px;
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+}
+.opsTitle{
+  font-size:20px;
+  font-weight:900;
+  letter-spacing:-.02em;
+}
+.opsSub{
+  font-size:12px;
+  color:var(--muted);
+  font-weight:700;
+  margin-top:4px;
+}
+.opsSubStrong{
+  font-size:12px;
+  color:#e2e8f0;
+  font-weight:900;
+  margin-top:8px;
+}
+.opsBtn,
+.callBtn{
+  width:100%;
+  border:none;
+  border-radius:999px;
+  background:var(--indigo);
+  color:white;
+  padding:10px 14px;
+  font-weight:900;
+  cursor:pointer;
+}
+.hoursGrid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+}
+.hoursCard{
+  border-radius:14px;
+  padding:10px;
+  border:1px solid #1f2937;
+  text-align:center;
+  background:#0f172a;
+  color:#64748b;
+  opacity:.35;
+}
+.hoursCard.active{
+  opacity:1;
+  box-shadow:0 10px 20px rgba(0,0,0,.2);
+}
+.hoursCard.working.active{
+  background:#2dd4bf;
+  color:#06211f;
+  border-color:#7dd3fc;
+}
+.hoursCard.outside.active{
+  background:#f59e0b;
+  color:#241500;
+  border-color:#fcd34d;
+}
+.hoursLabel{
+  font-size:10px;
+  font-weight:900;
+  text-transform:uppercase;
+  letter-spacing:.08em;
+}
+.informBox{
+  min-height:150px;
+  display:flex;
+  align-items:center;
+  padding:12px;
+  background:#06211f;
+  border:1px solid #0f766e;
+}
+.informBig,
+.procedureBig,
+.instanceMain,
+.callNowBig{
+  font-weight:900;
+  letter-spacing:-.02em;
+}
+.informBig,
+.procedureBig{font-size:30px;line-height:1.02}
+.informSmall{font-size:18px;font-weight:900;margin-top:4px}
+.callProcedure{
+  min-height:72px;
+  display:flex;
+  align-items:center;
+  padding:12px;
+  background:#2a1700;
+  border-color:#b45309;
+}
+.instanceGrid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:8px;
+}
+.instanceCard{
+  padding:12px;
+  background:#0f172a;
+  border-color:#1f2937;
+}
+.instanceCard.alert{
+  background:rgba(120,53,15,.35);
+  border-color:#f59e0b;
+}
+.instanceTitle,
+.infoLabel,
+.callNowNote{
+  font-weight:900;
+}
+.instanceTitle{font-size:18px;color:#e2e8f0}
+.timer{
+  margin-top:10px;
+  font-size:42px;
+  line-height:1;
+  font-weight:900;
+  color:#fcd34d;
+}
+.callAgentBtn{
+  margin-top:10px;
+  border:none;
+  background:none;
+  padding:0;
+  color:#fcd34d;
+  font-size:28px;
+  font-weight:900;
+  cursor:pointer;
+}
+.callNowCard{
+  width:100%;
+  text-align:left;
+  padding:12px;
+  border-radius:18px;
+  background:#300c12;
+  border:1px solid #ef4444;
+  color:#fee2e2;
+  cursor:pointer;
+}
+.callNowTitle{font-size:18px;font-weight:900;color:#fecaca}
+.callNowBig{font-size:32px;color:#fca5a5;margin-top:10px}
+.callNowNote{font-size:12px;margin-top:10px}
+.bottomBox{
+  margin-top:auto;
+  padding:12px;
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+}
+.infoLabel{
+  font-size:10px;
+  text-transform:uppercase;
+  letter-spacing:.08em;
+  color:var(--muted);
+}
+.infoValue{
+  font-size:24px;
+  font-weight:900;
+  margin-top:4px;
+}
+.footer{
+  padding-top:8px;
+  text-align:center;
+}
+.articleBtn{
+  padding:14px 20px;
+  border-radius:999px;
+  border:1px solid #334155;
+  background:#0f172a;
+  color:#e2e8f0;
+  font-size:18px;
+  font-weight:900;
+  text-decoration:underline;
+  text-underline-offset:4px;
+  cursor:pointer;
+}
+.modalBack{
+  display:none;
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.7);
+  align-items:center;
+  justify-content:center;
+  padding:24px;
+  z-index:50;
+}
+.modalBack.open{display:flex}
+.modal{
+  width:min(100%,800px);
+  border-radius:24px;
+  background:#020617;
+  border:1px solid #334155;
+  padding:24px;
+  box-shadow:0 24px 50px rgba(0,0,0,.45);
+}
+.modal.small{width:min(100%,520px)}
+.modal.chat{width:min(100%,760px);padding:0;overflow:hidden}
+.modal.call{width:min(100%,420px);text-align:center;position:relative}
+.modalHead{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-start;
+  gap:16px;
+}
+.modalTitle{font-size:28px;font-weight:900}
+.closeBtn{
+  width:36px;
+  height:36px;
+  border-radius:999px;
+  border:1px solid #334155;
+  background:transparent;
+  color:#94a3b8;
+  cursor:pointer;
+}
+.flowBody{
+  margin-top:24px;
+  padding:24px;
+  border-radius:18px;
+  border:1px solid #334155;
+  background:#0f172a;
+  color:#cbd5e1;
+  line-height:1.65;
+}
+.confirmText{margin-top:10px;color:var(--muted)}
+.confirmActions{display:flex;justify-content:flex-end;gap:12px;margin-top:24px}
+.simpleBtn{
+  padding:12px 18px;
+  border-radius:999px;
+  border:none;
+  cursor:pointer;
+  font-weight:700;
+}
+.simpleBtn.cancel{background:#1f2937;color:#f8fafc}
+.simpleBtn.stop{background:#ef4444;color:white}
+.chatHeader{
+  background:#1f2937;
+  padding:20px;
+  border-bottom:1px solid #334155;
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-start;
+}
+.chatBody{
+  padding:20px;
+  background:#0b1020;
+  display:flex;
+  flex-direction:column;
+  gap:16px;
+}
+.pinnedNotice{
+  border-radius:16px;
+  padding:16px;
+  border:1px solid #d97706;
+  background:rgba(120,53,15,.4);
+}
+.pinnedTitle{font-size:14px;font-weight:900;color:#fbbf24}
+.pinnedText{font-size:14px;color:#f8fafc;margin-top:4px}
+.chatRow{display:flex}.chatRow.self{justify-content:flex-end}
+.chatBubble{
+  max-width:78%;
+  border-radius:18px;
+  padding:14px 16px;
+  background:#1f2937;
+  color:#f8fafc;
+}
+.chatBubble.self{background:var(--indigo)}
+.chatName{font-size:12px;font-weight:900;opacity:.8;margin-bottom:4px}
+.callIcon{
+  margin:0 auto;
+  width:80px;
+  height:80px;
+  border-radius:999px;
+  background:var(--indigo);
+  display:grid;
+  place-items:center;
+  color:white;
+  font-size:34px;
+  box-shadow:0 0 0 10px rgba(99,102,241,.12);
+}
+.callTitle{font-size:32px;font-weight:900;margin-top:20px}.callSub{color:var(--muted);font-weight:700;margin-top:8px}.dots{display:flex;justify-content:center;gap:8px;margin-top:24px}.dot{width:8px;height:8px;border-radius:999px;background:#64748b;animation:bounce 1s infinite}.dot:nth-child(2){animation-delay:.12s}.dot:nth-child(3){animation-delay:.24s}
+@keyframes bounce{0%,80%,100%{transform:translateY(0)}40%{transform:translateY(-6px)}}
+@media (max-width:1100px){.marketGrid,.panelGrid{grid-template-columns:repeat(2,minmax(0,1fr))}}@media (max-width:700px){.app{padding:16px}.marketGrid,.panelGrid,.hoursGrid,.instanceGrid{grid-template-columns:1fr}header{flex-direction:column;align-items:flex-start}.headerActions{flex-wrap:wrap}.panelSlot.hidden{display:none}}
 </style>
 </head>
 <body>
-<div class="app"><header><div><h1>Quick Check</h1><div class="sub">Select affected market</div></div><div class="actions"><button class="pill" id="flowBtn">Flow explained</button></div></header><section><div id="marketGrid" class="gridTop"></div><div id="alertGrid" class="gridPanels"></div></section></div>
-<div id="flowModal" class="modalBack"><div class="modal"><div class="modalHead"><div><h2>Flow explained</h2><div class="sub">Operational path used by Quick Check.</div></div><button class="close" onclick="closeModal('flowModal')">✕</button></div><div class="flowList"><div class="flowStep"><strong>1. Select market</strong><div class="sub">Open one or more affected markets.</div></div><div class="flowStep"><strong>2. Review the panel</strong><div class="sub">Read status, timer, priority and chat/group links in order.</div></div><div class="flowStep"><strong>3. Act</strong><div class="sub">Use chat/groups or call guidance based on the panel details.</div></div></div></div></div>
-<div id="stopModal" class="modalBack"><div class="modal small"><div class="modalHead"><div><h2>Stop monitoring?</h2><p id="stopText" class="sub"></p></div><button class="close" onclick="closeModal('stopModal')">✕</button></div><div class="stopActions"><button class="btn" onclick="closeModal('stopModal')">Cancel</button><button class="btn stop" onclick="confirmStop()">Stop monitoring</button></div></div></div>
+<div class="app">
+  <div class="shell">
+    <header>
+      <div>
+        <h1>Quick Check</h1>
+        <div class="sub">Select affected market</div>
+      </div>
+      <div class="headerActions">
+        <button class="pill" id="flowBtn">Flow explained</button>
+        <button class="pill secondary">Shuffle date and time</button>
+      </div>
+    </header>
+
+    <section id="marketGrid" class="marketGrid"></section>
+    <section id="panelArea"></section>
+
+    <footer class="footer">
+      <button class="articleBtn">Original article and source data</button>
+    </footer>
+  </div>
+</div>
+
+<div id="flowModal" class="modalBack">
+  <div class="modal">
+    <div class="modalHead">
+      <div>
+        <div class="modalTitle">Flow explained</div>
+        <div class="sub" style="margin-top:4px">Operational path used by Quick Check.</div>
+      </div>
+      <button class="closeBtn" onclick="closeModal('flowModal')">✕</button>
+    </div>
+    <div class="flowBody">
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer non nulla vitae erat facilisis posuere. Sed at neque sed massa feugiat tincidunt. Donec consequat, libero at fermentum dapibus, turpis mauris semper mauris, a volutpat lorem velit vitae nisl.</p>
+      <p>Praesent commodo, ipsum vitae interdum pretium, lectus mi placerat lectus, sed volutpat erat lorem sed arcu. Nulla facilisi. Suspendisse potenti. Curabitur at enim vitae magna dignissim tincidunt.</p>
+      <p>Morbi at magna id lorem posuere tincidunt. Duis tempor, nisl non posuere luctus, sapien justo efficitur enim, vitae porttitor lorem nunc non augue. Aliquam erat volutpat.</p>
+    </div>
+  </div>
+</div>
+
+<div id="stopModal" class="modalBack">
+  <div class="modal small">
+    <div class="modalHead">
+      <div>
+        <div style="font-size:24px;font-weight:700">Stop monitoring?</div>
+        <div id="stopText" class="confirmText"></div>
+      </div>
+      <button class="closeBtn" onclick="closeModal('stopModal')">✕</button>
+    </div>
+    <div class="confirmActions">
+      <button class="simpleBtn cancel" onclick="cancelStop()">Cancel</button>
+      <button class="simpleBtn stop" onclick="confirmStop()">Stop monitoring</button>
+    </div>
+  </div>
+</div>
+
+<div id="opsModal" class="modalBack"></div>
 <div id="callModal" class="modalBack"></div>
+
 <script>
-const markets=[
-{id:'A',name:'Market A',time:'14:58',status:'working',engineer:'Engineer 4',priority:'Priority: monitor normal workflow and keep channel updates visible.',chat:'OPS Chat A',group:'Market A Group'},
-{id:'B',name:'Market B',time:'11:58',status:'outside',engineer:'Engineer 7',priority:'Priority: outside hours — use call guidance first, then update the group.',chat:'OPS Chat B',group:'Market B Group'},
-{id:'C',name:'Market C',time:'10:42',status:'blocked',engineer:'Engineer 2',priority:'Priority: blocked flow — escalate immediately and keep the room updated.',chat:'OPS Chat C',group:'Market C Group'},
-{id:'D',name:'Market D',time:'09:15',status:'working',engineer:'Engineer 9',priority:'Priority: track impact and confirm status in the market thread.',chat:'OPS Chat D',group:'Market D Group'}
+const markets = [
+  { id: 'A', name: 'Market A', time: '14:58', status: 'working', engineer: 'Engineer 4' },
+  { id: 'B', name: 'Market B', time: '11:58', status: 'outside', engineer: 'Engineer 7' },
+  { id: 'C', name: 'Market C', time: '13:58', status: 'working', engineer: 'Engineer 2' },
+  { id: 'D', name: 'Market D', time: '15:58', status: 'outside', engineer: 'Engineer 9' }
 ];
-const TIMER_START=180,active={};let pendingStopId=null;const marketGrid=document.getElementById('marketGrid'),alertGrid=document.getElementById('alertGrid');
-function fmt(s){return String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0')}
-function statusClass(status){return status==='working'?'working':status==='outside'?'outside':'blocked'}
-function hoursLabel(status){return status==='outside'?'HOURS':'HOURS'}
-function statusLabel(status){return status==='working'?'Working hours':status==='outside'?'Outside business hours':'Blocked'}
-function renderMarkets(){marketGrid.innerHTML=markets.map(m=>`<button class="market ${active[m.id]?'active':''}" onclick="handleMarket('${m.id}')"><div class="name">${m.name}</div><div class="meta">${m.engineer}</div><div class="hours ${statusClass(m.status)}">${hoursLabel(m.status)}</div></button>`).join('')}
-function renderAlerts(){if(!Object.keys(active).length){alertGrid.innerHTML='<div class="empty">Select a market to start monitoring.</div>';return}alertGrid.innerHTML=markets.map(m=>{const a=active[m.id];if(!a)return '<div class="panelWrap hidden"></div>';return `<div class="panelWrap"><div class="panel"><div class="bar ${statusClass(m.status)}"></div><div class="panelIn"><div class="row"><div><div class="title">${m.name}</div><div class="sub">${statusLabel(m.status)}</div></div><span class="badge ${statusClass(m.status)}">${hoursLabel(m.status)}</span></div><div class="timerCard"><div class="timerLabel">Monitoring timer</div><div class="timer">${fmt(a.timer)}</div></div><div class="kv"><div class="item"><span class="label">Engineer</span><strong>${m.engineer}</strong></div><div class="item"><span class="label">Opened</span><strong>${m.time}</strong></div></div><div class="priority"><div class="pTitle">Priority</div><div class="pText">${m.priority}</div></div><div class="linkList"><a class="linkBtn" href="#" onclick="openChat('${m.id}');return false;"><span>${m.chat}<small>Open chat guidance</small></span><span>→</span></a><a class="linkBtn" href="#" onclick="openGroup('${m.id}');return false;"><span>${m.group}<small>Open group guidance</small></span><span>→</span></a></div><div class="actionsRow"><button class="btn" onclick="openCall('${m.id}')">Call guidance</button><button class="btn stop" onclick="requestStop('${m.id}')">Stop monitoring</button></div></div></div></div>`}).join('')}
-function handleMarket(id){const m=markets.find(x=>x.id===id);if(active[id]){pendingStopId=id;document.getElementById('stopText').textContent=`You are about to stop monitoring ${m.name}. This will close only that panel.`;document.getElementById('stopModal').style.display='block';return}active[id]={id,timer:TIMER_START};render()}
-function requestStop(id){const m=markets.find(x=>x.id===id);pendingStopId=id;document.getElementById('stopText').textContent=`You are about to stop monitoring ${m.name}. This will close only that panel.`;document.getElementById('stopModal').style.display='block'}
-function confirmStop(){if(pendingStopId) delete active[pendingStopId];pendingStopId=null;closeModal('stopModal');render()}
-function bubble(n,t,self=false){return `<div class="bubbleRow ${self?'self':''}"><div class="bubble ${self?'self':''}"><div class="bname">${n}</div><div class="btext">${t}</div></div></div>`}
-function openCall(id){const market=markets.find(x=>x.id===id),el=document.getElementById('callModal');el.innerHTML=`<div class="modal small callModal"><div class="modalHead"><div><h2>${market.name} call guidance</h2><div class="sub">Simple script for the current alert path.</div></div><button class="close" onclick="closeModal('callModal')">✕</button></div><div class="callBody">${bubble('Quick Check',`Hello, we are monitoring an alert for ${market.name}. Can you confirm current impact and next action?`)}${bubble('On-call',`Acknowledged. I am checking ${market.name} now and will return with status in a few minutes.`,true)}</div></div>`;el.style.display='block'}
-function openChat(id){const market=markets.find(x=>x.id===id),el=document.getElementById('callModal');el.innerHTML=`<div class="modal small callModal"><div class="modalHead"><div><h2>${market.chat}</h2><div class="sub">Chat guidance for ${market.name}.</div></div><button class="close" onclick="closeModal('callModal')">✕</button></div><div class="callBody">${bubble('Quick Check',`Posting update in ${market.chat}.`)}${bubble('Message',market.priority,true)}</div></div>`;el.style.display='block'}
-function openGroup(id){const market=markets.find(x=>x.id===id),el=document.getElementById('callModal');el.innerHTML=`<div class="modal small callModal"><div class="modalHead"><div><h2>${market.group}</h2><div class="sub">Group guidance for ${market.name}.</div></div><button class="close" onclick="closeModal('callModal')">✕</button></div><div class="callBody">${bubble('Quick Check',`Updating ${market.group} with latest status.`)}${bubble('Reminder','Keep market thread updated with time, owner and next action.',true)}</div></div>`;el.style.display='block'}
-function closeModal(id){document.getElementById(id).style.display='none'}
-function render(){renderMarkets();renderAlerts()}setInterval(()=>{Object.values(active).forEach(a=>a.timer=Math.max(0,a.timer-1));renderAlerts()},1000);document.getElementById('flowBtn').onclick=()=>document.getElementById('flowModal').style.display='block';render()
-</script></body></html>
+
+const TIMER_START = 180;
+const activeAlerts = {};
+let confirmMarketId = null;
+
+const marketGrid = document.getElementById('marketGrid');
+const panelArea = document.getElementById('panelArea');
+
+function formatTimer(seconds) {
+  const min = String(Math.floor(seconds / 60)).padStart(2, '0');
+  const sec = String(seconds % 60).padStart(2, '0');
+  return `${min}:${sec}`;
+}
+
+function iconFlag(){ return '⚑'; }
+function iconChat(){ return '💬'; }
+function iconPhone(){ return '📞'; }
+
+function renderMarkets() {
+  marketGrid.innerHTML = markets.map((market) => {
+    const active = Boolean(activeAlerts[market.id]);
+    return `
+      <button class="marketBtn ${active ? 'active' : ''}" onclick="handleMarketClick('${market.id}')">
+        <div class="marketTop">
+          <div class="marketIcon">${iconFlag()}</div>
+          <div>
+            <div class="marketName">${market.name}</div>
+            <div class="marketTime">${market.time}</div>
+          </div>
+        </div>
+      </button>
+    `;
+  }).join('');
+}
+
+function renderPanels() {
+  const activeList = Object.values(activeAlerts).sort((a, b) => a.createdAt - b.createdAt);
+
+  if (activeList.length === 0) {
+    panelArea.innerHTML = `<section class="emptyState">Select a market to start monitoring.</section>`;
+    return;
+  }
+
+  panelArea.innerHTML = `
+    <section class="panelGrid">
+      ${markets.map((market) => {
+        const alert = activeAlerts[market.id];
+        if (!alert) return `<div class="panelSlot hidden"></div>`;
+        return `<div class="panelSlot">${renderAlertCard(alert)}</div>`;
+      }).join('')}
+    </section>
+  `;
+}
+
+function renderAlertCard(alert) {
+  const isWorking = alert.status === 'working';
+  const timerFinished = alert.timer === 0;
+
+  return `
+    <main class="alertCard">
+      <section class="opsBox">
+        <div>
+          <div class="opsTitle">CHECK OPS MESSAGES</div>
+          <div class="opsSub">If planned restart or known issue was posted, monitor only.</div>
+          <div class="opsSubStrong">If not, act immediately.</div>
+        </div>
+        <button class="opsBtn" onclick="openOps('${alert.id}')">${iconChat()} OPS ${alert.name} Chat</button>
+      </section>
+
+      <div class="hoursGrid">
+        <div class="hoursCard working ${isWorking ? 'active' : ''}">
+          <div class="hoursLabel">Working hours</div>
+        </div>
+        <div class="hoursCard outside ${!isWorking ? 'active' : ''}">
+          <div class="hoursLabel">Outside hours</div>
+        </div>
+      </div>
+
+      ${isWorking ? `
+        <section class="informBox">
+          <div>
+            <div class="informBig">INFORM TEAM</div>
+            <div class="informSmall">IF NEEDED</div>
+          </div>
+        </section>
+      ` : `
+        <section class="callProcedure">
+          <div class="procedureBig">CALL OUT PROCEDURE</div>
+        </section>
+
+        <section class="instanceGrid">
+          <div class="instanceCard ${timerFinished ? 'alert' : ''}">
+            <div class="instanceTitle">INSTANCE 1</div>
+            ${timerFinished
+              ? `<button class="callAgentBtn" onclick="openCall('${alert.id}')">CALL AGENT</button>`
+              : `<div class="timer">${formatTimer(alert.timer)}</div>`}
+          </div>
+
+          <button class="callNowCard" onclick="openCall('${alert.id}')">
+            <div class="callNowTitle">INSTANCE 0</div>
+            <div class="callNowBig">CALL NOW</div>
+            <div class="callNowNote">EVEN IF RECOVERED</div>
+          </button>
+        </section>
+
+        <section class="bottomBox">
+          <div>
+            <div class="infoLabel">On call engineer</div>
+            <div class="infoValue">${alert.engineer}</div>
+          </div>
+          <button class="callBtn" onclick="openCall('${alert.id}')">${iconPhone()} Call Engineer</button>
+        </section>
+      `}
+    </main>
+  `;
+}
+
+function handleMarketClick(marketId) {
+  const market = markets.find((m) => m.id === marketId);
+  if (!market) return;
+
+  if (activeAlerts[market.id]) {
+    confirmMarketId = market.id;
+    document.getElementById('stopText').textContent = `You are about to stop monitoring this alert for ${market.name}.`;
+    openModal('stopModal');
+    return;
+  }
+
+  activeAlerts[market.id] = {
+    ...market,
+    timer: TIMER_START,
+    createdAt: Date.now()
+  };
+
+  render();
+}
+
+function cancelStop() {
+  confirmMarketId = null;
+  closeModal('stopModal');
+}
+
+function confirmStop() {
+  if (!confirmMarketId) return;
+  delete activeAlerts[confirmMarketId];
+  confirmMarketId = null;
+  closeModal('stopModal');
+  render();
+}
+
+function openOps(id) {
+  const market = activeAlerts[id] || markets.find((m) => m.id === id);
+  const pinned = market.id === 'B'
+    ? `<div class="pinnedNotice"><div class="pinnedTitle">Pinned notice</div><div class="pinnedText">Planned restart notice for Market B date-time. Short healthy instance drops may occur during the window.</div></div>`
+    : '';
+
+  document.getElementById('opsModal').innerHTML = `
+    <div class="modalBack open" id="opsModalInner">
+      <div class="modal chat">
+        <div class="chatHeader">
+          <div>
+            <div style="font-size:22px;font-weight:900">OPS ${market.name} Chat</div>
+            <div class="sub" style="margin-top:4px">Microsoft Teams group chat simulation</div>
+          </div>
+          <button class="closeBtn" onclick="closeOpsModal()">✕</button>
+        </div>
+        <div class="chatBody">
+          ${pinned}
+          ${chatBubble('Ops Bot', `Latest context for ${market.name} is available in this chat.`)}
+          ${chatBubble('Team Member', 'No active update posted in the last few minutes.')}
+          ${chatBubble('You', 'Checking alert context and current operational status.', true)}
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+function closeOpsModal() {
+  document.getElementById('opsModal').innerHTML = '';
+}
+
+function chatBubble(name, text, self = false) {
+  return `
+    <div class="chatRow ${self ? 'self' : ''}">
+      <div class="chatBubble ${self ? 'self' : ''}">
+        <div class="chatName">${name}</div>
+        <div>${text}</div>
+      </div>
+    </div>
+  `;
+}
+
+function openCall(id) {
+  const alert = activeAlerts[id] || markets.find((m) => m.id === id);
+  document.getElementById('callModal').innerHTML = `
+    <div class="modalBack open" id="callModalInner">
+      <div class="modal call">
+        <button class="closeBtn" style="position:absolute;top:20px;right:20px" onclick="closeCallModal()">✕</button>
+        <div class="callIcon">${iconPhone()}</div>
+        <div class="callTitle">Calling ${alert.engineer}.</div>
+        <div class="callSub">Call simulation active.</div>
+        <div class="dots"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
+      </div>
+    </div>
+  `;
+}
+
+function closeCallModal() {
+  document.getElementById('callModal').innerHTML = '';
+}
+
+function openModal(id) {
+  document.getElementById(id).classList.add('open');
+}
+
+function closeModal(id) {
+  document.getElementById(id).classList.remove('open');
+}
+
+function render() {
+  renderMarkets();
+  renderPanels();
+}
+
+setInterval(() => {
+  Object.keys(activeAlerts).forEach((id) => {
+    activeAlerts[id].timer = Math.max(0, activeAlerts[id].timer - 1);
+  });
+  renderPanels();
+}, 1000);
+
+document.getElementById('flowBtn').onclick = () => openModal('flowModal');
+render();
+</script>
+</body>
+</html>
