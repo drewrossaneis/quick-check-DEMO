@@ -22,12 +22,7 @@
   --indigo:#6366f1;
 }
 *{box-sizing:border-box}
-body{
-  margin:0;
-  font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
-  background:#0a1120;
-  color:var(--text);
-}
+body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:#0a1120;color:var(--text)}
 button{font:inherit}
 .app{min-height:100vh;padding:24px}
 .shell{max-width:1280px;margin:0 auto;display:flex;flex-direction:column;gap:20px}
@@ -87,7 +82,7 @@ h1{margin:0;font-size:32px;font-weight:600;letter-spacing:-.02em}.sub{color:var(
         <div class="modalTitle">Flow explained</div>
         <div class="sub" style="margin-top:4px">Operational path used by Quick Check.</div>
       </div>
-      <button class="closeBtn" onclick="closeModal('flowModal')">✕</button>
+      <button class="closeBtn" type="button" onclick="closeModal('flowModal')">✕</button>
     </div>
     <div class="flowBody">
       <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer non nulla vitae erat facilisis posuere. Sed at neque sed massa feugiat tincidunt. Donec consequat, libero at fermentum dapibus, turpis mauris semper mauris, a volutpat lorem velit vitae nisl.</p>
@@ -104,11 +99,11 @@ h1{margin:0;font-size:32px;font-weight:600;letter-spacing:-.02em}.sub{color:var(
         <div style="font-size:24px;font-weight:700">Stop monitoring?</div>
         <div id="stopText" class="confirmText"></div>
       </div>
-      <button class="closeBtn" onclick="closeModal('stopModal')">✕</button>
+      <button class="closeBtn" type="button" onclick="closeModal('stopModal')">✕</button>
     </div>
     <div class="confirmActions">
-      <button class="simpleBtn cancel" onclick="cancelStop()">Cancel</button>
-      <button class="simpleBtn stop" onclick="confirmStop()">Stop monitoring</button>
+      <button class="simpleBtn cancel" type="button" onclick="cancelStop()">Cancel</button>
+      <button class="simpleBtn stop" type="button" onclick="confirmStop()">Stop monitoring</button>
     </div>
   </div>
 </div>
@@ -147,7 +142,7 @@ function renderMarkets() {
     const active = Boolean(activeAlerts[market.id]);
     const actionLabel = active ? 'Stop monitoring' : 'Start monitoring';
     return `
-      <button class="marketBtn ${active ? 'active' : ''}" onclick="handleMarketClick('${market.id}')">
+      <button type="button" class="marketBtn ${active ? 'active' : ''}" onclick="handleMarketClick('${market.id}')">
         <div class="marketAction">${actionLabel}</div>
         <div class="marketTop">
           <div class="marketIcon">${iconFlag()}</div>
@@ -193,7 +188,7 @@ function renderAlertCard(alert) {
           <div class="opsSub">If planned restart or known issue was posted, monitor only.</div>
           <div class="opsSubStrong">If not, act immediately.</div>
         </div>
-        <button class="opsBtn" onclick="openOps(event, '${alert.id}')">${iconChat()} OPS ${alert.name} Chat</button>
+        <button type="button" class="opsBtn" data-chat-id="${alert.id}">${iconChat()} OPS ${alert.name} Chat</button>
       </section>
 
       <div class="hoursGrid">
@@ -221,11 +216,11 @@ function renderAlertCard(alert) {
           <div class="instanceCard ${timerFinished ? 'alert' : ''}">
             <div class="instanceTitle">INSTANCE 1</div>
             ${timerFinished
-              ? `<button class="callAgentBtn" onclick="openCall(event, '${alert.id}')">CALL AGENT</button>`
+              ? `<button type="button" class="callAgentBtn" data-call-id="${alert.id}">CALL AGENT</button>`
               : `<div class="timer">${formatTimer(alert.timer)}</div>`}
           </div>
 
-          <button class="callNowCard" onclick="openCall(event, '${alert.id}')">
+          <button type="button" class="callNowCard" data-call-id="${alert.id}">
             <div class="callNowTitle">INSTANCE 0</div>
             <div class="callNowBig">CALL NOW</div>
             <div class="callNowNote">EVEN IF RECOVERED</div>
@@ -237,7 +232,7 @@ function renderAlertCard(alert) {
             <div class="infoLabel">On call engineer</div>
             <div class="infoValue">${alert.engineer}</div>
           </div>
-          <button class="callBtn" onclick="openCall(event, '${alert.id}')">${iconPhone()} Call Engineer</button>
+          <button type="button" class="callBtn" data-call-id="${alert.id}">${iconPhone()} Call Engineer</button>
         </section>
       `}
     </main>
@@ -277,22 +272,22 @@ function confirmStop() {
   render();
 }
 
-function openOps(event, id) {
-  event?.stopPropagation();
+function openOpsById(id) {
   const market = activeAlerts[id] || markets.find((m) => m.id === id);
+  if (!market) return;
   const pinned = market.id === 'B'
     ? `<div class="pinnedNotice"><div class="pinnedTitle">Pinned notice</div><div class="pinnedText">Planned restart notice for Market B date-time. Short healthy instance drops may occur during the window.</div></div>`
     : '';
 
   document.getElementById('opsModal').innerHTML = `
-    <div class="modalBack open" id="opsModalInner" onclick="closeOpsModal()">
-      <div class="modal chat" onclick="event.stopPropagation()">
+    <div class="modalBack open" id="opsModalInner">
+      <div class="modal chat">
         <div class="chatHeader">
           <div>
             <div style="font-size:22px;font-weight:900">OPS ${market.name} Chat</div>
             <div class="sub" style="margin-top:4px">Microsoft Teams group chat simulation</div>
           </div>
-          <button class="closeBtn" onclick="closeOpsModal()">✕</button>
+          <button type="button" class="closeBtn" data-close="ops">✕</button>
         </div>
         <div class="chatBody">
           ${pinned}
@@ -320,13 +315,13 @@ function chatBubble(name, text, self = false) {
   `;
 }
 
-function openCall(event, id) {
-  event?.stopPropagation();
+function openCallById(id) {
   const alert = activeAlerts[id] || markets.find((m) => m.id === id);
+  if (!alert) return;
   document.getElementById('callModal').innerHTML = `
-    <div class="modalBack open" id="callModalInner" onclick="closeCallModal()">
-      <div class="modal call" onclick="event.stopPropagation()">
-        <button class="closeBtn" style="position:absolute;top:20px;right:20px" onclick="closeCallModal()">✕</button>
+    <div class="modalBack open" id="callModalInner">
+      <div class="modal call">
+        <button type="button" class="closeBtn" style="position:absolute;top:20px;right:20px" data-close="call">✕</button>
         <div class="callIcon">${iconPhone()}</div>
         <div class="callTitle">Calling ${alert.engineer}.</div>
         <div class="callSub">Call simulation active.</div>
@@ -347,6 +342,46 @@ function openModal(id) {
 function closeModal(id) {
   document.getElementById(id).classList.remove('open');
 }
+
+document.addEventListener('click', (event) => {
+  const chatTrigger = event.target.closest('[data-chat-id]');
+  if (chatTrigger) {
+    event.preventDefault();
+    event.stopPropagation();
+    openOpsById(chatTrigger.dataset.chatId);
+    return;
+  }
+
+  const callTrigger = event.target.closest('[data-call-id]');
+  if (callTrigger) {
+    event.preventDefault();
+    event.stopPropagation();
+    openCallById(callTrigger.dataset.callId);
+    return;
+  }
+
+  const opsBackdrop = event.target.closest('#opsModalInner');
+  if (opsBackdrop && event.target === opsBackdrop) {
+    closeOpsModal();
+    return;
+  }
+
+  const callBackdrop = event.target.closest('#callModalInner');
+  if (callBackdrop && event.target === callBackdrop) {
+    closeCallModal();
+    return;
+  }
+
+  if (event.target.closest('[data-close="ops"]')) {
+    closeOpsModal();
+    return;
+  }
+
+  if (event.target.closest('[data-close="call"]')) {
+    closeCallModal();
+    return;
+  }
+});
 
 function render() {
   renderMarkets();
