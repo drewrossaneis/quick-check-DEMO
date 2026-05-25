@@ -16,10 +16,10 @@
   --greenD:#06211f;
   --orange:#f59e0b;
   --orangeD:#2a1700;
+  --orangeSoft:#fcd34d;
   --red:#ef4444;
   --redD:#300c12;
   --indigo:#6366f1;
-  --indigoDark:#4338ca;
 }
 *{box-sizing:border-box}
 body{
@@ -29,417 +29,28 @@ body{
   color:var(--text);
 }
 button{font:inherit}
-.app{
-  min-height:100vh;
-  padding:24px;
-}
-.shell{
-  max-width:1280px;
-  margin:0 auto;
-  display:flex;
-  flex-direction:column;
-  gap:20px;
-}
-header{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:16px;
-}
-h1{
-  margin:0;
-  font-size:32px;
-  font-weight:600;
-  letter-spacing:-.02em;
-}
-.sub{
-  color:var(--muted);
-  font-size:14px;
-}
-.headerActions{
-  display:flex;
-  align-items:center;
-  gap:12px;
-}
-.pill{
-  padding:10px 16px;
-  border-radius:999px;
-  background:#1f2937;
-  color:var(--text);
-  border:1px solid #475569;
-  cursor:pointer;
-}
-.pill.secondary{
-  color:#cbd5e1;
-  border-color:#334155;
-}
-.marketGrid,
-.panelGrid{
-  display:grid;
-  grid-template-columns:repeat(4,minmax(0,1fr));
-  gap:12px;
-}
-.marketBtn{
-  border-radius:18px;
-  border:1px solid #1f2937;
-  padding:16px;
-  text-align:left;
-  background:#0f172a;
-  color:#cbd5e1;
-  cursor:pointer;
-  opacity:.72;
-  transition:.18s ease;
-}
-.marketBtn:hover{opacity:1}
-.marketBtn.active{
-  background:#f8fafc;
-  color:#020617;
-  border-color:#f8fafc;
-  box-shadow:0 16px 30px rgba(0,0,0,.25);
-  opacity:1;
-}
-.marketTop{
-  display:flex;
-  align-items:center;
-  gap:12px;
-}
-.marketIcon{
-  width:40px;
-  height:40px;
-  border-radius:999px;
-  display:grid;
-  place-items:center;
-  background:#1f2937;
-  color:#94a3b8;
-  flex:0 0 auto;
-}
-.marketBtn.active .marketIcon{
-  background:#020617;
-  color:#f8fafc;
-}
-.marketName{
-  font-size:16px;
-  font-weight:600;
-}
-.marketTime{
-  margin-top:4px;
-  font-size:28px;
-  line-height:1;
-  font-weight:800;
-  color:#94a3b8;
-}
-.marketBtn.active .marketTime{color:#020617}
-.emptyState{
-  border-radius:24px;
-  border:1px solid #1f2937;
-  background:#020617;
-  padding:40px;
-  text-align:center;
-  color:var(--muted);
-}
-.panelSlot.hidden{visibility:hidden}
-.alertCard{
-  border-radius:18px;
-  border:1px solid #1f2937;
-  background:#020617;
-  padding:12px;
-  box-shadow:0 16px 30px rgba(0,0,0,.25);
-  display:flex;
-  flex-direction:column;
-  gap:12px;
-  min-height:510px;
-}
-.opsBox,
-.bottomBox,
-.instanceCard,
-.callProcedure,
-.infoBox{
-  border-radius:18px;
-  border:1px solid #334155;
-  background:#0f172a;
-}
-.opsBox{
-  padding:12px;
-  display:flex;
-  flex-direction:column;
-  gap:12px;
-}
-.opsTitle{
-  font-size:20px;
-  font-weight:900;
-  letter-spacing:-.02em;
-}
-.opsSub{
-  font-size:12px;
-  color:var(--muted);
-  font-weight:700;
-  margin-top:4px;
-}
-.opsSubStrong{
-  font-size:12px;
-  color:#e2e8f0;
-  font-weight:900;
-  margin-top:8px;
-}
-.opsBtn,
-.callBtn{
-  width:100%;
-  border:none;
-  border-radius:999px;
-  background:var(--indigo);
-  color:white;
-  padding:10px 14px;
-  font-weight:900;
-  cursor:pointer;
-}
-.hoursGrid{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:12px;
-}
-.hoursCard{
-  border-radius:14px;
-  padding:10px;
-  border:1px solid #1f2937;
-  text-align:center;
-  background:#0f172a;
-  color:#64748b;
-  opacity:.35;
-}
-.hoursCard.active{
-  opacity:1;
-  box-shadow:0 10px 20px rgba(0,0,0,.2);
-}
-.hoursCard.working.active{
-  background:#2dd4bf;
-  color:#06211f;
-  border-color:#7dd3fc;
-}
-.hoursCard.outside.active{
-  background:#f59e0b;
-  color:#241500;
-  border-color:#fcd34d;
-}
-.hoursLabel{
-  font-size:10px;
-  font-weight:900;
-  text-transform:uppercase;
-  letter-spacing:.08em;
-}
-.informBox{
-  min-height:150px;
-  display:flex;
-  align-items:center;
-  padding:12px;
-  background:#06211f;
-  border:1px solid #0f766e;
-}
-.informBig,
-.procedureBig,
-.instanceMain,
-.callNowBig{
-  font-weight:900;
-  letter-spacing:-.02em;
-}
-.informBig,
-.procedureBig{font-size:30px;line-height:1.02}
-.informSmall{font-size:18px;font-weight:900;margin-top:4px}
-.callProcedure{
-  min-height:72px;
-  display:flex;
-  align-items:center;
-  padding:12px;
-  background:#2a1700;
-  border-color:#b45309;
-}
-.instanceGrid{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:8px;
-}
-.instanceCard{
-  padding:12px;
-  background:#0f172a;
-  border-color:#1f2937;
-}
-.instanceCard.alert{
-  background:rgba(120,53,15,.35);
-  border-color:#f59e0b;
-}
-.instanceTitle,
-.infoLabel,
-.callNowNote{
-  font-weight:900;
-}
-.instanceTitle{font-size:18px;color:#e2e8f0}
-.timer{
-  margin-top:10px;
-  font-size:42px;
-  line-height:1;
-  font-weight:900;
-  color:#fcd34d;
-}
-.callAgentBtn{
-  margin-top:10px;
-  border:none;
-  background:none;
-  padding:0;
-  color:#fcd34d;
-  font-size:28px;
-  font-weight:900;
-  cursor:pointer;
-}
-.callNowCard{
-  width:100%;
-  text-align:left;
-  padding:12px;
-  border-radius:18px;
-  background:#300c12;
-  border:1px solid #ef4444;
-  color:#fee2e2;
-  cursor:pointer;
-}
-.callNowTitle{font-size:18px;font-weight:900;color:#fecaca}
-.callNowBig{font-size:32px;color:#fca5a5;margin-top:10px}
-.callNowNote{font-size:12px;margin-top:10px}
-.bottomBox{
-  margin-top:auto;
-  padding:12px;
-  display:flex;
-  flex-direction:column;
-  gap:12px;
-}
-.infoLabel{
-  font-size:10px;
-  text-transform:uppercase;
-  letter-spacing:.08em;
-  color:var(--muted);
-}
-.infoValue{
-  font-size:24px;
-  font-weight:900;
-  margin-top:4px;
-}
-.footer{
-  padding-top:8px;
-  text-align:center;
-}
-.articleBtn{
-  padding:14px 20px;
-  border-radius:999px;
-  border:1px solid #334155;
-  background:#0f172a;
-  color:#e2e8f0;
-  font-size:18px;
-  font-weight:900;
-  text-decoration:underline;
-  text-underline-offset:4px;
-  cursor:pointer;
-}
-.modalBack{
-  display:none;
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,.7);
-  align-items:center;
-  justify-content:center;
-  padding:24px;
-  z-index:50;
-}
-.modalBack.open{display:flex}
-.modal{
-  width:min(100%,800px);
-  border-radius:24px;
-  background:#020617;
-  border:1px solid #334155;
-  padding:24px;
-  box-shadow:0 24px 50px rgba(0,0,0,.45);
-}
-.modal.small{width:min(100%,520px)}
-.modal.chat{width:min(100%,760px);padding:0;overflow:hidden}
-.modal.call{width:min(100%,420px);text-align:center;position:relative}
-.modalHead{
-  display:flex;
-  justify-content:space-between;
-  align-items:flex-start;
-  gap:16px;
-}
-.modalTitle{font-size:28px;font-weight:900}
-.closeBtn{
-  width:36px;
-  height:36px;
-  border-radius:999px;
-  border:1px solid #334155;
-  background:transparent;
-  color:#94a3b8;
-  cursor:pointer;
-}
-.flowBody{
-  margin-top:24px;
-  padding:24px;
-  border-radius:18px;
-  border:1px solid #334155;
-  background:#0f172a;
-  color:#cbd5e1;
-  line-height:1.65;
-}
-.confirmText{margin-top:10px;color:var(--muted)}
-.confirmActions{display:flex;justify-content:flex-end;gap:12px;margin-top:24px}
-.simpleBtn{
-  padding:12px 18px;
-  border-radius:999px;
-  border:none;
-  cursor:pointer;
-  font-weight:700;
-}
-.simpleBtn.cancel{background:#1f2937;color:#f8fafc}
-.simpleBtn.stop{background:#ef4444;color:white}
-.chatHeader{
-  background:#1f2937;
-  padding:20px;
-  border-bottom:1px solid #334155;
-  display:flex;
-  justify-content:space-between;
-  align-items:flex-start;
-}
-.chatBody{
-  padding:20px;
-  background:#0b1020;
-  display:flex;
-  flex-direction:column;
-  gap:16px;
-}
-.pinnedNotice{
-  border-radius:16px;
-  padding:16px;
-  border:1px solid #d97706;
-  background:rgba(120,53,15,.4);
-}
-.pinnedTitle{font-size:14px;font-weight:900;color:#fbbf24}
-.pinnedText{font-size:14px;color:#f8fafc;margin-top:4px}
-.chatRow{display:flex}.chatRow.self{justify-content:flex-end}
-.chatBubble{
-  max-width:78%;
-  border-radius:18px;
-  padding:14px 16px;
-  background:#1f2937;
-  color:#f8fafc;
-}
-.chatBubble.self{background:var(--indigo)}
-.chatName{font-size:12px;font-weight:900;opacity:.8;margin-bottom:4px}
-.callIcon{
-  margin:0 auto;
-  width:80px;
-  height:80px;
-  border-radius:999px;
-  background:var(--indigo);
-  display:grid;
-  place-items:center;
-  color:white;
-  font-size:34px;
-  box-shadow:0 0 0 10px rgba(99,102,241,.12);
-}
-.callTitle{font-size:32px;font-weight:900;margin-top:20px}.callSub{color:var(--muted);font-weight:700;margin-top:8px}.dots{display:flex;justify-content:center;gap:8px;margin-top:24px}.dot{width:8px;height:8px;border-radius:999px;background:#64748b;animation:bounce 1s infinite}.dot:nth-child(2){animation-delay:.12s}.dot:nth-child(3){animation-delay:.24s}
+.app{min-height:100vh;padding:24px}
+.shell{max-width:1280px;margin:0 auto;display:flex;flex-direction:column;gap:20px}
+header{display:flex;align-items:center;justify-content:space-between;gap:16px}
+h1{margin:0;font-size:32px;font-weight:600;letter-spacing:-.02em}.sub{color:var(--muted);font-size:14px}
+.headerActions{display:flex;align-items:center;gap:12px}
+.pill{padding:10px 16px;border-radius:999px;background:#1f2937;color:var(--text);border:1px solid #475569;cursor:pointer}.pill.secondary{color:#cbd5e1;border-color:#334155}
+.marketGrid,.panelGrid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.marketBtn{border-radius:18px;border:1px solid #1f2937;padding:16px;text-align:left;background:#0f172a;color:#cbd5e1;cursor:pointer;opacity:.72;transition:.18s ease}.marketBtn:hover{opacity:1}.marketBtn.active{background:#f8fafc;color:#020617;border-color:#f8fafc;box-shadow:0 16px 30px rgba(0,0,0,.25);opacity:1}
+.marketTop{display:flex;align-items:center;gap:12px}.marketIcon{width:40px;height:40px;border-radius:999px;display:grid;place-items:center;background:#1f2937;color:#94a3b8;flex:0 0 auto}.marketBtn.active .marketIcon{background:#020617;color:#f8fafc}.marketName{font-size:16px;font-weight:600}.marketTime{margin-top:4px;font-size:28px;line-height:1;font-weight:800;color:var(--orangeSoft)}.marketBtn.active .marketTime{color:var(--orange)}
+.emptyState{border-radius:24px;border:1px solid #1f2937;background:#020617;padding:40px;text-align:center;color:var(--muted)}.panelSlot.hidden{visibility:hidden}
+.alertCard{border-radius:18px;border:1px solid #1f2937;background:#020617;padding:12px;box-shadow:0 16px 30px rgba(0,0,0,.25);display:flex;flex-direction:column;gap:12px;min-height:510px}
+.opsBox,.bottomBox,.instanceCard,.callProcedure{border-radius:18px;border:1px solid #334155;background:#0f172a}.opsBox{padding:12px;display:flex;flex-direction:column;gap:12px}.opsText{text-align:center;display:flex;flex-direction:column;align-items:center}.opsTitle{font-size:20px;font-weight:900;letter-spacing:-.02em;text-align:center}.opsSub{font-size:12px;color:var(--muted);font-weight:700;margin-top:4px;text-align:center;max-width:260px}.opsSubStrong{font-size:12px;color:#e2e8f0;font-weight:900;margin-top:8px;text-align:center}.opsBtn,.callBtn{width:100%;border:none;border-radius:999px;background:var(--indigo);color:white;padding:10px 14px;font-weight:900;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:10px;text-align:center}
+.hoursGrid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.hoursCard{border-radius:14px;padding:10px;border:1px solid #1f2937;text-align:center;background:#0f172a;color:#64748b;opacity:.35;display:flex;align-items:center;justify-content:center;min-height:48px}.hoursCard.active{opacity:1;box-shadow:0 10px 20px rgba(0,0,0,.2)}.hoursCard.working.active{background:#2dd4bf;color:#06211f;border-color:#7dd3fc}.hoursCard.outside.active{background:#f59e0b;color:#241500;border-color:#fcd34d}.hoursLabel{font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:.08em;text-align:center}
+.informBox{min-height:150px;display:flex;align-items:center;justify-content:center;padding:12px;background:#06211f;border:1px solid #0f766e;text-align:center}.informBig,.procedureBig,.callNowBig{font-weight:900;letter-spacing:-.02em}.informBig,.procedureBig{font-size:30px;line-height:1.02}.informSmall{font-size:18px;font-weight:900;margin-top:4px}
+.callProcedure{min-height:72px;display:flex;align-items:center;justify-content:center;padding:12px;background:#2a1700;border-color:#b45309;text-align:center}
+.instanceGrid{display:grid;grid-template-columns:1fr 1fr;gap:8px}.instanceCard{padding:12px;background:#0f172a;border-color:#1f2937;display:flex;flex-direction:column;justify-content:flex-start}.instanceCard.alert{background:rgba(120,53,15,.35);border-color:#f59e0b}.instanceTitle,.infoLabel,.callNowNote{font-weight:900}.instanceTitle{font-size:18px;color:#e2e8f0;text-align:center}.timer{margin-top:10px;font-size:42px;line-height:1;font-weight:900;color:var(--orangeSoft);flex:1;display:flex;align-items:center;justify-content:center;text-align:center;min-height:150px}.callAgentBtn{margin-top:10px;border:none;background:none;padding:0;color:var(--orangeSoft);font-size:28px;font-weight:900;cursor:pointer;text-align:center}
+.callNowCard{width:100%;text-align:center;padding:12px;border-radius:18px;background:#300c12;border:1px solid #ef4444;color:#fee2e2;cursor:pointer;display:flex;flex-direction:column;justify-content:center;align-items:center}.callNowTitle{font-size:18px;font-weight:900;color:#fecaca}.callNowBig{font-size:32px;color:#fca5a5;margin-top:10px}.callNowNote{font-size:12px;margin-top:10px;text-align:center}
+.bottomBox{margin-top:auto;padding:12px;display:flex;flex-direction:column;gap:12px}.engineerInfo{text-align:center}.infoLabel{font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}.infoValue{font-size:24px;font-weight:900;margin-top:4px;text-align:center}
+.footer{padding-top:8px;text-align:center}.articleBtn{padding:14px 20px;border-radius:999px;border:1px solid #334155;background:#0f172a;color:#e2e8f0;font-size:18px;font-weight:900;text-decoration:underline;text-underline-offset:4px;cursor:pointer}
+.modalBack{display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);align-items:center;justify-content:center;padding:24px;z-index:50}.modalBack.open{display:flex}.modal{width:min(100%,800px);border-radius:24px;background:#020617;border:1px solid #334155;padding:24px;box-shadow:0 24px 50px rgba(0,0,0,.45)}.modal.small{width:min(100%,520px)}.modal.chat{width:min(100%,760px);padding:0;overflow:hidden}.modal.call{width:min(100%,420px);text-align:center;position:relative}.modalHead{display:flex;justify-content:space-between;align-items:flex-start;gap:16px}.modalTitle{font-size:28px;font-weight:900}.closeBtn{width:36px;height:36px;border-radius:999px;border:1px solid #334155;background:transparent;color:#94a3b8;cursor:pointer}.flowBody{margin-top:24px;padding:24px;border-radius:18px;border:1px solid #334155;background:#0f172a;color:#cbd5e1;line-height:1.65}.confirmText{margin-top:10px;color:var(--muted)}.confirmActions{display:flex;justify-content:flex-end;gap:12px;margin-top:24px}.simpleBtn{padding:12px 18px;border-radius:999px;border:none;cursor:pointer;font-weight:700}.simpleBtn.cancel{background:#1f2937;color:#f8fafc}.simpleBtn.stop{background:#ef4444;color:white}
+.chatHeader{background:#1f2937;padding:20px;border-bottom:1px solid #334155;display:flex;justify-content:space-between;align-items:flex-start}.chatBody{padding:20px;background:#0b1020;display:flex;flex-direction:column;gap:16px}.pinnedNotice{border-radius:16px;padding:16px;border:1px solid #d97706;background:rgba(120,53,15,.4)}.pinnedTitle{font-size:14px;font-weight:900;color:#fbbf24}.pinnedText{font-size:14px;color:#f8fafc;margin-top:4px}.chatRow{display:flex}.chatRow.self{justify-content:flex-end}.chatBubble{max-width:78%;border-radius:18px;padding:14px 16px;background:#1f2937;color:#f8fafc}.chatBubble.self{background:var(--indigo)}.chatName{font-size:12px;font-weight:900;opacity:.8;margin-bottom:4px}
+.callIcon{margin:0 auto;width:80px;height:80px;border-radius:999px;background:var(--indigo);display:grid;place-items:center;color:white;font-size:34px;box-shadow:0 0 0 10px rgba(99,102,241,.12)}.callTitle{font-size:32px;font-weight:900;margin-top:20px}.callSub{color:var(--muted);font-weight:700;margin-top:8px}.dots{display:flex;justify-content:center;gap:8px;margin-top:24px}.dot{width:8px;height:8px;border-radius:999px;background:#64748b;animation:bounce 1s infinite}.dot:nth-child(2){animation-delay:.12s}.dot:nth-child(3){animation-delay:.24s}
 @keyframes bounce{0%,80%,100%{transform:translateY(0)}40%{transform:translateY(-6px)}}
 @media (max-width:1100px){.marketGrid,.panelGrid{grid-template-columns:repeat(2,minmax(0,1fr))}}@media (max-width:700px){.app{padding:16px}.marketGrid,.panelGrid,.hoursGrid,.instanceGrid{grid-template-columns:1fr}header{flex-direction:column;align-items:flex-start}.headerActions{flex-wrap:wrap}.panelSlot.hidden{display:none}}
 </style>
@@ -571,7 +182,7 @@ function renderAlertCard(alert) {
   return `
     <main class="alertCard">
       <section class="opsBox">
-        <div>
+        <div class="opsText">
           <div class="opsTitle">CHECK OPS MESSAGES</div>
           <div class="opsSub">If planned restart or known issue was posted, monitor only.</div>
           <div class="opsSubStrong">If not, act immediately.</div>
@@ -616,7 +227,7 @@ function renderAlertCard(alert) {
         </section>
 
         <section class="bottomBox">
-          <div>
+          <div class="engineerInfo">
             <div class="infoLabel">On call engineer</div>
             <div class="infoValue">${alert.engineer}</div>
           </div>
