@@ -193,7 +193,7 @@ function renderAlertCard(alert) {
           <div class="opsSub">If planned restart or known issue was posted, monitor only.</div>
           <div class="opsSubStrong">If not, act immediately.</div>
         </div>
-        <button class="opsBtn" onclick="openOps('${alert.id}')">${iconChat()} OPS ${alert.name} Chat</button>
+        <button class="opsBtn" onclick="openOps(event, '${alert.id}')">${iconChat()} OPS ${alert.name} Chat</button>
       </section>
 
       <div class="hoursGrid">
@@ -221,11 +221,11 @@ function renderAlertCard(alert) {
           <div class="instanceCard ${timerFinished ? 'alert' : ''}">
             <div class="instanceTitle">INSTANCE 1</div>
             ${timerFinished
-              ? `<button class="callAgentBtn" onclick="openCall('${alert.id}')">CALL AGENT</button>`
+              ? `<button class="callAgentBtn" onclick="openCall(event, '${alert.id}')">CALL AGENT</button>`
               : `<div class="timer">${formatTimer(alert.timer)}</div>`}
           </div>
 
-          <button class="callNowCard" onclick="openCall('${alert.id}')">
+          <button class="callNowCard" onclick="openCall(event, '${alert.id}')">
             <div class="callNowTitle">INSTANCE 0</div>
             <div class="callNowBig">CALL NOW</div>
             <div class="callNowNote">EVEN IF RECOVERED</div>
@@ -237,7 +237,7 @@ function renderAlertCard(alert) {
             <div class="infoLabel">On call engineer</div>
             <div class="infoValue">${alert.engineer}</div>
           </div>
-          <button class="callBtn" onclick="openCall('${alert.id}')">${iconPhone()} Call Engineer</button>
+          <button class="callBtn" onclick="openCall(event, '${alert.id}')">${iconPhone()} Call Engineer</button>
         </section>
       `}
     </main>
@@ -277,15 +277,16 @@ function confirmStop() {
   render();
 }
 
-function openOps(id) {
+function openOps(event, id) {
+  event?.stopPropagation();
   const market = activeAlerts[id] || markets.find((m) => m.id === id);
   const pinned = market.id === 'B'
     ? `<div class="pinnedNotice"><div class="pinnedTitle">Pinned notice</div><div class="pinnedText">Planned restart notice for Market B date-time. Short healthy instance drops may occur during the window.</div></div>`
     : '';
 
   document.getElementById('opsModal').innerHTML = `
-    <div class="modalBack open" id="opsModalInner">
-      <div class="modal chat">
+    <div class="modalBack open" id="opsModalInner" onclick="closeOpsModal()">
+      <div class="modal chat" onclick="event.stopPropagation()">
         <div class="chatHeader">
           <div>
             <div style="font-size:22px;font-weight:900">OPS ${market.name} Chat</div>
@@ -319,11 +320,12 @@ function chatBubble(name, text, self = false) {
   `;
 }
 
-function openCall(id) {
+function openCall(event, id) {
+  event?.stopPropagation();
   const alert = activeAlerts[id] || markets.find((m) => m.id === id);
   document.getElementById('callModal').innerHTML = `
-    <div class="modalBack open" id="callModalInner">
-      <div class="modal call">
+    <div class="modalBack open" id="callModalInner" onclick="closeCallModal()">
+      <div class="modal call" onclick="event.stopPropagation()">
         <button class="closeBtn" style="position:absolute;top:20px;right:20px" onclick="closeCallModal()">✕</button>
         <div class="callIcon">${iconPhone()}</div>
         <div class="callTitle">Calling ${alert.engineer}.</div>
