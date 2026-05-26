@@ -30,6 +30,7 @@ body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sa
 button{font:inherit}
 .app{min-height:100vh;padding:24px}
 .shell{max-width:1280px;margin:0 auto;display:flex;flex-direction:column;gap:16px}
+.testBanner{padding:16px 20px;border-radius:18px;background:#fde047;color:#111827;border:2px solid #f59e0b;font-size:28px;font-weight:900;text-align:center;letter-spacing:-.03em;box-shadow:0 10px 24px rgba(0,0,0,.18)}
 header{display:flex;align-items:center;justify-content:space-between;gap:16px}
 h1{margin:0;font-size:32px;font-weight:600;letter-spacing:-.02em}
 .sub{color:var(--muted);font-size:14px}
@@ -127,12 +128,14 @@ h1{margin:0;font-size:32px;font-weight:600;letter-spacing:-.02em}
   header{flex-direction:column;align-items:flex-start}
   .headerActions{flex-wrap:wrap}
   .panelSlot.hidden{display:none}
+  .testBanner{font-size:22px}
 }
 </style>
 </head>
 <body>
 <div class="app">
   <div class="shell">
+    <div class="testBanner">TEST BUILD — IF YOU CAN SEE THIS, GITHUB PAGES IS USING MAIN/INDEX.HTML</div>
     <header>
       <div>
         <h1>Quick Check</h1>
