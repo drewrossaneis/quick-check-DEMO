@@ -46,8 +46,9 @@ h1{margin:0;font-size:32px;font-weight:600;letter-spacing:-.02em}.sub{color:var(
 .hoursGrid{display:grid;grid-template-columns:1fr 1fr;gap:14px}.hoursCard{border-radius:14px;padding:12px;border:1px solid #223147;text-align:center;background:#10192b;color:#677893;opacity:.38;display:flex;align-items:center;justify-content:center;min-height:52px}.hoursCard.active{opacity:1;box-shadow:0 10px 20px rgba(0,0,0,.16)}.hoursCard.working.active{background:#34d399;color:#08201c;border-color:#8ee6d0}.hoursCard.outside.active{background:#f4a917;color:#241500;border-color:#ffd45a}.hoursLabel{font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:.08em;text-align:center}
 .informBox{min-height:158px;display:flex;align-items:center;justify-content:center;padding:16px;background:#0a231f;border:1px solid #1e7b67;text-align:center}.informBig,.procedureBig,.callNowBig{font-weight:900;letter-spacing:-.02em}.informBig,.procedureBig{font-size:30px;line-height:1.02}.informSmall{font-size:18px;font-weight:900;margin-top:6px}
 .callProcedure{min-height:82px;display:flex;align-items:center;justify-content:center;padding:16px;background:#2d1b05;border-color:#c27a11;text-align:center}
-.instanceGrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.instanceCard{padding:14px;background:#10192b;border-color:#223147;display:flex;flex-direction:column;justify-content:flex-start;min-height:210px}.instanceCard.alert{background:rgba(124,73,11,.30);border-color:#f4a917}.instanceTitle,.infoLabel,.callNowNote{font-weight:900}.instanceTitle{font-size:18px;color:#eef3fa;text-align:center}.timer{margin-top:12px;font-size:42px;line-height:1;font-weight:900;color:var(--orangeSoft);flex:1;display:flex;align-items:center;justify-content:center;text-align:center;min-height:150px}.callAgentBtn{margin-top:12px;border:none;background:none;padding:0;color:var(--orangeSoft);font-size:28px;font-weight:900;cursor:pointer;text-align:center}
-.callNowCard{width:100%;text-align:center;padding:14px;border-radius:18px;background:#321018;border:1px solid #f87171;color:#fee2e2;cursor:pointer;display:flex;flex-direction:column;justify-content:center;align-items:center;min-height:210px}.callNowTitle{font-size:18px;font-weight:900;color:#fecaca}.callNowBig{font-size:32px;color:#fda4af;margin-top:12px}.callNowNote{font-size:12px;margin-top:12px;text-align:center;line-height:1.35}
+.instanceGrid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:10px;align-items:stretch}.instanceCard,.callNowCard{width:100%;min-width:0;min-height:210px}
+.instanceCard{padding:14px;background:#10192b;border-color:#223147;display:flex;flex-direction:column;justify-content:flex-start}.instanceCard.alert{background:rgba(124,73,11,.30);border-color:#f4a917}.instanceTitle,.infoLabel,.callNowNote{font-weight:900}.instanceTitle{font-size:18px;color:#eef3fa;text-align:center;line-height:1.1;min-height:40px;display:flex;align-items:center;justify-content:center}.timer{margin-top:12px;font-size:42px;line-height:1;font-weight:900;color:var(--orangeSoft);font-variant-numeric:tabular-nums;flex:1;display:flex;align-items:center;justify-content:center;text-align:center;min-height:150px;white-space:nowrap}.callAgentBtn{margin-top:12px;border:none;background:none;padding:0;color:var(--orangeSoft);font-size:28px;font-weight:900;cursor:pointer;text-align:center}
+.callNowCard{text-align:center;padding:14px;border-radius:18px;background:#321018;border:1px solid #f87171;color:#fee2e2;cursor:pointer;display:flex;flex-direction:column;justify-content:center;align-items:center;overflow:hidden}.callNowTitle{font-size:18px;font-weight:900;color:#fecaca;line-height:1.1;min-height:40px;display:flex;align-items:center;justify-content:center;text-align:center}.callNowBig{font-size:32px;color:#fda4af;margin-top:12px;line-height:1.05;word-break:keep-all}.callNowNote{font-size:12px;margin-top:12px;text-align:center;line-height:1.35}
 .bottomBox{margin-top:auto;padding:16px;display:flex;flex-direction:column;gap:14px;min-height:150px;justify-content:center}.engineerInfo{text-align:center}.infoLabel{font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}.infoValue{font-size:24px;font-weight:900;margin-top:6px;text-align:center}
 .footer{padding-top:8px;text-align:center}.articleBtn{padding:14px 20px;border-radius:999px;border:1px solid #32445f;background:#10192b;color:#e8eef7;font-size:18px;font-weight:900;text-decoration:underline;text-underline-offset:4px;cursor:pointer}
 .modalBack{display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);align-items:center;justify-content:center;padding:24px;z-index:50}.modalBack.open{display:flex}.modal{width:min(100%,800px);border-radius:24px;background:#07111f;border:1px solid #32445f;padding:24px;box-shadow:0 24px 50px rgba(0,0,0,.45)}.modal.small{width:min(100%,520px)}.modal.chat{width:min(100%,760px);padding:0;overflow:hidden}.modal.call{width:min(100%,420px);text-align:center;position:relative}.modalHead{display:flex;justify-content:space-between;align-items:flex-start;gap:16px}.modalTitle{font-size:28px;font-weight:900}.closeBtn{width:36px;height:36px;border-radius:999px;border:1px solid #32445f;background:transparent;color:#97a6bf;cursor:pointer}.flowBody{margin-top:24px;padding:24px;border-radius:18px;border:1px solid #32445f;background:#10192b;color:#d2dbea;line-height:1.65}.confirmText{margin-top:10px;color:var(--muted)}.confirmActions{display:flex;justify-content:flex-end;gap:12px;margin-top:24px}.simpleBtn{padding:12px 18px;border-radius:999px;border:none;cursor:pointer;font-weight:700}.simpleBtn.cancel{background:#182235;color:#f8fafc}.simpleBtn.stop{background:#ef4444;color:white}
@@ -87,7 +88,7 @@ h1{margin:0;font-size:32px;font-weight:600;letter-spacing:-.02em}.sub{color:var(
         <div class="modalTitle">Flow explained</div>
         <div class="sub" style="margin-top:4px">Operational path used by Quick Check.</div>
       </div>
-      <button class="closeBtn" onclick="closeModal('flowModal')">✕</button>
+      <button class="closeBtn" type="button" onclick="closeModal('flowModal')">✕</button>
     </div>
     <div class="flowBody">
       <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer non nulla vitae erat facilisis posuere. Sed at neque sed massa feugiat tincidunt. Donec consequat, libero at fermentum dapibus, turpis mauris semper mauris, a volutpat lorem velit vitae nisl.</p>
@@ -104,11 +105,11 @@ h1{margin:0;font-size:32px;font-weight:600;letter-spacing:-.02em}.sub{color:var(
         <div style="font-size:24px;font-weight:700">Stop monitoring?</div>
         <div id="stopText" class="confirmText"></div>
       </div>
-      <button class="closeBtn" onclick="closeModal('stopModal')">✕</button>
+      <button class="closeBtn" type="button" onclick="closeModal('stopModal')">✕</button>
     </div>
     <div class="confirmActions">
-      <button class="simpleBtn cancel" onclick="cancelStop()">Cancel</button>
-      <button class="simpleBtn stop" onclick="confirmStop()">Stop monitoring</button>
+      <button class="simpleBtn cancel" type="button" onclick="cancelStop()">Cancel</button>
+      <button class="simpleBtn stop" type="button" onclick="confirmStop()">Stop monitoring</button>
     </div>
   </div>
 </div>
@@ -131,6 +132,8 @@ let confirmMarketId = null;
 const marketGrid = document.getElementById('marketGrid');
 const panelArea = document.getElementById('panelArea');
 const helperText = document.getElementById('helperText');
+const opsModal = document.getElementById('opsModal');
+const callModal = document.getElementById('callModal');
 
 function formatTimer(seconds) {
   const min = String(Math.floor(seconds / 60)).padStart(2, '0');
@@ -147,7 +150,7 @@ function renderMarkets() {
     const active = Boolean(activeAlerts[market.id]);
     const actionLabel = active ? 'Stop monitoring' : 'Start monitoring';
     return `
-      <button class="marketBtn ${active ? 'active' : ''}" onclick="handleMarketClick('${market.id}')">
+      <button type="button" class="marketBtn ${active ? 'active' : ''}" onclick="handleMarketClick('${market.id}')">
         <div class="marketAction">${actionLabel}</div>
         <div class="marketTop">
           <div class="marketIcon">${iconFlag()}</div>
@@ -193,7 +196,7 @@ function renderAlertCard(alert) {
           <div class="opsSub">If planned restart or known issue was posted, monitor only.</div>
           <div class="opsSubStrong">If not, act immediately.</div>
         </div>
-        <button class="opsBtn" onclick="openOps('${alert.id}')">${iconChat()} OPS ${alert.name} Chat</button>
+        <button type="button" class="opsBtn" onclick="openOps('${alert.id}')">${iconChat()} OPS ${alert.name} Chat</button>
       </section>
 
       <div class="hoursGrid">
@@ -221,11 +224,11 @@ function renderAlertCard(alert) {
           <div class="instanceCard ${timerFinished ? 'alert' : ''}">
             <div class="instanceTitle">INSTANCE 1</div>
             ${timerFinished
-              ? `<button class="callAgentBtn" onclick="openCall('${alert.id}')">CALL AGENT</button>`
+              ? `<button type="button" class="callAgentBtn" onclick="openCall('${alert.id}')">CALL AGENT</button>`
               : `<div class="timer">${formatTimer(alert.timer)}</div>`}
           </div>
 
-          <button class="callNowCard" onclick="openCall('${alert.id}')">
+          <button type="button" class="callNowCard" onclick="openCall('${alert.id}')">
             <div class="callNowTitle">INSTANCE 0</div>
             <div class="callNowBig">CALL NOW</div>
             <div class="callNowNote">EVEN IF RECOVERED</div>
@@ -237,7 +240,7 @@ function renderAlertCard(alert) {
             <div class="infoLabel">On call engineer</div>
             <div class="infoValue">${alert.engineer}</div>
           </div>
-          <button class="callBtn" onclick="openCall('${alert.id}')">${iconPhone()} Call Engineer</button>
+          <button type="button" class="callBtn" onclick="openCall('${alert.id}')">${iconPhone()} Call Engineer</button>
         </section>
       `}
     </main>
@@ -279,11 +282,12 @@ function confirmStop() {
 
 function openOps(id) {
   const market = activeAlerts[id] || markets.find((m) => m.id === id);
+  if (!market) return;
   const pinned = market.id === 'B'
     ? `<div class="pinnedNotice"><div class="pinnedTitle">Pinned notice</div><div class="pinnedText">Planned restart notice for Market B date-time. Short healthy instance drops may occur during the window.</div></div>`
     : '';
 
-  document.getElementById('opsModal').innerHTML = `
+  opsModal.innerHTML = `
     <div class="modalBack open" id="opsModalInner">
       <div class="modal chat">
         <div class="chatHeader">
@@ -291,7 +295,7 @@ function openOps(id) {
             <div style="font-size:22px;font-weight:900">OPS ${market.name} Chat</div>
             <div class="sub" style="margin-top:4px">Microsoft Teams group chat simulation</div>
           </div>
-          <button class="closeBtn" onclick="closeOpsModal()">✕</button>
+          <button type="button" class="closeBtn" onclick="closeOpsModal()">✕</button>
         </div>
         <div class="chatBody">
           ${pinned}
@@ -302,10 +306,17 @@ function openOps(id) {
       </div>
     </div>
   `;
+
+  const back = document.getElementById('opsModalInner');
+  if (back) {
+    back.onclick = (event) => {
+      if (event.target === back) closeOpsModal();
+    };
+  }
 }
 
 function closeOpsModal() {
-  document.getElementById('opsModal').innerHTML = '';
+  opsModal.innerHTML = '';
 }
 
 function chatBubble(name, text, self = false) {
@@ -321,10 +332,11 @@ function chatBubble(name, text, self = false) {
 
 function openCall(id) {
   const alert = activeAlerts[id] || markets.find((m) => m.id === id);
-  document.getElementById('callModal').innerHTML = `
+  if (!alert) return;
+  callModal.innerHTML = `
     <div class="modalBack open" id="callModalInner">
       <div class="modal call">
-        <button class="closeBtn" style="position:absolute;top:20px;right:20px" onclick="closeCallModal()">✕</button>
+        <button type="button" class="closeBtn" style="position:absolute;top:20px;right:20px" onclick="closeCallModal()">✕</button>
         <div class="callIcon">${iconPhone()}</div>
         <div class="callTitle">Calling ${alert.engineer}.</div>
         <div class="callSub">Call simulation active.</div>
@@ -332,10 +344,17 @@ function openCall(id) {
       </div>
     </div>
   `;
+
+  const back = document.getElementById('callModalInner');
+  if (back) {
+    back.onclick = (event) => {
+      if (event.target === back) closeCallModal();
+    };
+  }
 }
 
 function closeCallModal() {
-  document.getElementById('callModal').innerHTML = '';
+  callModal.innerHTML = '';
 }
 
 function openModal(id) {
@@ -345,6 +364,16 @@ function openModal(id) {
 function closeModal(id) {
   document.getElementById(id).classList.remove('open');
 }
+
+window.handleMarketClick = handleMarketClick;
+window.cancelStop = cancelStop;
+window.confirmStop = confirmStop;
+window.openOps = openOps;
+window.closeOpsModal = closeOpsModal;
+window.openCall = openCall;
+window.closeCallModal = closeCallModal;
+window.openModal = openModal;
+window.closeModal = closeModal;
 
 function render() {
   renderMarkets();
