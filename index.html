@@ -19,7 +19,7 @@
   --green-soft:#123c35;
   --orange:#f59e0b;
   --orange-soft:#fbbf24;
-  --orange-deep:#3a2810;
+  --orange-deep:#332413;
   --red:#b42335;
   --red-deep:#8b1e2d;
   --red-soft:#fff1f2;
@@ -29,66 +29,66 @@
 body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:var(--bg);color:var(--text)}
 button{font:inherit}
 .app{min-height:100vh;padding:24px}
-.shell{max-width:1280px;margin:0 auto;display:flex;flex-direction:column;gap:16px}
+.shell{max-width:1280px;margin:0 auto;display:flex;flex-direction:column;gap:14px}
 header{display:flex;align-items:center;justify-content:space-between;gap:16px}
-h1{margin:0;font-size:32px;font-weight:600;letter-spacing:-.02em}
-.sub{color:var(--muted);font-size:14px}
+h1{margin:0;font-size:30px;font-weight:600;letter-spacing:-.02em}
+.sub{color:var(--muted);font-size:13px}
 .headerActions{display:flex;align-items:center;gap:12px}
-.pill{padding:10px 16px;border-radius:999px;background:var(--button);color:var(--text);border:1px solid var(--border);cursor:pointer}
-.helperText{margin-top:2px;text-align:center;color:var(--muted);font-size:16px;font-weight:700}
-.marketGrid,.panelGrid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
-.marketBtn{position:relative;border-radius:18px;border:1px solid var(--border);padding:14px 16px;text-align:left;background:var(--card);color:var(--text);cursor:pointer;transition:.18s ease;min-height:88px}
+.pill{padding:9px 14px;border-radius:999px;background:var(--button);color:var(--text);border:1px solid var(--border);cursor:pointer;font-size:13px;font-weight:700}
+.helperText{margin-top:2px;text-align:center;color:var(--muted);font-size:14px;font-weight:600}
+.marketGrid,.panelGrid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.marketBtn{position:relative;border-radius:16px;border:1px solid var(--border);padding:12px 14px;text-align:left;background:var(--card);color:var(--text);cursor:pointer;transition:.18s ease;min-height:80px}
 .marketBtn:hover{border-color:#415469;background:var(--surface)}
 .marketBtn.active{background:#d9e2ec;color:#111827;border-color:#d9e2ec;box-shadow:0 8px 18px rgba(0,0,0,.14)}
-.marketAction{position:absolute;top:10px;left:16px;font-size:10px;font-weight:800;letter-spacing:.05em;color:var(--muted);text-transform:uppercase}
+.marketAction{position:absolute;top:10px;left:14px;font-size:9px;font-weight:800;letter-spacing:.05em;color:var(--muted);text-transform:uppercase}
 .marketBtn.active .marketAction{color:#526174}
-.marketTop{display:flex;align-items:center;gap:0;margin-top:16px}
-.marketName{font-size:15px;font-weight:600}
-.marketTime{margin-top:6px;font-size:28px;line-height:1;font-weight:800;color:var(--orange-soft)}
+.marketTop{display:flex;align-items:center;gap:0;margin-top:14px}
+.marketName{font-size:14px;font-weight:600}
+.marketTime{margin-top:6px;font-size:26px;line-height:1;font-weight:800;color:var(--orange-soft)}
 .marketBtn.active .marketTime{color:#9a6700}
 .panelSlot.hidden{visibility:hidden}
-.alertCard{border-radius:20px;border:1px solid var(--border);background:var(--panel);padding:12px;box-shadow:0 12px 28px rgba(0,0,0,.16);display:flex;flex-direction:column;gap:12px;min-height:400px}
-.opsBox,.bottomBox,.instanceCard,.callProcedure,.informBox,.callNowCard{border-radius:18px;border:1px solid var(--border);background:var(--card)}
-.opsBox{padding:14px;display:flex;flex-direction:column;gap:10px}
-.opsText{text-align:center;display:flex;flex-direction:column;align-items:center;gap:6px}
-.opsTitle{font-size:18px;font-weight:800;letter-spacing:-.02em;text-align:center}
-.opsSub{font-size:12px;color:var(--muted);font-weight:700;text-align:center;max-width:260px;line-height:1.4}
-.opsSubStrong{font-size:12px;color:var(--text);font-weight:800;text-align:center}
-.opsBtn,.callBtn{border:none;background:var(--button);color:var(--text);font-weight:800;cursor:pointer;display:flex;align-items:center;justify-content:center;text-align:center;transition:background .18s ease}
-.opsBtn{width:100%;border-radius:14px;padding:11px 14px}
+.alertCard{border-radius:18px;border:1px solid var(--border);background:var(--panel);padding:10px;box-shadow:0 10px 24px rgba(0,0,0,.16);display:flex;flex-direction:column;gap:10px;min-height:360px}
+.opsBox,.bottomBox,.instanceCard,.callProcedure,.informBox,.callNowCard{border-radius:14px;border:1px solid var(--border);background:var(--card)}
+.opsBox{padding:12px;display:flex;flex-direction:column;gap:8px}
+.opsText{text-align:center;display:flex;flex-direction:column;align-items:center;gap:4px}
+.opsTitle{font-size:16px;font-weight:700;letter-spacing:-.02em;text-align:center}
+.opsSub{font-size:11px;color:var(--muted);font-weight:600;text-align:center;max-width:250px;line-height:1.35}
+.opsSubStrong{font-size:11px;color:var(--text);font-weight:700;text-align:center}
+.opsBtn,.callBtn{border:none;background:var(--button);color:var(--text);font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;text-align:center;transition:background .18s ease}
+.opsBtn{width:100%;border-radius:12px;padding:10px 12px;font-size:13px}
 .opsBtn:hover,.callBtn:hover{background:var(--button-hover)}
-.hoursGrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.hoursCard{border-radius:999px;padding:10px 12px;border:1px solid var(--border);text-align:center;background:var(--card);color:#6f8094;opacity:.55;display:flex;align-items:center;justify-content:center;min-height:46px}
+.hoursGrid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.hoursCard{border-radius:999px;padding:9px 12px;border:1px solid var(--border);text-align:center;background:var(--card);color:#6f8094;opacity:.55;display:flex;align-items:center;justify-content:center;min-height:40px}
 .hoursCard.active{opacity:1}
 .hoursCard.working.active{background:var(--green-soft);color:#cfeee5;border-color:var(--green)}
-.hoursCard.outside.active{background:var(--orange-deep);color:#fde68a;border-color:#b7791f}
-.hoursLabel{font-size:11px;font-weight:800;letter-spacing:.03em;text-align:center}
-.informBox{min-height:112px;display:flex;align-items:center;justify-content:center;padding:16px;background:#e8e3e1;border-color:#d2c8c3;text-align:center;color:#1f2937;overflow:hidden}
-.informBig,.procedureBig,.callNowBig{font-weight:800;letter-spacing:-.02em}
-.informBig,.procedureBig{font-size:24px;line-height:1.06}
-.callProcedure{min-height:50px;display:flex;align-items:center;justify-content:center;padding:10px 16px;background:#2a2118;border-color:#8b5e1a;text-align:center;color:#fde68a}
+.hoursCard.outside.active{background:var(--orange-deep);color:#f5d38b;border-color:#8b5e1a}
+.hoursLabel{font-size:10px;font-weight:700;letter-spacing:.03em;text-align:center}
+.informBox{min-height:92px;display:flex;align-items:center;justify-content:center;padding:14px;background:#e8e3e1;border-color:#d2c8c3;text-align:center;color:#1f2937;overflow:hidden}
+.informBig,.procedureBig,.callNowBig{font-weight:700;letter-spacing:-.02em}
+.informBig,.procedureBig{font-size:20px;line-height:1.06}
+.callProcedure{min-height:42px;display:flex;align-items:center;justify-content:center;padding:8px 14px;background:#251c14;border-color:#6f4d19;text-align:center;color:#f0cc82}
 .instanceStack{display:flex;flex-direction:column;gap:8px}
-.instanceCard,.callNowCard{width:100%;min-width:0;min-height:90px}
-.instanceCard{padding:12px 14px;background:linear-gradient(180deg,#392912 0%, #24190c 100%);border-color:#8b5e1a;display:flex;align-items:center;justify-content:space-between;gap:16px;box-shadow:inset 0 1px 0 rgba(255,255,255,.05)}
-.instanceCard.alert{background:linear-gradient(180deg,#503013 0%, #2d1a0c 100%);border-color:#d08a22}
-.instanceTitle,.infoLabel,.callNowNote{font-weight:800}
-.instanceTitle{font-size:14px;color:#f8d48b;line-height:1.1;letter-spacing:.02em}
-.timer{font-size:36px;line-height:1;font-weight:900;color:#ffd166;font-variant-numeric:tabular-nums;white-space:nowrap}
-.callAgentBtn{border:none;background:none;padding:0;color:#ffd166;font-size:20px;font-weight:900;cursor:pointer;text-align:right}
-.callNowCard{text-align:left;padding:12px 14px;background:linear-gradient(180deg,#a61f32 0%, #7d1524 100%);border:1px solid #cf3b50;color:var(--red-soft);cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:16px;overflow:hidden;transition:filter .18s ease,transform .18s ease;box-shadow:inset 0 1px 0 rgba(255,255,255,.08)}
-.callNowCard:hover{filter:brightness(1.05);transform:translateY(-1px)}
-.callNowTitle{font-size:11px;font-weight:700;color:#ffd4d9;line-height:1;text-align:left;letter-spacing:.03em}
-.callNowBig{font-size:30px;color:#fff7f8;line-height:.92;text-align:right;font-weight:900}
-.callNowNote{font-size:9px;line-height:1.15;color:#ffe2e6;text-align:left;font-weight:700;opacity:.82}
-.callNowMeta,.instanceMeta{display:flex;flex-direction:column;gap:4px;align-items:flex-start}
+.instanceCard,.callNowCard{width:100%;min-width:0;min-height:76px}
+.instanceCard{padding:10px 12px;background:linear-gradient(180deg,#332513 0%, #22180d 100%);border-color:#6f4d19;display:flex;align-items:center;justify-content:space-between;gap:14px;box-shadow:inset 0 1px 0 rgba(255,255,255,.04)}
+.instanceCard.alert{background:linear-gradient(180deg,#493016 0%, #2b1b0d 100%);border-color:#b7791f}
+.instanceTitle,.infoLabel,.callNowNote{font-weight:700}
+.instanceTitle{font-size:13px;color:#e9c77a;line-height:1.1;letter-spacing:.02em}
+.timer{font-size:30px;line-height:1;font-weight:800;color:#ffd166;font-variant-numeric:tabular-nums;white-space:nowrap}
+.callAgentBtn{border:none;background:none;padding:0;color:#ffd166;font-size:16px;font-weight:800;cursor:pointer;text-align:right}
+.callNowCard{text-align:left;padding:10px 12px;background:linear-gradient(180deg,#9c2233 0%, #741724 100%);border:1px solid #b93b4d;color:var(--red-soft);cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:14px;overflow:hidden;transition:filter .18s ease,transform .18s ease;box-shadow:inset 0 1px 0 rgba(255,255,255,.06)}
+.callNowCard:hover{filter:brightness(1.04);transform:translateY(-1px)}
+.callNowTitle{font-size:10px;font-weight:700;color:#ffd4d9;line-height:1;letter-spacing:.04em;text-transform:uppercase}
+.callNowBig{font-size:24px;color:#fff7f8;line-height:.95;text-align:right;font-weight:800}
+.callNowNote{font-size:9px;line-height:1.15;color:#ffe2e6;font-weight:600;opacity:.82}
+.callNowMeta,.instanceMeta{display:flex;flex-direction:column;gap:3px;align-items:flex-start}
 .callNowMain,.instanceMain{display:flex;align-items:center;justify-content:flex-end;flex:1;min-width:0}
-.bottomBox{margin-top:auto;padding:10px 12px;display:flex;flex-direction:column;gap:10px;min-height:92px;justify-content:center}
+.bottomBox{margin-top:auto;padding:10px 12px;display:flex;flex-direction:column;gap:8px;min-height:82px;justify-content:center}
 .engineerInfo{text-align:center}
 .infoLabel{font-size:9px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted)}
-.infoValue{font-size:20px;font-weight:800;text-align:center;line-height:1.05}
-.callBtn{width:100%;padding:10px 14px;border-radius:14px}
+.infoValue{font-size:18px;font-weight:700;text-align:center;line-height:1.05}
+.callBtn{width:100%;padding:9px 12px;border-radius:12px;font-size:13px}
 .footer{padding-top:4px;text-align:center}
-.articleBtn{padding:12px 18px;border-radius:999px;border:1px solid var(--border);background:var(--card);color:var(--text);font-size:15px;font-weight:800;text-decoration:underline;text-underline-offset:4px;cursor:pointer}
+.articleBtn{padding:10px 16px;border-radius:999px;border:1px solid var(--border);background:var(--card);color:var(--text);font-size:14px;font-weight:700;text-decoration:underline;text-underline-offset:4px;cursor:pointer}
 .modalBack{display:none;position:fixed;inset:0;background:rgba(3,8,14,.74);align-items:center;justify-content:center;padding:24px;z-index:50}
 .modalBack.open{display:flex}
 .modal{width:min(100%,800px);border-radius:24px;background:var(--panel);border:1px solid var(--border);padding:24px;box-shadow:0 24px 50px rgba(0,0,0,.35)}
