@@ -76,19 +76,20 @@ h1{margin:0;font-size:32px;font-weight:600;letter-spacing:-.02em}
 .informBig,.procedureBig{font-size:30px;line-height:1.08}
 .informSmall{font-size:18px;font-weight:800;margin-top:6px}
 .callProcedure{min-height:82px;display:flex;align-items:center;justify-content:center;padding:16px;background:#e8e3e1;border-color:#d2c8c3;text-align:center;color:#1f2937}
-.instanceGrid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:10px;align-items:stretch}
-.instanceCard,.callNowCard{width:100%;min-width:0;min-height:210px}
-.instanceCard{padding:14px;background:var(--card);border-color:var(--border);display:flex;flex-direction:column;justify-content:flex-start}
+.instanceGrid{display:grid;grid-template-columns:1fr;gap:10px;align-items:stretch}
+.instanceCard,.callNowCard{width:100%;min-width:0;min-height:0}
+.instanceCard{padding:16px 18px;background:var(--card);border-color:var(--border);display:flex;flex-direction:row;justify-content:space-between;align-items:center;gap:16px;min-height:110px}
 .instanceCard.alert{background:#2a2118;border-color:#b7791f}
 .instanceTitle,.infoLabel,.callNowNote{font-weight:800}
-.instanceTitle{font-size:18px;color:var(--text);text-align:center;line-height:1.1;min-height:40px;display:flex;align-items:center;justify-content:center}
-.timer{margin-top:12px;font-size:42px;line-height:1;font-weight:900;color:var(--orange-soft);font-variant-numeric:tabular-nums;flex:1;display:flex;align-items:center;justify-content:center;text-align:center;min-height:150px;white-space:nowrap}
-.callAgentBtn{margin-top:12px;border:none;background:none;padding:0;color:var(--orange-soft);font-size:28px;font-weight:900;cursor:pointer;text-align:center}
-.callNowCard{text-align:center;padding:14px;border-radius:20px;background:var(--red-deep);border:1px solid var(--red);color:var(--red-soft);cursor:pointer;display:flex;flex-direction:column;justify-content:center;align-items:center;overflow:hidden;transition:filter .18s ease,transform .18s ease}
+.instanceTitle{font-size:18px;color:var(--text);text-align:left;line-height:1.1;min-height:auto;display:block}
+.timer{font-size:42px;line-height:1;font-weight:900;color:var(--orange-soft);font-variant-numeric:tabular-nums;display:block;text-align:right;white-space:nowrap}
+.callAgentBtn{border:none;background:none;padding:0;color:var(--orange-soft);font-size:24px;font-weight:900;cursor:pointer;text-align:right}
+.callNowCard{text-align:left;padding:16px 18px;border-radius:20px;background:var(--red-deep);border:1px solid var(--red);color:var(--red-soft);cursor:pointer;display:flex;flex-direction:row;justify-content:space-between;align-items:center;gap:16px;overflow:hidden;transition:filter .18s ease,transform .18s ease;min-height:110px}
 .callNowCard:hover{filter:brightness(1.05);transform:translateY(-1px)}
-.callNowTitle{font-size:18px;font-weight:800;color:#fecdd3;line-height:1.1;min-height:40px;display:flex;align-items:center;justify-content:center;text-align:center}
-.callNowBig{font-size:32px;color:var(--red-soft);margin-top:12px;line-height:1.05;word-break:keep-all}
-.callNowNote{font-size:12px;margin-top:12px;text-align:center;line-height:1.35;color:#ffe4e6}
+.callNowText{display:flex;flex-direction:column;gap:8px;align-items:flex-start}
+.callNowTitle{font-size:18px;font-weight:800;color:#fecdd3;line-height:1.1;min-height:auto;display:block;text-align:left}
+.callNowBig{font-size:30px;color:var(--red-soft);margin-top:0;line-height:1.02;word-break:keep-all;text-align:right}
+.callNowNote{font-size:12px;margin-top:0;text-align:left;line-height:1.35;color:#ffe4e6}
 .bottomBox{margin-top:auto;padding:16px;display:flex;flex-direction:column;gap:14px;min-height:150px;justify-content:center}
 .engineerInfo{text-align:center}
 .infoLabel{font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
@@ -135,6 +136,8 @@ h1{margin:0;font-size:32px;font-weight:600;letter-spacing:-.02em}
   header{flex-direction:column;align-items:flex-start}
   .headerActions{flex-wrap:wrap}
   .panelSlot.hidden{display:none}
+  .instanceCard,.callNowCard{flex-direction:column;align-items:flex-start}
+  .timer,.callAgentBtn,.callNowBig{text-align:left}
 }
 </style>
 </head>
@@ -303,18 +306,20 @@ function renderAlertCard(alert) {
         </section>
 
         <section class="instanceGrid">
+          <button type="button" class="callNowCard" data-call-id="${alert.id}">
+            <div class="callNowText">
+              <div class="callNowTitle">Instance 0</div>
+              <div class="callNowNote">Even if recovered</div>
+            </div>
+            <div class="callNowBig">CALL NOW</div>
+          </button>
+
           <div class="instanceCard ${timerFinished ? 'alert' : ''}">
             <div class="instanceTitle">Instance 1</div>
             ${timerFinished
               ? `<button type="button" class="callAgentBtn" data-call-id="${alert.id}">Call agent</button>`
               : `<div class="timer">${formatTimer(alert.timer)}</div>`}
           </div>
-
-          <button type="button" class="callNowCard" data-call-id="${alert.id}">
-            <div class="callNowTitle">Instance 0</div>
-            <div class="callNowBig">CALL NOW</div>
-            <div class="callNowNote">Even if recovered</div>
-          </button>
         </section>
 
         <section class="bottomBox">
