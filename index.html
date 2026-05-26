@@ -43,7 +43,6 @@ h1{margin:0;font-size:32px;font-weight:600;letter-spacing:-.02em}
 .marketAction{position:absolute;top:10px;left:16px;font-size:10px;font-weight:800;letter-spacing:.05em;color:var(--muted);text-transform:uppercase}
 .marketBtn.active .marketAction{color:#526174}
 .marketTop{display:flex;align-items:center;gap:0;margin-top:16px}
-.marketIcon{display:none}
 .marketName{font-size:15px;font-weight:600}
 .marketTime{margin-top:6px;font-size:28px;line-height:1;font-weight:800;color:var(--orange-soft)}
 .marketBtn.active .marketTime{color:#9a6700}
@@ -327,7 +326,8 @@ function handleMarketClick(marketId) {
 
   if (activeAlerts[market.id]) {
     confirmMarketId = market.id;
-    document.getElementById('stopText').textContent = `You are about to stop monitoring this alert for ${market.name}.`;
+    const stopText = document.getElementById('stopText');
+    if (stopText) stopText.textContent = `You are about to stop monitoring this alert for ${market.name}.`;
     openModal('stopModal');
     return;
   }
@@ -417,13 +417,13 @@ function openCall(id) {
 
 function closeOpsModal() { opsModal.innerHTML = ''; }
 function closeCallModal() { callModal.innerHTML = ''; }
-function openModal(id) { document.getElementById(id).classList.add('open'); }
-function closeModal(id) { document.getElementById(id).classList.remove('open'); }
+function openModal(id) { const el = document.getElementById(id); if (el) el.classList.add('open'); }
+function closeModal(id) { const el = document.getElementById(id); if (el) el.classList.remove('open'); }
 
 function bindStaticInteractions() {
-  flowBtn.onclick = () => openModal('flowModal');
-  cancelStopBtn.onclick = cancelStop;
-  confirmStopBtn.onclick = confirmStop;
+  if (flowBtn) flowBtn.onclick = () => openModal('flowModal');
+  if (cancelStopBtn) cancelStopBtn.onclick = cancelStop;
+  if (confirmStopBtn) confirmStopBtn.onclick = confirmStop;
 
   document.querySelectorAll('[data-close-static="flow"]').forEach((el) => {
     el.onclick = () => closeModal('flowModal');
