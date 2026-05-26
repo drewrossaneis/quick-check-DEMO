@@ -22,34 +22,105 @@
   --indigo:#6366f1;
 }
 *{box-sizing:border-box}
-body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:#0a1120;color:var(--text)}
+body{
+  margin:0;
+  font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+  background:#0a1120;
+  color:var(--text);
+}
 button{font:inherit}
 .app{min-height:100vh;padding:24px}
 .shell{max-width:1280px;margin:0 auto;display:flex;flex-direction:column;gap:20px}
 header{display:flex;align-items:center;justify-content:space-between;gap:16px}
-h1{margin:0;font-size:32px;font-weight:600;letter-spacing:-.02em}.sub{color:var(--muted);font-size:14px}
+h1{margin:0;font-size:32px;font-weight:600;letter-spacing:-.02em}
+.sub{color:var(--muted);font-size:14px}
 .headerActions{display:flex;align-items:center;gap:12px}
 .pill{padding:10px 16px;border-radius:999px;background:#182235;color:var(--text);border:1px solid #46556e;cursor:pointer}
 .helperText{margin-top:2px;text-align:center;color:var(--muted);font-size:18px;font-weight:700}
 .marketGrid,.panelGrid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
-.marketBtn{position:relative;border-radius:18px;border:1px solid #223147;padding:16px;text-align:left;background:#10192b;color:#d0d9e7;cursor:pointer;opacity:.78;transition:.18s ease}.marketBtn:hover{opacity:1}.marketBtn.active{background:#f4f7fb;color:#07111f;border-color:#f4f7fb;box-shadow:0 16px 30px rgba(0,0,0,.22);opacity:1}
-.marketAction{position:absolute;top:10px;left:16px;font-size:11px;font-weight:800;letter-spacing:.04em;color:var(--muted);text-transform:uppercase}.marketBtn.active .marketAction{color:#5b6b84}
-.marketTop{display:flex;align-items:center;gap:12px;margin-top:12px}.marketIcon{width:40px;height:40px;border-radius:999px;display:grid;place-items:center;background:#182235;color:#9aa9c3;flex:0 0 auto}.marketBtn.active .marketIcon{background:#07111f;color:#f8fafc}.marketName{font-size:16px;font-weight:600}.marketTime{margin-top:4px;font-size:28px;line-height:1;font-weight:800;color:var(--orangeSoft)}.marketBtn.active .marketTime{color:var(--orange)}
+.marketBtn{position:relative;border-radius:18px;border:1px solid #223147;padding:16px;text-align:left;background:#10192b;color:#d0d9e7;cursor:pointer;opacity:.78;transition:.18s ease}
+.marketBtn:hover{opacity:1}
+.marketBtn.active{background:#f4f7fb;color:#07111f;border-color:#f4f7fb;box-shadow:0 16px 30px rgba(0,0,0,.22);opacity:1}
+.marketAction{position:absolute;top:10px;left:16px;font-size:11px;font-weight:800;letter-spacing:.04em;color:var(--muted);text-transform:uppercase}
+.marketBtn.active .marketAction{color:#5b6b84}
+.marketTop{display:flex;align-items:center;gap:12px;margin-top:12px}
+.marketIcon{width:40px;height:40px;border-radius:999px;display:grid;place-items:center;background:#182235;color:#9aa9c3;flex:0 0 auto}
+.marketBtn.active .marketIcon{background:#07111f;color:#f8fafc}
+.marketName{font-size:16px;font-weight:600}
+.marketTime{margin-top:4px;font-size:28px;line-height:1;font-weight:800;color:var(--orangeSoft)}
+.marketBtn.active .marketTime{color:var(--orange)}
 .panelSlot.hidden{visibility:hidden}
 .alertCard{border-radius:18px;border:1px solid #223147;background:#07111f;padding:14px;box-shadow:0 16px 30px rgba(0,0,0,.22);display:flex;flex-direction:column;gap:14px;min-height:510px}
-.opsBox,.bottomBox,.instanceCard,.callProcedure{border-radius:18px;border:1px solid #32445f;background:#10192b}.opsBox{padding:16px;display:flex;flex-direction:column;gap:14px}.opsText{text-align:center;display:flex;flex-direction:column;align-items:center;gap:6px}.opsTitle{font-size:20px;font-weight:900;letter-spacing:-.02em;text-align:center}.opsSub{font-size:12px;color:var(--muted);font-weight:700;text-align:center;max-width:260px;line-height:1.45}.opsSubStrong{font-size:12px;color:#ecf2fa;font-weight:900;text-align:center}.opsBtn,.callBtn{width:100%;border:none;border-radius:999px;background:var(--indigo);color:white;padding:12px 16px;font-weight:900;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:10px;text-align:center}
-.hoursGrid{display:grid;grid-template-columns:1fr 1fr;gap:14px}.hoursCard{border-radius:14px;padding:12px;border:1px solid #223147;text-align:center;background:#10192b;color:#677893;opacity:.38;display:flex;align-items:center;justify-content:center;min-height:52px}.hoursCard.active{opacity:1;box-shadow:0 10px 20px rgba(0,0,0,.16)}.hoursCard.working.active{background:#34d399;color:#08201c;border-color:#8ee6d0}.hoursCard.outside.active{background:#f4a917;color:#241500;border-color:#ffd45a}.hoursLabel{font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:.08em;text-align:center}
-.informBox{min-height:158px;display:flex;align-items:center;justify-content:center;padding:16px;background:#0a231f;border:1px solid #1e7b67;text-align:center}.informBig,.procedureBig,.callNowBig{font-weight:900;letter-spacing:-.02em}.informBig,.procedureBig{font-size:30px;line-height:1.02}.informSmall{font-size:18px;font-weight:900;margin-top:6px}
+.opsBox,.bottomBox,.instanceCard,.callProcedure{border-radius:18px;border:1px solid #32445f;background:#10192b}
+.opsBox{padding:16px;display:flex;flex-direction:column;gap:14px}
+.opsText{text-align:center;display:flex;flex-direction:column;align-items:center;gap:6px}
+.opsTitle{font-size:20px;font-weight:900;letter-spacing:-.02em;text-align:center}
+.opsSub{font-size:12px;color:var(--muted);font-weight:700;text-align:center;max-width:260px;line-height:1.45}
+.opsSubStrong{font-size:12px;color:#ecf2fa;font-weight:900;text-align:center}
+.opsBtn,.callBtn{width:100%;border:none;border-radius:999px;background:var(--indigo);color:white;padding:12px 16px;font-weight:900;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:10px;text-align:center}
+.hoursGrid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.hoursCard{border-radius:14px;padding:12px;border:1px solid #223147;text-align:center;background:#10192b;color:#677893;opacity:.38;display:flex;align-items:center;justify-content:center;min-height:52px}
+.hoursCard.active{opacity:1;box-shadow:0 10px 20px rgba(0,0,0,.16)}
+.hoursCard.working.active{background:#34d399;color:#08201c;border-color:#8ee6d0}
+.hoursCard.outside.active{background:#f4a917;color:#241500;border-color:#ffd45a}
+.hoursLabel{font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:.08em;text-align:center}
+.informBox{min-height:158px;display:flex;align-items:center;justify-content:center;padding:16px;background:#0a231f;border:1px solid #1e7b67;text-align:center}
+.informBig,.procedureBig,.callNowBig{font-weight:900;letter-spacing:-.02em}
+.informBig,.procedureBig{font-size:30px;line-height:1.02}
+.informSmall{font-size:18px;font-weight:900;margin-top:6px}
 .callProcedure{min-height:82px;display:flex;align-items:center;justify-content:center;padding:16px;background:#2d1b05;border-color:#c27a11;text-align:center}
-.instanceGrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.instanceCard{padding:14px;background:#10192b;border-color:#223147;display:flex;flex-direction:column;justify-content:flex-start;min-height:210px}.instanceCard.alert{background:rgba(124,73,11,.30);border-color:#f4a917}.instanceTitle,.infoLabel,.callNowNote{font-weight:900}.instanceTitle{font-size:18px;color:#eef3fa;text-align:center}.timer{margin-top:12px;font-size:42px;line-height:1;font-weight:900;color:var(--orangeSoft);flex:1;display:flex;align-items:center;justify-content:center;text-align:center;min-height:150px}.callAgentBtn{margin-top:12px;border:none;background:none;padding:0;color:var(--orangeSoft);font-size:28px;font-weight:900;cursor:pointer;text-align:center}
-.callNowCard{width:100%;text-align:center;padding:14px;border-radius:18px;background:#321018;border:1px solid #f87171;color:#fee2e2;cursor:pointer;display:flex;flex-direction:column;justify-content:center;align-items:center;min-height:210px}.callNowTitle{font-size:18px;font-weight:900;color:#fecaca}.callNowBig{font-size:32px;color:#fda4af;margin-top:12px}.callNowNote{font-size:12px;margin-top:12px;text-align:center;line-height:1.35}
-.bottomBox{margin-top:auto;padding:16px;display:flex;flex-direction:column;gap:14px;min-height:150px;justify-content:center}.engineerInfo{text-align:center}.infoLabel{font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}.infoValue{font-size:24px;font-weight:900;margin-top:6px;text-align:center}
-.footer{padding-top:8px;text-align:center}.articleBtn{padding:14px 20px;border-radius:999px;border:1px solid #32445f;background:#10192b;color:#e8eef7;font-size:18px;font-weight:900;text-decoration:underline;text-underline-offset:4px;cursor:pointer}
-.modalBack{display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);align-items:center;justify-content:center;padding:24px;z-index:50}.modalBack.open{display:flex}.modal{width:min(100%,800px);border-radius:24px;background:#07111f;border:1px solid #32445f;padding:24px;box-shadow:0 24px 50px rgba(0,0,0,.45)}.modal.small{width:min(100%,520px)}.modal.chat{width:min(100%,760px);padding:0;overflow:hidden}.modal.call{width:min(100%,420px);text-align:center;position:relative}.modalHead{display:flex;justify-content:space-between;align-items:flex-start;gap:16px}.modalTitle{font-size:28px;font-weight:900}.closeBtn{width:36px;height:36px;border-radius:999px;border:1px solid #32445f;background:transparent;color:#97a6bf;cursor:pointer}.flowBody{margin-top:24px;padding:24px;border-radius:18px;border:1px solid #32445f;background:#10192b;color:#d2dbea;line-height:1.65}.confirmText{margin-top:10px;color:var(--muted)}.confirmActions{display:flex;justify-content:flex-end;gap:12px;margin-top:24px}.simpleBtn{padding:12px 18px;border-radius:999px;border:none;cursor:pointer;font-weight:700}.simpleBtn.cancel{background:#182235;color:#f8fafc}.simpleBtn.stop{background:#ef4444;color:white}
-.chatHeader{background:#182235;padding:20px;border-bottom:1px solid #32445f;display:flex;justify-content:space-between;align-items:flex-start}.chatBody{padding:20px;background:#0a1120;display:flex;flex-direction:column;gap:16px}.pinnedNotice{border-radius:16px;padding:16px;border:1px solid #c27a11;background:rgba(124,73,11,.35)}.pinnedTitle{font-size:14px;font-weight:900;color:#ffd45a}.pinnedText{font-size:14px;color:#f8fafc;margin-top:4px}.chatRow{display:flex}.chatRow.self{justify-content:flex-end}.chatBubble{max-width:78%;border-radius:18px;padding:14px 16px;background:#182235;color:#f8fafc}.chatBubble.self{background:var(--indigo)}.chatName{font-size:12px;font-weight:900;opacity:.8;margin-bottom:4px}
-.callIcon{margin:0 auto;width:80px;height:80px;border-radius:999px;background:var(--indigo);display:grid;place-items:center;color:white;font-size:34px;box-shadow:0 0 0 10px rgba(99,102,241,.12)}.callTitle{font-size:32px;font-weight:900;margin-top:20px}.callSub{color:var(--muted);font-weight:700;margin-top:8px}.dots{display:flex;justify-content:center;gap:8px;margin-top:24px}.dot{width:8px;height:8px;border-radius:999px;background:#677893;animation:bounce 1s infinite}.dot:nth-child(2){animation-delay:.12s}.dot:nth-child(3){animation-delay:.24s}
+.instanceGrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.instanceCard{padding:14px;background:#10192b;border-color:#223147;display:flex;flex-direction:column;justify-content:flex-start;min-height:210px}
+.instanceCard.alert{background:rgba(124,73,11,.30);border-color:#f4a917}
+.instanceTitle,.infoLabel,.callNowNote{font-weight:900}
+.instanceTitle{font-size:18px;color:#eef3fa;text-align:center}
+.timer{margin-top:12px;font-size:42px;line-height:1;font-weight:900;color:var(--orangeSoft);flex:1;display:flex;align-items:center;justify-content:center;text-align:center;min-height:150px}
+.callAgentBtn{margin-top:12px;border:none;background:none;padding:0;color:var(--orangeSoft);font-size:28px;font-weight:900;cursor:pointer;text-align:center}
+.callNowCard{width:100%;text-align:center;padding:14px;border-radius:18px;background:#321018;border:1px solid #f87171;color:#fee2e2;cursor:pointer;display:flex;flex-direction:column;justify-content:center;align-items:center;min-height:210px}
+.callNowTitle{font-size:18px;font-weight:900;color:#fecaca}
+.callNowBig{font-size:32px;color:#fda4af;margin-top:12px}
+.callNowNote{font-size:12px;margin-top:12px;text-align:center;line-height:1.35}
+.bottomBox{margin-top:auto;padding:16px;display:flex;flex-direction:column;gap:14px;min-height:150px;justify-content:center}
+.engineerInfo{text-align:center}
+.infoLabel{font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
+.infoValue{font-size:24px;font-weight:900;margin-top:6px;text-align:center}
+.footer{padding-top:8px;text-align:center}
+.articleBtn{padding:14px 20px;border-radius:999px;border:1px solid #32445f;background:#10192b;color:#e8eef7;font-size:18px;font-weight:900;text-decoration:underline;text-underline-offset:4px;cursor:pointer}
+.modalBack{display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);align-items:center;justify-content:center;padding:24px;z-index:50}
+.modalBack.open{display:flex}
+.modal{width:min(100%,800px);border-radius:24px;background:#07111f;border:1px solid #32445f;padding:24px;box-shadow:0 24px 50px rgba(0,0,0,.45)}
+.modal.small{width:min(100%,520px)}
+.modal.chat{width:min(100%,760px);padding:0;overflow:hidden}
+.modal.call{width:min(100%,420px);text-align:center;position:relative}
+.modalHead{display:flex;justify-content:space-between;align-items:flex-start;gap:16px}
+.modalTitle{font-size:28px;font-weight:900}
+.closeBtn{width:36px;height:36px;border-radius:999px;border:1px solid #32445f;background:transparent;color:#97a6bf;cursor:pointer}
+.flowBody{margin-top:24px;padding:24px;border-radius:18px;border:1px solid #32445f;background:#10192b;color:#d2dbea;line-height:1.65}
+.confirmText{margin-top:10px;color:var(--muted)}
+.confirmActions{display:flex;justify-content:flex-end;gap:12px;margin-top:24px}
+.simpleBtn{padding:12px 18px;border-radius:999px;border:none;cursor:pointer;font-weight:700}
+.simpleBtn.cancel{background:#182235;color:#f8fafc}
+.simpleBtn.stop{background:#ef4444;color:white}
+.chatHeader{background:#182235;padding:20px;border-bottom:1px solid #32445f;display:flex;justify-content:space-between;align-items:flex-start}
+.chatBody{padding:20px;background:#0a1120;display:flex;flex-direction:column;gap:16px}
+.pinnedNotice{border-radius:16px;padding:16px;border:1px solid #c27a11;background:rgba(124,73,11,.35)}
+.pinnedTitle{font-size:14px;font-weight:900;color:#ffd45a}
+.pinnedText{font-size:14px;color:#f8fafc;margin-top:4px}
+.chatRow{display:flex}
+.chatRow.self{justify-content:flex-end}
+.chatBubble{max-width:78%;border-radius:18px;padding:14px 16px;background:#182235;color:#f8fafc}
+.chatBubble.self{background:var(--indigo)}
+.chatName{font-size:12px;font-weight:900;opacity:.8;margin-bottom:4px}
+.callIcon{margin:0 auto;width:80px;height:80px;border-radius:999px;background:var(--indigo);display:grid;place-items:center;color:white;font-size:34px;box-shadow:0 0 0 10px rgba(99,102,241,.12)}
+.callTitle{font-size:32px;font-weight:900;margin-top:20px}
+.callSub{color:var(--muted);font-weight:700;margin-top:8px}
+.dots{display:flex;justify-content:center;gap:8px;margin-top:24px}
+.dot{width:8px;height:8px;border-radius:999px;background:#677893;animation:bounce 1s infinite}
+.dot:nth-child(2){animation-delay:.12s}
+.dot:nth-child(3){animation-delay:.24s}
 @keyframes bounce{0%,80%,100%{transform:translateY(0)}40%{transform:translateY(-6px)}}
-@media (max-width:1100px){.marketGrid,.panelGrid{grid-template-columns:repeat(2,minmax(0,1fr))}}@media (max-width:700px){.app{padding:16px}.marketGrid,.panelGrid,.hoursGrid,.instanceGrid{grid-template-columns:1fr}header{flex-direction:column;align-items:flex-start}.headerActions{flex-wrap:wrap}.panelSlot.hidden{display:none}}
+@media (max-width:1100px){.marketGrid,.panelGrid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:700px){.app{padding:16px}.marketGrid,.panelGrid,.hoursGrid,.instanceGrid{grid-template-columns:1fr}header{flex-direction:column;align-items:flex-start}.headerActions{flex-wrap:wrap}.panelSlot.hidden{display:none}}
 </style>
 </head>
 <body>
@@ -126,6 +197,8 @@ let confirmMarketId = null;
 const marketGrid = document.getElementById('marketGrid');
 const panelArea = document.getElementById('panelArea');
 const helperText = document.getElementById('helperText');
+const opsModal = document.getElementById('opsModal');
+const callModal = document.getElementById('callModal');
 
 function formatTimer(seconds) {
   const min = String(Math.floor(seconds / 60)).padStart(2, '0');
@@ -142,7 +215,7 @@ function renderMarkets() {
     const active = Boolean(activeAlerts[market.id]);
     const actionLabel = active ? 'Stop monitoring' : 'Start monitoring';
     return `
-      <button type="button" class="marketBtn ${active ? 'active' : ''}" data-market-id="${market.id}">
+      <button type="button" class="marketBtn ${active ? 'active' : ''}" onclick="handleMarketClick('${market.id}')">
         <div class="marketAction">${actionLabel}</div>
         <div class="marketTop">
           <div class="marketIcon">${iconFlag()}</div>
@@ -188,7 +261,7 @@ function renderAlertCard(alert) {
           <div class="opsSub">If planned restart or known issue was posted, monitor only.</div>
           <div class="opsSubStrong">If not, act immediately.</div>
         </div>
-        <button type="button" class="opsBtn" data-chat-id="${alert.id}">${iconChat()} OPS ${alert.name} Chat</button>
+        <button type="button" class="opsBtn" onclick="openOps('${alert.id}')">${iconChat()} OPS ${alert.name} Chat</button>
       </section>
 
       <div class="hoursGrid">
@@ -216,11 +289,11 @@ function renderAlertCard(alert) {
           <div class="instanceCard ${timerFinished ? 'alert' : ''}">
             <div class="instanceTitle">INSTANCE 1</div>
             ${timerFinished
-              ? `<button type="button" class="callAgentBtn" data-call-id="${alert.id}">CALL AGENT</button>`
+              ? `<button type="button" class="callAgentBtn" onclick="openCall('${alert.id}')">CALL AGENT</button>`
               : `<div class="timer">${formatTimer(alert.timer)}</div>`}
           </div>
 
-          <button type="button" class="callNowCard" data-call-id="${alert.id}">
+          <button type="button" class="callNowCard" onclick="openCall('${alert.id}')">
             <div class="callNowTitle">INSTANCE 0</div>
             <div class="callNowBig">CALL NOW</div>
             <div class="callNowNote">EVEN IF RECOVERED</div>
@@ -232,7 +305,7 @@ function renderAlertCard(alert) {
             <div class="infoLabel">On call engineer</div>
             <div class="infoValue">${alert.engineer}</div>
           </div>
-          <button type="button" class="callBtn" data-call-id="${alert.id}">${iconPhone()} Call Engineer</button>
+          <button type="button" class="callBtn" onclick="openCall('${alert.id}')">${iconPhone()} Call Engineer</button>
         </section>
       `}
     </main>
@@ -272,14 +345,15 @@ function confirmStop() {
   render();
 }
 
-function openOpsById(id) {
+function openOps(id) {
   const market = activeAlerts[id] || markets.find((m) => m.id === id);
   if (!market) return;
+
   const pinned = market.id === 'B'
     ? `<div class="pinnedNotice"><div class="pinnedTitle">Pinned notice</div><div class="pinnedText">Planned restart notice for Market B date-time. Short healthy instance drops may occur during the window.</div></div>`
     : '';
 
-  document.getElementById('opsModal').innerHTML = `
+  opsModal.innerHTML = `
     <div class="modalBack open" id="opsModalInner">
       <div class="modal chat">
         <div class="chatHeader">
@@ -287,7 +361,7 @@ function openOpsById(id) {
             <div style="font-size:22px;font-weight:900">OPS ${market.name} Chat</div>
             <div class="sub" style="margin-top:4px">Microsoft Teams group chat simulation</div>
           </div>
-          <button type="button" class="closeBtn" data-close="ops">✕</button>
+          <button type="button" class="closeBtn" onclick="closeOpsModal()">✕</button>
         </div>
         <div class="chatBody">
           ${pinned}
@@ -298,10 +372,15 @@ function openOpsById(id) {
       </div>
     </div>
   `;
+
+  const back = document.getElementById('opsModalInner');
+  back.onclick = (event) => {
+    if (event.target === back) closeOpsModal();
+  };
 }
 
 function closeOpsModal() {
-  document.getElementById('opsModal').innerHTML = '';
+  opsModal.innerHTML = '';
 }
 
 function chatBubble(name, text, self = false) {
@@ -315,13 +394,14 @@ function chatBubble(name, text, self = false) {
   `;
 }
 
-function openCallById(id) {
+function openCall(id) {
   const alert = activeAlerts[id] || markets.find((m) => m.id === id);
   if (!alert) return;
-  document.getElementById('callModal').innerHTML = `
+
+  callModal.innerHTML = `
     <div class="modalBack open" id="callModalInner">
       <div class="modal call">
-        <button type="button" class="closeBtn" style="position:absolute;top:20px;right:20px" data-close="call">✕</button>
+        <button type="button" class="closeBtn" style="position:absolute;top:20px;right:20px" onclick="closeCallModal()">✕</button>
         <div class="callIcon">${iconPhone()}</div>
         <div class="callTitle">Calling ${alert.engineer}.</div>
         <div class="callSub">Call simulation active.</div>
@@ -329,10 +409,15 @@ function openCallById(id) {
       </div>
     </div>
   `;
+
+  const back = document.getElementById('callModalInner');
+  back.onclick = (event) => {
+    if (event.target === back) closeCallModal();
+  };
 }
 
 function closeCallModal() {
-  document.getElementById('callModal').innerHTML = '';
+  callModal.innerHTML = '';
 }
 
 function openModal(id) {
@@ -346,58 +431,16 @@ function closeModal(id) {
 window.handleMarketClick = handleMarketClick;
 window.cancelStop = cancelStop;
 window.confirmStop = confirmStop;
-window.closeModal = closeModal;
+window.openOps = openOps;
 window.closeOpsModal = closeOpsModal;
+window.openCall = openCall;
 window.closeCallModal = closeCallModal;
-
-function bindInteractions() {
-  document.querySelectorAll('[data-market-id]').forEach((el) => {
-    el.onclick = () => handleMarketClick(el.dataset.marketId);
-  });
-
-  document.querySelectorAll('[data-chat-id]').forEach((el) => {
-    el.onclick = (event) => {
-      event.preventDefault();
-      event.stopPropagation();
-      openOpsById(el.dataset.chatId);
-    };
-  });
-
-  document.querySelectorAll('[data-call-id]').forEach((el) => {
-    el.onclick = (event) => {
-      event.preventDefault();
-      event.stopPropagation();
-      openCallById(el.dataset.callId);
-    };
-  });
-
-  const opsInner = document.getElementById('opsModalInner');
-  if (opsInner) {
-    opsInner.onclick = (event) => {
-      if (event.target === opsInner) closeOpsModal();
-    };
-  }
-
-  const callInner = document.getElementById('callModalInner');
-  if (callInner) {
-    callInner.onclick = (event) => {
-      if (event.target === callInner) closeCallModal();
-    };
-  }
-
-  document.querySelectorAll('[data-close="ops"]').forEach((el) => {
-    el.onclick = () => closeOpsModal();
-  });
-
-  document.querySelectorAll('[data-close="call"]').forEach((el) => {
-    el.onclick = () => closeCallModal();
-  });
-}
+window.openModal = openModal;
+window.closeModal = closeModal;
 
 function render() {
   renderMarkets();
   renderPanels();
-  bindInteractions();
 }
 
 setInterval(() => {
@@ -405,7 +448,6 @@ setInterval(() => {
     activeAlerts[id].timer = Math.max(0, activeAlerts[id].timer - 1);
   });
   renderPanels();
-  bindInteractions();
 }, 1000);
 
 document.getElementById('flowBtn').onclick = () => openModal('flowModal');
