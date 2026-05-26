@@ -67,7 +67,7 @@ h1{margin:0;font-size:32px;font-weight:600;letter-spacing:-.02em}.sub{color:var(
         <div class="sub">Select affected market</div>
       </div>
       <div class="headerActions">
-        <button class="pill" id="flowBtn">Flow explained</button>
+        <button class="pill" id="flowBtn" type="button">Flow explained</button>
       </div>
     </header>
 
@@ -76,7 +76,7 @@ h1{margin:0;font-size:32px;font-weight:600;letter-spacing:-.02em}.sub{color:var(
     <section id="panelArea"></section>
 
     <footer class="footer">
-      <button class="articleBtn">Original article and source data</button>
+      <button class="articleBtn" type="button">Original article and source data</button>
     </footer>
   </div>
 </div>
@@ -88,7 +88,7 @@ h1{margin:0;font-size:32px;font-weight:600;letter-spacing:-.02em}.sub{color:var(
         <div class="modalTitle">Flow explained</div>
         <div class="sub" style="margin-top:4px">Operational path used by Quick Check.</div>
       </div>
-      <button class="closeBtn" type="button" onclick="closeModal('flowModal')">✕</button>
+      <button class="closeBtn" type="button" data-close-static="flow">✕</button>
     </div>
     <div class="flowBody">
       <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer non nulla vitae erat facilisis posuere. Sed at neque sed massa feugiat tincidunt. Donec consequat, libero at fermentum dapibus, turpis mauris semper mauris, a volutpat lorem velit vitae nisl.</p>
@@ -105,11 +105,11 @@ h1{margin:0;font-size:32px;font-weight:600;letter-spacing:-.02em}.sub{color:var(
         <div style="font-size:24px;font-weight:700">Stop monitoring?</div>
         <div id="stopText" class="confirmText"></div>
       </div>
-      <button class="closeBtn" type="button" onclick="closeModal('stopModal')">✕</button>
+      <button class="closeBtn" type="button" data-close-static="stop">✕</button>
     </div>
     <div class="confirmActions">
-      <button class="simpleBtn cancel" type="button" onclick="cancelStop()">Cancel</button>
-      <button class="simpleBtn stop" type="button" onclick="confirmStop()">Stop monitoring</button>
+      <button class="simpleBtn cancel" type="button" id="cancelStopBtn">Cancel</button>
+      <button class="simpleBtn stop" type="button" id="confirmStopBtn">Stop monitoring</button>
     </div>
   </div>
 </div>
@@ -134,6 +134,9 @@ const panelArea = document.getElementById('panelArea');
 const helperText = document.getElementById('helperText');
 const opsModal = document.getElementById('opsModal');
 const callModal = document.getElementById('callModal');
+const flowBtn = document.getElementById('flowBtn');
+const cancelStopBtn = document.getElementById('cancelStopBtn');
+const confirmStopBtn = document.getElementById('confirmStopBtn');
 
 function formatTimer(seconds) {
   const min = String(Math.floor(seconds / 60)).padStart(2, '0');
@@ -150,7 +153,7 @@ function renderMarkets() {
     const active = Boolean(activeAlerts[market.id]);
     const actionLabel = active ? 'Stop monitoring' : 'Start monitoring';
     return `
-      <button type="button" class="marketBtn ${active ? 'active' : ''}" onclick="handleMarketClick('${market.id}')">
+      <button type="button" class="marketBtn ${active ? 'active' : ''}" data-market-id="${market.id}">
         <div class="marketAction">${actionLabel}</div>
         <div class="marketTop">
           <div class="marketIcon">${iconFlag()}</div>
@@ -196,7 +199,7 @@ function renderAlertCard(alert) {
           <div class="opsSub">If planned restart or known issue was posted, monitor only.</div>
           <div class="opsSubStrong">If not, act immediately.</div>
         </div>
-        <button type="button" class="opsBtn" onclick="openOps('${alert.id}')">${iconChat()} OPS ${alert.name} Chat</button>
+        <button type="button" class="opsBtn" data-ops-id="${alert.id}">${iconChat()} OPS ${alert.name} Chat</button>
       </section>
 
       <div class="hoursGrid">
@@ -224,11 +227,11 @@ function renderAlertCard(alert) {
           <div class="instanceCard ${timerFinished ? 'alert' : ''}">
             <div class="instanceTitle">INSTANCE 1</div>
             ${timerFinished
-              ? `<button type="button" class="callAgentBtn" onclick="openCall('${alert.id}')">CALL AGENT</button>`
+              ? `<button type="button" class="callAgentBtn" data-call-id="${alert.id}">CALL AGENT</button>`
               : `<div class="timer">${formatTimer(alert.timer)}</div>`}
           </div>
 
-          <button type="button" class="callNowCard" onclick="openCall('${alert.id}')">
+          <button type="button" class="callNowCard" data-call-id="${alert.id}">
             <div class="callNowTitle">INSTANCE 0</div>
             <div class="callNowBig">CALL NOW</div>
             <div class="callNowNote">EVEN IF RECOVERED</div>
@@ -240,7 +243,7 @@ function renderAlertCard(alert) {
             <div class="infoLabel">On call engineer</div>
             <div class="infoValue">${alert.engineer}</div>
           </div>
-          <button type="button" class="callBtn" onclick="openCall('${alert.id}')">${iconPhone()} Call Engineer</button>
+          <button type="button" class="callBtn" data-call-id="${alert.id}">${iconPhone()} Call Engineer</button>
         </section>
       `}
     </main>
@@ -295,7 +298,7 @@ function openOps(id) {
             <div style="font-size:22px;font-weight:900">OPS ${market.name} Chat</div>
             <div class="sub" style="margin-top:4px">Microsoft Teams group chat simulation</div>
           </div>
-          <button type="button" class="closeBtn" onclick="closeOpsModal()">✕</button>
+          <button type="button" class="closeBtn" data-close-dynamic="ops">✕</button>
         </div>
         <div class="chatBody">
           ${pinned}
@@ -307,12 +310,7 @@ function openOps(id) {
     </div>
   `;
 
-  const back = document.getElementById('opsModalInner');
-  if (back) {
-    back.onclick = (event) => {
-      if (event.target === back) closeOpsModal();
-    };
-  }
+  bindDynamicInteractions();
 }
 
 function closeOpsModal() {
@@ -336,7 +334,7 @@ function openCall(id) {
   callModal.innerHTML = `
     <div class="modalBack open" id="callModalInner">
       <div class="modal call">
-        <button type="button" class="closeBtn" style="position:absolute;top:20px;right:20px" onclick="closeCallModal()">✕</button>
+        <button type="button" class="closeBtn" style="position:absolute;top:20px;right:20px" data-close-dynamic="call">✕</button>
         <div class="callIcon">${iconPhone()}</div>
         <div class="callTitle">Calling ${alert.engineer}.</div>
         <div class="callSub">Call simulation active.</div>
@@ -345,12 +343,7 @@ function openCall(id) {
     </div>
   `;
 
-  const back = document.getElementById('callModalInner');
-  if (back) {
-    back.onclick = (event) => {
-      if (event.target === back) closeCallModal();
-    };
-  }
+  bindDynamicInteractions();
 }
 
 function closeCallModal() {
@@ -365,19 +358,67 @@ function closeModal(id) {
   document.getElementById(id).classList.remove('open');
 }
 
-window.handleMarketClick = handleMarketClick;
-window.cancelStop = cancelStop;
-window.confirmStop = confirmStop;
-window.openOps = openOps;
-window.closeOpsModal = closeOpsModal;
-window.openCall = openCall;
-window.closeCallModal = closeCallModal;
-window.openModal = openModal;
-window.closeModal = closeModal;
+function bindStaticInteractions() {
+  flowBtn.onclick = () => openModal('flowModal');
+  cancelStopBtn.onclick = cancelStop;
+  confirmStopBtn.onclick = confirmStop;
+
+  document.querySelectorAll('[data-close-static="flow"]').forEach((el) => {
+    el.onclick = () => closeModal('flowModal');
+  });
+  document.querySelectorAll('[data-close-static="stop"]').forEach((el) => {
+    el.onclick = () => closeModal('stopModal');
+  });
+}
+
+function bindDynamicInteractions() {
+  document.querySelectorAll('[data-market-id]').forEach((el) => {
+    el.onclick = () => handleMarketClick(el.dataset.marketId);
+  });
+
+  document.querySelectorAll('[data-ops-id]').forEach((el) => {
+    el.onclick = (event) => {
+      event.preventDefault();
+      event.stopPropagation();
+      openOps(el.dataset.opsId);
+    };
+  });
+
+  document.querySelectorAll('[data-call-id]').forEach((el) => {
+    el.onclick = (event) => {
+      event.preventDefault();
+      event.stopPropagation();
+      openCall(el.dataset.callId);
+    };
+  });
+
+  document.querySelectorAll('[data-close-dynamic="ops"]').forEach((el) => {
+    el.onclick = () => closeOpsModal();
+  });
+
+  document.querySelectorAll('[data-close-dynamic="call"]').forEach((el) => {
+    el.onclick = () => closeCallModal();
+  });
+
+  const opsBackdrop = document.getElementById('opsModalInner');
+  if (opsBackdrop) {
+    opsBackdrop.onclick = (event) => {
+      if (event.target === opsBackdrop) closeOpsModal();
+    };
+  }
+
+  const callBackdrop = document.getElementById('callModalInner');
+  if (callBackdrop) {
+    callBackdrop.onclick = (event) => {
+      if (event.target === callBackdrop) closeCallModal();
+    };
+  }
+}
 
 function render() {
   renderMarkets();
   renderPanels();
+  bindDynamicInteractions();
 }
 
 setInterval(() => {
@@ -385,9 +426,10 @@ setInterval(() => {
     activeAlerts[id].timer = Math.max(0, activeAlerts[id].timer - 1);
   });
   renderPanels();
+  bindDynamicInteractions();
 }, 1000);
 
-document.getElementById('flowBtn').onclick = () => openModal('flowModal');
+bindStaticInteractions();
 render();
 </script>
 </body>
