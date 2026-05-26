@@ -191,6 +191,10 @@ h1{margin:0;font-size:32px;font-weight:600;letter-spacing:-.02em}
 <div id="callModal"></div>
 
 <script>
+window.addEventListener('error', function (event) {
+  console.error('Quick Check runtime error:', event.message, 'at', event.filename + ':' + event.lineno);
+});
+
 const markets = [
   { id: 'A', name: 'Market A', time: '14:58', status: 'working', engineer: 'Engineer 4' },
   { id: 'B', name: 'Market B', time: '11:58', status: 'outside', engineer: 'Engineer 7' },
@@ -217,10 +221,6 @@ function formatTimer(seconds) {
   return `${min}:${sec}`;
 }
 
-function iconFlag(){ return ''; }
-function iconChat(){ return ''; }
-function iconPhone(){ return ''; }
-
 function renderMarkets() {
   marketGrid.innerHTML = markets.map((market) => {
     const active = Boolean(activeAlerts[market.id]);
@@ -229,7 +229,6 @@ function renderMarkets() {
       <button type="button" class="marketBtn ${active ? 'active' : ''}" data-market-id="${market.id}">
         <div class="marketAction">${actionLabel}</div>
         <div class="marketTop">
-          <div class="marketIcon">${iconFlag()}</div>
           <div>
             <div class="marketName">${market.name}</div>
             <div class="marketTime">${market.time}</div>
@@ -416,21 +415,10 @@ function openCall(id) {
   bindDynamicInteractions();
 }
 
-function closeOpsModal() {
-  opsModal.innerHTML = '';
-}
-
-function closeCallModal() {
-  callModal.innerHTML = '';
-}
-
-function openModal(id) {
-  document.getElementById(id).classList.add('open');
-}
-
-function closeModal(id) {
-  document.getElementById(id).classList.remove('open');
-}
+function closeOpsModal() { opsModal.innerHTML = ''; }
+function closeCallModal() { callModal.innerHTML = ''; }
+function openModal(id) { document.getElementById(id).classList.add('open'); }
+function closeModal(id) { document.getElementById(id).classList.remove('open'); }
 
 function bindStaticInteractions() {
   flowBtn.onclick = () => openModal('flowModal');
