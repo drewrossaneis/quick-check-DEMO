@@ -48,7 +48,7 @@ h1{margin:0;font-size:32px;font-weight:600;letter-spacing:-.02em}
 .marketBtn.active .marketTime{color:#9a6700}
 .panelSlot.hidden{visibility:hidden}
 .alertCard{border-radius:20px;border:1px solid var(--border);background:var(--panel);padding:12px;box-shadow:0 12px 28px rgba(0,0,0,.16);display:flex;flex-direction:column;gap:12px;min-height:400px}
-.opsBox,.bottomBox,.instanceCard,.callProcedure,.informBox{border-radius:18px;border:1px solid var(--border);background:var(--card)}
+.opsBox,.bottomBox,.instanceCard,.callProcedure,.informBox,.callNowCard{border-radius:18px;border:1px solid var(--border);background:var(--card)}
 .opsBox{padding:14px;display:flex;flex-direction:column;gap:10px}
 .opsText{text-align:center;display:flex;flex-direction:column;align-items:center;gap:6px}
 .opsTitle{font-size:18px;font-weight:800;letter-spacing:-.02em;text-align:center}
@@ -67,19 +67,21 @@ h1{margin:0;font-size:32px;font-weight:600;letter-spacing:-.02em}
 .informBig,.procedureBig,.callNowBig{font-weight:800;letter-spacing:-.02em}
 .informBig,.procedureBig{font-size:24px;line-height:1.06}
 .callProcedure{min-height:54px;display:flex;align-items:center;justify-content:center;padding:12px 16px;background:#2a2118;border-color:#8b5e1a;text-align:center;color:#fde68a}
-.instanceGrid{display:grid;grid-template-columns:1.1fr .9fr;gap:10px;align-items:stretch}
-.instanceCard,.callNowCard{width:100%;min-width:0;min-height:122px}
-.instanceCard{padding:12px 14px;background:linear-gradient(180deg,#3a2a14 0%, #241a0e 100%);border-color:#8b5e1a;display:flex;flex-direction:column;justify-content:space-between;align-items:flex-start;gap:8px;box-shadow:inset 0 1px 0 rgba(255,255,255,.05)}
+.instanceStack{display:flex;flex-direction:column;gap:10px}
+.instanceCard,.callNowCard{width:100%;min-width:0;min-height:106px}
+.instanceCard{padding:14px 16px;background:linear-gradient(180deg,#3a2a14 0%, #241a0e 100%);border-color:#8b5e1a;display:flex;align-items:center;justify-content:space-between;gap:16px;box-shadow:inset 0 1px 0 rgba(255,255,255,.05)}
 .instanceCard.alert{background:linear-gradient(180deg,#533216 0%, #2f1b0c 100%);border-color:#d08a22}
 .instanceTitle,.infoLabel,.callNowNote{font-weight:800}
-.instanceTitle{font-size:13px;color:#f8d48b;line-height:1.1;letter-spacing:.02em}
-.timer{font-size:40px;line-height:1;font-weight:900;color:#ffd166;font-variant-numeric:tabular-nums;white-space:nowrap;align-self:center}
-.callAgentBtn{border:none;background:none;padding:0;color:#ffd166;font-size:20px;font-weight:900;cursor:pointer;text-align:left}
-.callNowCard{text-align:left;padding:12px 14px;border-radius:18px;background:linear-gradient(180deg,#a61f32 0%, #7d1524 100%);border:1px solid #cf3b50;color:var(--red-soft);cursor:pointer;display:flex;flex-direction:column;justify-content:space-between;align-items:flex-start;gap:4px;overflow:hidden;transition:filter .18s ease,transform .18s ease;box-shadow:inset 0 1px 0 rgba(255,255,255,.08)}
+.instanceTitle{font-size:15px;color:#f8d48b;line-height:1.1;letter-spacing:.02em}
+.timer{font-size:44px;line-height:1;font-weight:900;color:#ffd166;font-variant-numeric:tabular-nums;white-space:nowrap}
+.callAgentBtn{border:none;background:none;padding:0;color:#ffd166;font-size:22px;font-weight:900;cursor:pointer;text-align:right}
+.callNowCard{text-align:left;padding:14px 16px;background:linear-gradient(180deg,#a61f32 0%, #7d1524 100%);border:1px solid #cf3b50;color:var(--red-soft);cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:16px;overflow:hidden;transition:filter .18s ease,transform .18s ease;box-shadow:inset 0 1px 0 rgba(255,255,255,.08)}
 .callNowCard:hover{filter:brightness(1.05);transform:translateY(-1px)}
 .callNowTitle{font-size:12px;font-weight:700;color:#ffd4d9;line-height:1;text-align:left;letter-spacing:.02em}
-.callNowBig{font-size:36px;color:#fff7f8;line-height:.95;letter-spacing:-.04em;text-align:left;font-weight:900}
+.callNowBig{font-size:34px;color:#fff7f8;line-height:.95;text-align:right;font-weight:900}
 .callNowNote{font-size:10px;line-height:1.2;color:#ffe2e6;text-align:left;font-weight:700;opacity:.92}
+.callNowMeta,.instanceMeta{display:flex;flex-direction:column;gap:6px;align-items:flex-start}
+.callNowMain,.instanceMain{display:flex;align-items:center;justify-content:flex-end;flex:1;min-width:0}
 .bottomBox{margin-top:auto;padding:12px 14px;display:flex;flex-direction:column;gap:12px;min-height:110px;justify-content:center}
 .engineerInfo{text-align:center}
 .infoLabel{font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
@@ -123,10 +125,13 @@ h1{margin:0;font-size:32px;font-weight:600;letter-spacing:-.02em}
 @media (max-width:1100px){.marketGrid,.panelGrid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media (max-width:700px){
   .app{padding:16px}
-  .marketGrid,.panelGrid,.hoursGrid,.instanceGrid{grid-template-columns:1fr}
+  .marketGrid,.panelGrid,.hoursGrid{grid-template-columns:1fr}
   header{flex-direction:column;align-items:flex-start}
   .headerActions{flex-wrap:wrap}
   .panelSlot.hidden{display:none}
+  .instanceCard,.callNowCard{flex-direction:column;align-items:flex-start}
+  .callNowMain,.instanceMain{width:100%;justify-content:flex-start}
+  .callNowBig,.timer,.callAgentBtn{text-align:left}
 }
 </style>
 </head>
@@ -293,19 +298,27 @@ function renderAlertCard(alert) {
           <div class="procedureBig">Call-out procedure</div>
         </section>
 
-        <section class="instanceGrid">
-          <div class="instanceCard ${timerFinished ? 'alert' : ''}">
-            <div class="instanceTitle">Instance 1</div>
-            ${timerFinished
-              ? `<button type="button" class="callAgentBtn" data-call-id="${alert.id}">Call agent</button>`
-              : `<div class="timer">${formatTimer(alert.timer)}</div>`}
-          </div>
-
+        <section class="instanceStack">
           <button type="button" class="callNowCard" data-call-id="${alert.id}">
-            <div class="callNowTitle">Instance 0</div>
-            <div class="callNowBig">CALL NOW</div>
-            <div class="callNowNote">Even if recovered</div>
+            <div class="callNowMeta">
+              <div class="callNowTitle">Instance 0</div>
+              <div class="callNowNote">Even if recovered</div>
+            </div>
+            <div class="callNowMain">
+              <div class="callNowBig">CALL NOW</div>
+            </div>
           </button>
+
+          <div class="instanceCard ${timerFinished ? 'alert' : ''}">
+            <div class="instanceMeta">
+              <div class="instanceTitle">Instance 1</div>
+            </div>
+            <div class="instanceMain">
+              ${timerFinished
+                ? `<button type="button" class="callAgentBtn" data-call-id="${alert.id}">Call agent</button>`
+                : `<div class="timer">${formatTimer(alert.timer)}</div>`}
+            </div>
+          </div>
         </section>
 
         <section class="bottomBox">
