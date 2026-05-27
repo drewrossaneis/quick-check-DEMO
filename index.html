@@ -631,10 +631,10 @@ const scenarios = [
   {
     label: 'Demo clock 1',
     markets: [
-      { id: 'A', name: 'Market A', time: '14:58', status: 'working', engineer: 'Engineer 4' },
-      { id: 'B', name: 'Market B', time: '11:58', status: 'outside', engineer: 'Engineer 7' },
-      { id: 'C', name: 'Market C', time: '13:58', status: 'working', engineer: 'Engineer 2' },
-      { id: 'D', name: 'Market D', time: '15:58', status: 'outside', engineer: 'Engineer 9' }
+      { id: 'A', name: 'Market A', time: '14:25', status: 'working', engineer: 'Engineer 4' },
+      { id: 'B', name: 'Market B', time: '11:25', status: 'outside', engineer: 'Engineer 4' },
+      { id: 'C', name: 'Market C', time: '13:25', status: 'working', engineer: 'Engineer 4' },
+      { id: 'D', name: 'Market D', time: '15:25', status: 'outside', engineer: 'Engineer 4' }
     ],
     engineer: {
       current: 'Engineer 4',
@@ -647,10 +647,10 @@ const scenarios = [
   {
     label: 'Demo clock 2',
     markets: [
-      { id: 'A', name: 'Market A', time: '20:58', status: 'outside', engineer: 'Engineer 8' },
-      { id: 'B', name: 'Market B', time: '17:58', status: 'working', engineer: 'Engineer 8' },
-      { id: 'C', name: 'Market C', time: '19:58', status: 'outside', engineer: 'Engineer 8' },
-      { id: 'D', name: 'Market D', time: '21:58', status: 'outside', engineer: 'Engineer 8' }
+      { id: 'A', name: 'Market A', time: '20:48', status: 'outside', engineer: 'Engineer 8' },
+      { id: 'B', name: 'Market B', time: '17:48', status: 'working', engineer: 'Engineer 8' },
+      { id: 'C', name: 'Market C', time: '19:48', status: 'outside', engineer: 'Engineer 8' },
+      { id: 'D', name: 'Market D', time: '21:48', status: 'outside', engineer: 'Engineer 8' }
     ],
     engineer: {
       current: 'Engineer 8',
@@ -665,6 +665,7 @@ const scenarios = [
 let scenarioIndex = 0;
 let markets = scenarios[scenarioIndex].markets;
 let showShiftLeft = false;
+// The on-call engineer is global for the current shift and does not depend on Market.
 
 const TIMER_START = 180;
 const activeAlerts = {};
@@ -733,6 +734,7 @@ function switchScenario() {
       activeAlerts[id] = {
         ...activeAlerts[id],
         ...updatedMarket,
+        engineer: currentScenario().engineer.current,
         timer: TIMER_START
       };
     }
@@ -841,7 +843,7 @@ function renderAlertCard(alert) {
         <section class="bottomBox">
           <div class="engineerInfo">
             <div class="infoLabel">On-call engineer</div>
-            <div class="infoValue">${alert.engineer}</div>
+            <div class="infoValue">${currentScenario().engineer.current}</div>
           </div>
           <button type="button" class="callBtn" data-call-id="${alert.id}">Call engineer</button>
         </section>
@@ -862,6 +864,7 @@ function handleMarketClick(marketId) {
 
   activeAlerts[market.id] = {
     ...market,
+    engineer: currentScenario().engineer.current,
     timer: TIMER_START,
     createdAt: Date.now()
   };
@@ -947,8 +950,10 @@ function openOps(id) {
 }
 
 function openCall(id) {
-  const alert = activeAlerts[id] || markets.find((m) => m.id === id) || { engineer: id };
-  if (!alert) return;
+  const isEngineerName = typeof id === 'string' && id.toLowerCase().startsWith('engineer');
+  const alert = isEngineerName
+    ? { engineer: id }
+    : { engineer: currentScenario().engineer.current };
 
   callModal.innerHTML = `
     <div id="callModalInner" style="display:flex;position:fixed;inset:0;background:rgba(3,8,14,.74);align-items:center;justify-content:center;padding:24px;z-index:99999;">
