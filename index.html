@@ -339,6 +339,219 @@ h1{margin:0;font-size:30px;font-weight:600;letter-spacing:-.02em}
   font-size:28px;
 }
 
+
+/* Compact corporate pass */
+.shell{
+  gap:10px;
+}
+.app{
+  padding:18px;
+}
+h1{
+  font-size:27px;
+}
+.sub{
+  font-size:12px;
+}
+.headerActions{
+  gap:8px;
+}
+.pill{
+  padding:7px 11px;
+  font-size:12px;
+}
+.quickAccessCard{
+  min-height:72px;
+  padding:10px 12px;
+  gap:7px 12px;
+}
+.quickAvailable{
+  font-size:15px;
+}
+.quickLabel{
+  font-size:9px;
+  margin-bottom:3px;
+}
+.quickTime{
+  font-size:11px;
+}
+.quickCall{
+  padding:8px 12px;
+  font-size:12px;
+}
+.quickShift{
+  min-height:16px;
+  font-size:10px;
+}
+.marketGrid,.panelGrid{
+  gap:10px;
+}
+.marketBtn{
+  min-height:68px;
+  padding:10px 12px;
+  border-radius:14px;
+}
+.marketAction{
+  top:8px;
+  left:12px;
+  font-size:8px;
+}
+.marketTop{
+  margin-top:12px;
+}
+.marketName{
+  font-size:13px;
+}
+.marketTime{
+  margin-top:4px;
+  font-size:23px;
+}
+.helperText{
+  font-size:13px;
+}
+.alertCard{
+  min-height:320px;
+  padding:8px;
+  gap:8px;
+  border-radius:16px;
+}
+.opsBox{
+  padding:10px;
+  gap:7px;
+}
+.opsTitle{
+  font-size:14px;
+}
+.opsSub,.opsSubStrong{
+  font-size:10px;
+  line-height:1.25;
+}
+.opsBtn{
+  padding:8px 10px;
+  font-size:12px;
+}
+.hoursGrid{
+  gap:6px;
+}
+.hoursCard{
+  min-height:34px;
+  padding:7px 9px;
+}
+.hoursLabel{
+  font-size:9px;
+}
+.informBox{
+  min-height:74px;
+  padding:10px;
+}
+.informBig,.procedureBig{
+  font-size:17px;
+}
+.callProcedure{
+  min-height:36px;
+  padding:7px 10px;
+}
+.instanceStack{
+  gap:6px;
+}
+.instanceCard,.callNowCard{
+  min-height:66px;
+}
+.instanceCard{
+  padding:8px 10px;
+}
+.instanceTitle{
+  font-size:14px;
+}
+.timer{
+  font-size:27px;
+}
+.callAgentBtn{
+  font-size:14px;
+}
+.callNowCard{
+  padding:8px 10px;
+}
+.callNowTitle{
+  font-size:12px;
+}
+.callNowBig{
+  font-size:21px;
+}
+.callNowNote{
+  font-size:9px;
+}
+.bottomBox{
+  min-height:66px;
+  padding:8px 10px;
+  gap:6px;
+}
+.infoLabel{
+  display:none;
+}
+.infoValue{
+  font-size:16px;
+}
+.callBtn{
+  padding:7px 10px;
+  font-size:12px;
+}
+.stopInsideBtn{
+  margin:0 auto;
+  padding:5px 12px;
+  min-height:0;
+  border-radius:999px;
+  border:1px solid rgba(180,35,53,.45);
+  background:rgba(255,255,255,.06);
+  color:#f0b8bf;
+  font-size:11px;
+  font-weight:800;
+  cursor:pointer;
+  display:block;
+}
+.dontShowWrap{
+  margin-top:18px;
+  display:flex;
+  align-items:center;
+  gap:9px;
+  color:var(--muted);
+  font-size:13px;
+  font-weight:700;
+}
+.dontShowWrap input{
+  width:16px;
+  height:16px;
+  accent-color:var(--button-hover);
+}
+.confirmActions{
+  margin-top:18px;
+}
+.modal.small{
+  width:min(100%,480px);
+}
+.modal{
+  padding:20px;
+}
+.modalTitle{
+  font-size:24px;
+}
+.flowBody{
+  margin-top:18px;
+  padding:18px;
+}
+
+
+.flowArticleLink{
+  margin-top:18px;
+  padding-top:14px;
+  border-top:1px solid var(--border);
+  color:#d8e0ea;
+  font-size:14px;
+  font-weight:800;
+  text-decoration:underline;
+  text-underline-offset:4px;
+}
+
 </style>
 </head>
 <body>
@@ -366,10 +579,6 @@ h1{margin:0;font-size:30px;font-weight:600;letter-spacing:-.02em}
     <div id="helperText" class="helperText">Select a market to start monitoring.</div>
     <section id="marketGrid" class="marketGrid"></section>
     <section id="panelArea"></section>
-
-    <footer class="footer">
-      <button class="articleBtn" type="button">Source article and data</button>
-    </footer>
   </div>
 </div>
 
@@ -383,9 +592,9 @@ h1{margin:0;font-size:30px;font-weight:600;letter-spacing:-.02em}
       <button class="closeBtn" type="button" data-close-static="flow">✕</button>
     </div>
     <div class="flowBody">
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer non nulla vitae erat facilisis posuere. Sed at neque sed massa feugiat tincidunt. Donec consequat, libero at fermentum dapibus, turpis mauris semper mauris, a volutpat lorem velit vitae nisl.</p>
-      <p>Praesent commodo, ipsum vitae interdum pretium, lectus mi placerat lectus, sed volutpat erat lorem sed arcu. Nulla facilisi. Suspendisse potenti. Curabitur at enim vitae magna dignissim tincidunt.</p>
-      <p>Morbi at magna id lorem posuere tincidunt. Duis tempor, nisl non posuere luctus, sapien justo efficitur enim, vitae porttitor lorem nunc non augue. Aliquam erat volutpat.</p>
+      <p>Future flow summary will be added here to explain how the Quick Check logic works and what each action means during an FHIA alert.</p>
+      <p>This section should help operators understand the flow in case of doubt, without adding extra steps to the main screen.</p>
+      <div class="flowArticleLink">Original article link</div>
     </div>
   </div>
 </div>
@@ -399,6 +608,10 @@ h1{margin:0;font-size:30px;font-weight:600;letter-spacing:-.02em}
       </div>
       <button class="closeBtn" type="button" data-close-static="stop">✕</button>
     </div>
+    <label class="dontShowWrap">
+      <input type="checkbox" id="dontShowStopAgain">
+      <span>Do not show this again</span>
+    </label>
     <div class="confirmActions">
       <button class="simpleBtn cancel" type="button" id="cancelStopBtn">Cancel</button>
       <button class="simpleBtn stop" type="button" id="confirmStopBtn">Stop monitoring</button>
@@ -456,6 +669,7 @@ let showShiftLeft = false;
 const TIMER_START = 180;
 const activeAlerts = {};
 let confirmMarketId = null;
+let skipStopConfirmation = false;
 
 const marketGrid = document.getElementById('marketGrid');
 const panelArea = document.getElementById('panelArea');
@@ -465,6 +679,7 @@ const callModal = document.getElementById('callModal');
 const flowBtn = document.getElementById('flowBtn');
 const cancelStopBtn = document.getElementById('cancelStopBtn');
 const confirmStopBtn = document.getElementById('confirmStopBtn');
+const dontShowStopAgain = document.getElementById('dontShowStopAgain');
 const scenarioBtn = document.getElementById('scenarioBtn');
 const scenarioHelp = document.getElementById('scenarioHelp');
 const demoHelpWrap = document.getElementById('demoHelpWrap');
@@ -631,6 +846,7 @@ function renderAlertCard(alert) {
           <button type="button" class="callBtn" data-call-id="${alert.id}">Call engineer</button>
         </section>
       `}
+      <button type="button" class="stopInsideBtn" data-stop-id="${alert.id}">Stop</button>
     </main>
   `;
 }
@@ -640,10 +856,7 @@ function handleMarketClick(marketId) {
   if (!market) return;
 
   if (activeAlerts[market.id]) {
-    confirmMarketId = market.id;
-    const stopText = document.getElementById('stopText');
-    if (stopText) stopText.textContent = `You are about to stop monitoring this alert for ${market.name}.`;
-    openModal('stopModal');
+    requestStopMonitoring(market.id);
     return;
   }
 
@@ -656,6 +869,22 @@ function handleMarketClick(marketId) {
   render();
 }
 
+function requestStopMonitoring(marketId) {
+  const market = activeAlerts[marketId] || markets.find((m) => m.id === marketId);
+  if (!market) return;
+
+  confirmMarketId = marketId;
+
+  if (skipStopConfirmation) {
+    confirmStop();
+    return;
+  }
+
+  const stopText = document.getElementById('stopText');
+  if (stopText) stopText.textContent = 'You are about to stop monitoring this alert.';
+  openModal('stopModal');
+}
+
 function cancelStop() {
   confirmMarketId = null;
   closeModal('stopModal');
@@ -663,6 +892,12 @@ function cancelStop() {
 
 function confirmStop() {
   if (!confirmMarketId) return;
+
+  const checkbox = document.getElementById('dontShowStopAgain');
+  if (checkbox && checkbox.checked) {
+    skipStopConfirmation = true;
+  }
+
   delete activeAlerts[confirmMarketId];
   confirmMarketId = null;
   closeModal('stopModal');
@@ -783,6 +1018,14 @@ function bindDynamicInteractions() {
       event.preventDefault();
       event.stopPropagation();
       openCall(el.dataset.callEngineer);
+    };
+  });
+
+  document.querySelectorAll('[data-stop-id]').forEach((el) => {
+    el.onclick = (event) => {
+      event.preventDefault();
+      event.stopPropagation();
+      requestStopMonitoring(el.dataset.stopId);
     };
   });
 
