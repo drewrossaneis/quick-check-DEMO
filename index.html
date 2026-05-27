@@ -1,3 +1,4 @@
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -133,6 +134,211 @@ h1{margin:0;font-size:30px;font-weight:600;letter-spacing:-.02em}
   .callNowMain,.instanceMain{width:100%;justify-content:flex-start}
   .callNowBig,.timer,.callAgentBtn{text-align:left}
 }
+
+/* Engineer quick access card */
+.quickAccessWrap{
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:12px;
+  align-items:center;
+}
+.quickAccessCard{
+  grid-column:2 / span 2;
+  border-radius:16px;
+  border:1px solid #3c5266;
+  background:linear-gradient(180deg,#213142 0%,#1a2734 100%);
+  box-shadow:0 10px 22px rgba(0,0,0,.18), inset 0 1px 0 rgba(255,255,255,.04);
+  padding:12px 14px;
+  display:grid;
+  grid-template-columns:1fr auto;
+  gap:10px 14px;
+  align-items:center;
+  min-height:86px;
+}
+.quickAvailable{
+  font-size:18px;
+  font-weight:800;
+  letter-spacing:-.02em;
+  line-height:1.1;
+}
+.quickAvailable span{
+  color:var(--orange-soft);
+}
+.quickTime{
+  border:none;
+  background:transparent;
+  color:var(--muted);
+  padding:0;
+  text-align:left;
+  cursor:pointer;
+  font-size:12px;
+  font-weight:700;
+  text-decoration:underline;
+  text-underline-offset:3px;
+}
+.quickCall{
+  grid-row:1 / span 2;
+  grid-column:2;
+  align-self:center;
+  white-space:nowrap;
+  border:none;
+  border-radius:12px;
+  background:var(--button);
+  color:var(--text);
+  padding:10px 14px;
+  font-size:13px;
+  font-weight:800;
+  cursor:pointer;
+}
+.quickCall:hover{
+  background:var(--button-hover);
+}
+.quickShift{
+  grid-column:1 / -1;
+  min-height:20px;
+  display:flex;
+  align-items:center;
+  gap:8px;
+  font-size:11px;
+  font-weight:800;
+  color:rgba(148,163,184,.18);
+}
+.quickShift.active{
+  color:var(--orange-soft);
+}
+.quickNext{
+  color:var(--text);
+  font-weight:800;
+}
+.demoHelpWrap{
+  position:relative;
+  display:flex;
+  align-items:center;
+  gap:6px;
+}
+.helpDot{
+  width:22px;
+  height:22px;
+  border-radius:999px;
+  border:1px solid var(--border);
+  background:var(--card);
+  color:var(--muted);
+  font-size:12px;
+  font-weight:900;
+  cursor:pointer;
+}
+.helpTip{
+  display:none;
+  position:absolute;
+  top:34px;
+  right:0;
+  width:260px;
+  padding:10px 12px;
+  border-radius:12px;
+  border:1px solid var(--border);
+  background:var(--panel);
+  color:var(--text);
+  font-size:12px;
+  line-height:1.35;
+  font-weight:600;
+  box-shadow:0 12px 24px rgba(0,0,0,.25);
+  z-index:10;
+}
+.demoHelpWrap:hover .helpTip,
+.demoHelpWrap.open .helpTip{
+  display:block;
+}
+
+@media (max-width:1100px){
+  .quickAccessWrap{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .quickAccessCard{grid-column:1 / -1}
+}
+@media (max-width:700px){
+  .quickAccessWrap{grid-template-columns:1fr}
+  .quickAccessCard{
+    grid-column:1;
+    grid-template-columns:1fr;
+  }
+  .quickCall{
+    grid-column:1;
+    grid-row:auto;
+    width:100%;
+  }
+  .helpTip{
+    left:0;
+    right:auto;
+    width:min(280px,calc(100vw - 32px));
+  }
+}
+
+
+/* Corporate visual refinement */
+.quickAccessCard{
+  border-color:#334557;
+  background:linear-gradient(180deg,#1f2d3a 0%,#1a2631 100%);
+  box-shadow:0 6px 16px rgba(0,0,0,.14), inset 0 1px 0 rgba(255,255,255,.025);
+}
+.quickAvailable{
+  font-size:17px;
+}
+.quickLabel{
+  font-size:10px;
+  text-transform:uppercase;
+  letter-spacing:.08em;
+  color:var(--muted);
+  font-weight:800;
+  margin-bottom:4px;
+}
+.quickAvailable span{
+  color:#e9c77a;
+}
+.quickCall{
+  background:#263646;
+  border:1px solid #334557;
+  box-shadow:none;
+}
+.quickCall:hover{
+  background:#304355;
+}
+.quickShift.active{
+  color:#e9c77a;
+}
+.helpDot{
+  width:19px;
+  height:19px;
+  font-size:11px;
+  background:transparent;
+  color:#7f8ea1;
+  border-color:#344353;
+}
+.helpTip{
+  width:238px;
+  font-size:11px;
+  background:#17212b;
+  box-shadow:0 8px 18px rgba(0,0,0,.18);
+}
+.marketBtn.active{
+  background:#b9c7d4;
+  color:#111827;
+  border-color:#b9c7d4;
+  box-shadow:0 6px 14px rgba(0,0,0,.12);
+}
+.marketBtn.active .marketTime{
+  color:#7c5708;
+}
+.marketTime{
+  color:#e9c77a;
+}
+.timer{
+  color:#e9c77a;
+}
+.callIcon{
+  box-shadow:0 0 0 6px rgba(42,58,74,.12);
+}
+.callTitle{
+  font-size:28px;
+}
+
 </style>
 </head>
 <body>
@@ -145,8 +351,17 @@ h1{margin:0;font-size:30px;font-weight:600;letter-spacing:-.02em}
       </div>
       <div class="headerActions">
         <button class="pill" id="flowBtn" type="button">View flow</button>
+        <div class="demoHelpWrap" id="demoHelpWrap">
+          <button class="pill" id="scenarioBtn" type="button">Demo clock 1</button>
+          <button class="helpDot" id="scenarioHelp" type="button">?</button>
+          <div class="helpTip">Changes the simulated clock to validate market status and on call coverage.</div>
+        </div>
       </div>
     </header>
+
+    <section class="quickAccessWrap">
+      <div id="quickAccessCard" class="quickAccessCard"></div>
+    </section>
 
     <div id="helperText" class="helperText">Select a market to start monitoring.</div>
     <section id="marketGrid" class="marketGrid"></section>
@@ -199,12 +414,44 @@ window.addEventListener('error', function (event) {
   console.error('Quick Check runtime error:', event.message, 'at', event.filename + ':' + event.lineno);
 });
 
-const markets = [
-  { id: 'A', name: 'Market A', time: '14:58', status: 'working', engineer: 'Engineer 4' },
-  { id: 'B', name: 'Market B', time: '11:58', status: 'outside', engineer: 'Engineer 7' },
-  { id: 'C', name: 'Market C', time: '13:58', status: 'working', engineer: 'Engineer 2' },
-  { id: 'D', name: 'Market D', time: '15:58', status: 'outside', engineer: 'Engineer 9' }
+const scenarios = [
+  {
+    label: 'Demo clock 1',
+    markets: [
+      { id: 'A', name: 'Market A', time: '14:58', status: 'working', engineer: 'Engineer 4' },
+      { id: 'B', name: 'Market B', time: '11:58', status: 'outside', engineer: 'Engineer 7' },
+      { id: 'C', name: 'Market C', time: '13:58', status: 'working', engineer: 'Engineer 2' },
+      { id: 'D', name: 'Market D', time: '15:58', status: 'outside', engineer: 'Engineer 9' }
+    ],
+    engineer: {
+      current: 'Engineer 4',
+      until: '18:00 local time',
+      left: '02:35 left in current shift',
+      endingSoon: false,
+      next: ''
+    }
+  },
+  {
+    label: 'Demo clock 2',
+    markets: [
+      { id: 'A', name: 'Market A', time: '20:58', status: 'outside', engineer: 'Engineer 8' },
+      { id: 'B', name: 'Market B', time: '17:58', status: 'working', engineer: 'Engineer 8' },
+      { id: 'C', name: 'Market C', time: '19:58', status: 'outside', engineer: 'Engineer 8' },
+      { id: 'D', name: 'Market D', time: '21:58', status: 'outside', engineer: 'Engineer 8' }
+    ],
+    engineer: {
+      current: 'Engineer 8',
+      until: '21:00 local time',
+      left: '12 min left in current shift',
+      endingSoon: true,
+      next: 'Engineer 9'
+    }
+  }
 ];
+
+let scenarioIndex = 0;
+let markets = scenarios[scenarioIndex].markets;
+let showShiftLeft = false;
 
 const TIMER_START = 180;
 const activeAlerts = {};
@@ -218,11 +465,66 @@ const callModal = document.getElementById('callModal');
 const flowBtn = document.getElementById('flowBtn');
 const cancelStopBtn = document.getElementById('cancelStopBtn');
 const confirmStopBtn = document.getElementById('confirmStopBtn');
+const scenarioBtn = document.getElementById('scenarioBtn');
+const scenarioHelp = document.getElementById('scenarioHelp');
+const demoHelpWrap = document.getElementById('demoHelpWrap');
+const quickAccessCard = document.getElementById('quickAccessCard');
 
 function formatTimer(seconds) {
   const min = String(Math.floor(seconds / 60)).padStart(2, '0');
   const sec = String(seconds % 60).padStart(2, '0');
   return `${min}:${sec}`;
+}
+
+
+function currentScenario() {
+  return scenarios[scenarioIndex];
+}
+
+function renderQuickAccess() {
+  const engineer = currentScenario().engineer;
+  const timeText = showShiftLeft ? engineer.left : `Available until ${engineer.until}`;
+  const shiftLine = engineer.endingSoon
+    ? `<div class="quickShift active">Shift ends soon <span class="quickNext">Next on shift, ${engineer.next}</span></div>`
+    : `<div class="quickShift">Shift ends soon</div>`;
+
+  quickAccessCard.innerHTML = `
+    <div>
+      <div class="quickAvailable"><div class="quickLabel">Engineer available now</div><span>${engineer.current}</span></div>
+      <button type="button" class="quickTime" id="quickTimeBtn">${timeText}</button>
+    </div>
+    <button type="button" class="quickCall" data-call-engineer="${engineer.current}">Call on Teams</button>
+    ${shiftLine}
+  `;
+
+  const quickTimeBtn = document.getElementById('quickTimeBtn');
+  if (quickTimeBtn) {
+    quickTimeBtn.onclick = () => {
+      showShiftLeft = !showShiftLeft;
+      renderQuickAccess();
+      bindDynamicInteractions();
+    };
+  }
+}
+
+function switchScenario() {
+  scenarioIndex = scenarioIndex === 0 ? 1 : 0;
+  markets = scenarios[scenarioIndex].markets;
+  showShiftLeft = false;
+
+  Object.keys(activeAlerts).forEach((id) => {
+    const updatedMarket = markets.find((market) => market.id === id);
+    if (updatedMarket) {
+      activeAlerts[id] = {
+        ...activeAlerts[id],
+        ...updatedMarket,
+        timer: TIMER_START
+      };
+    }
+  });
+
+  if (scenarioBtn) scenarioBtn.textContent = currentScenario().label;
+  render();
 }
 
 function renderMarkets() {
@@ -410,7 +712,7 @@ function openOps(id) {
 }
 
 function openCall(id) {
-  const alert = activeAlerts[id] || markets.find((m) => m.id === id);
+  const alert = activeAlerts[id] || markets.find((m) => m.id === id) || { engineer: id };
   if (!alert) return;
 
   callModal.innerHTML = `
@@ -437,6 +739,14 @@ function bindStaticInteractions() {
   if (flowBtn) flowBtn.onclick = () => openModal('flowModal');
   if (cancelStopBtn) cancelStopBtn.onclick = cancelStop;
   if (confirmStopBtn) confirmStopBtn.onclick = confirmStop;
+  if (scenarioBtn) scenarioBtn.onclick = switchScenario;
+  if (scenarioHelp && demoHelpWrap) {
+    scenarioHelp.onclick = (event) => {
+      event.preventDefault();
+      event.stopPropagation();
+      demoHelpWrap.classList.toggle('open');
+    };
+  }
 
   document.querySelectorAll('[data-close-static="flow"]').forEach((el) => {
     el.onclick = () => closeModal('flowModal');
@@ -468,6 +778,14 @@ function bindDynamicInteractions() {
     };
   });
 
+  document.querySelectorAll('[data-call-engineer]').forEach((el) => {
+    el.onclick = (event) => {
+      event.preventDefault();
+      event.stopPropagation();
+      openCall(el.dataset.callEngineer);
+    };
+  });
+
   document.querySelectorAll('[data-close-dynamic="ops"]').forEach((el) => {
     el.onclick = () => closeOpsModal();
   });
@@ -492,6 +810,7 @@ function bindDynamicInteractions() {
 }
 
 function render() {
+  renderQuickAccess();
   renderMarkets();
   renderPanels();
   bindDynamicInteractions();
